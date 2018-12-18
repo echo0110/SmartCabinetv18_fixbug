@@ -475,10 +475,15 @@ void ping_task(void *pvParameters)
 	xLastExecutionTime = xTaskGetTickCount();	
 	while(1)
 	{		
-		printf("Ping_ip_array[0].ip[0]==%d\n",Ping_ip_array[0].ip[0]);
-		printf("Ping_ip_array[0].ip[1]==%d\n",Ping_ip_array[0].ip[1]);
-		printf("Ping_ip_array[0].ip[2]==%d\n",Ping_ip_array[0].ip[2]);
-		printf("Ping_ip_array[0].ip[3]==%d\n",Ping_ip_array[0].ip[3]);
+		printf("Ping_ip_array[8].ip[0]==%d\n",Ping_ip_array[8].ip[0]);
+		printf("Ping_ip_array[8].ip[1]==%d\n",Ping_ip_array[8].ip[1]);
+		printf("Ping_ip_array[8].ip[2]==%d\n",Ping_ip_array[8].ip[2]);
+		printf("Ping_ip_array[8].ip[3]==%d\n",Ping_ip_array[8].ip[3]);
+		
+		printf("Ping_ip_array[9].ip[0]==%d\n",Ping_ip_array[9].ip[0]);
+		printf("Ping_ip_array[9].ip[1]==%d\n",Ping_ip_array[9].ip[1]);
+		printf("Ping_ip_array[9].ip[2]==%d\n",Ping_ip_array[9].ip[2]);
+		printf("Ping_ip_array[9].ip[3]==%d\n",Ping_ip_array[9].ip[3]);
 		//GetCheckIP();
 		for(Ping_frequency=0;Ping_frequency<4;Ping_frequency++)
 		{
@@ -490,6 +495,7 @@ void ping_task(void *pvParameters)
 				if(xSemaphoreTake(ping_signal, 400)==pdTRUE)
 				{
 				 memcpy(IP_STAT[counts],CHECK_IP[counts],strlen(CHECK_IP[counts]));
+				// printf("IP_STAT[%d]=%s\n",IP_STAT[counts]);
 				 printf("%d:Ping sucess\n",counts);		 		
 				}
 				else

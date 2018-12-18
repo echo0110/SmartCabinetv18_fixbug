@@ -2623,6 +2623,7 @@ void Split_IP(void)
 	
 	for(i=0; i<10; i++)
 	{
+		memset(CHECK_IP_temp[i],0,18);
 		memcpy(CHECK_IP_temp[i],CHECK_IP[i],strlen(CHECK_IP[i]));
 		//sprintf(key, "ip%x", i);
 		//ini_gets("IP", key, "0", CHECK_IP[i], strlen(CHECK_IP[i]), inifile);// 172.28.0.10's MAC: 6c-ae-8b-1e-5b-52

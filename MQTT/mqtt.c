@@ -217,7 +217,7 @@ MQTT_START:
 		//	pingSpaces = 0;
 			
 			sprintf(topic, "ASMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], MAC_STAT[6], MAC_STAT[7], MAC_STAT[8], MAC_STAT[9]);
+			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
 			
