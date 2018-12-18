@@ -471,36 +471,32 @@ void ping_task(void *pvParameters)
 {
 	u8 pingFailedTimes[10];//++;
 	static u8 counts,Ping_frequency;
-	portTickType xLastExecutionTime;
-	xLastExecutionTime = xTaskGetTickCount();	
 	while(1)
 	{		
-		printf("Ping_ip_array[8].ip[0]==%d\n",Ping_ip_array[8].ip[0]);
-		printf("Ping_ip_array[8].ip[1]==%d\n",Ping_ip_array[8].ip[1]);
-		printf("Ping_ip_array[8].ip[2]==%d\n",Ping_ip_array[8].ip[2]);
-		printf("Ping_ip_array[8].ip[3]==%d\n",Ping_ip_array[8].ip[3]);
-		
-		printf("Ping_ip_array[9].ip[0]==%d\n",Ping_ip_array[9].ip[0]);
-		printf("Ping_ip_array[9].ip[1]==%d\n",Ping_ip_array[9].ip[1]);
-		printf("Ping_ip_array[9].ip[2]==%d\n",Ping_ip_array[9].ip[2]);
-		printf("Ping_ip_array[9].ip[3]==%d\n",Ping_ip_array[9].ip[3]);
+//		printf("Ping_ip_array[8].ip[0]==%d\n",Ping_ip_array[8].ip[0]);
+//		printf("Ping_ip_array[8].ip[1]==%d\n",Ping_ip_array[8].ip[1]);
+//		printf("Ping_ip_array[8].ip[2]==%d\n",Ping_ip_array[8].ip[2]);
+//		printf("Ping_ip_array[8].ip[3]==%d\n",Ping_ip_array[8].ip[3]);
+//		
+//		printf("Ping_ip_array[9].ip[0]==%d\n",Ping_ip_array[9].ip[0]);
+//		printf("Ping_ip_array[9].ip[1]==%d\n",Ping_ip_array[9].ip[1]);
+//		printf("Ping_ip_array[9].ip[2]==%d\n",Ping_ip_array[9].ip[2]);
+//		printf("Ping_ip_array[9].ip[3]==%d\n",Ping_ip_array[9].ip[3]);
 		//GetCheckIP();
 		for(Ping_frequency=0;Ping_frequency<4;Ping_frequency++)
 		{
 		 for(counts=0;counts<MAX_IP;counts++)
 		 {
 			if(pingCmdSend(counts))
-			// pingCmdSend(counts);
 			{
 				if(xSemaphoreTake(ping_signal, 400)==pdTRUE)
 				{
 				 memcpy(IP_STAT[counts],CHECK_IP[counts],strlen(CHECK_IP[counts]));
-				// printf("IP_STAT[%d]=%s\n",IP_STAT[counts]);
-				 printf("%d:Ping sucess\n",counts);		 		
+				 //printf("%d:Ping sucess\n",counts);		 		
 				}
 				else
 				{
-				 printf("ping Timeout\n");
+				 //printf("%d:ping Timeout\n",counts);
 				 pingFailedTimes[counts]++;
 				 if(pingFailedTimes[counts]==4)
 				 {
@@ -512,7 +508,7 @@ void ping_task(void *pvParameters)
 		  }
 			else
 			{
-			 printf("ping Timeout\n");
+			 //printf("ping Timeout\n");
 			 pingFailedTimes[counts]++;
 			 if(pingFailedTimes[counts]==4)
 			 {

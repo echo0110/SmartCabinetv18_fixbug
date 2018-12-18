@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\SmartCabinet.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\SmartCabinet.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Dec 18 15:41:26 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Dec 18 16:58:14 2018
 <BR><P>
 <H3>Maximum Stack Usage =       2800 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -511,7 +511,7 @@ Global Symbols
 <P><STRONG><a name="[4e0]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[f3]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1576 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1032 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; lwip_comm_init &rArr; lwip_comm_default_ip_set &rArr; ini_getl &rArr; ini_gets &rArr; getkeystring &rArr; f_gets &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1240,8 +1240,7 @@ Global Symbols
 <P><STRONG><a name="[11a]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[3b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;md5_write_to_flash
+<BR>[Called By]<UL><LI><a href="#[3b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;md5_write_to_flash
 <LI><a href="#[32e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_tag_insert
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQTTClientInit
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
@@ -4875,7 +4874,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mqttpacket.o(i.MQTTPacket_decodeBuf)
 </UL>
-<P><STRONG><a name="[90]"></a>camera_task</STRONG> (Thumb, 502 bytes, Stack size 0 bytes, camera.o(i.camera_task))
+<P><STRONG><a name="[90]"></a>camera_task</STRONG> (Thumb, 518 bytes, Stack size 0 bytes, camera.o(i.camera_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296 + Unknown Stack Size
 <LI>Call Chain = camera_task &rArr; Camera_init &rArr; xQueueGenericReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -5404,8 +5403,8 @@ Global Symbols
 <LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[2ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;putc_bfd
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<BR>[Called By]<UL><LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[31c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;putc_bfd
 <LI><a href="#[3b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;md5_write_to_flash
 <LI><a href="#[463]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_sd_test
 <LI><a href="#[361]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;post_write_flash_test
@@ -5782,6 +5781,7 @@ Global Symbols
 <LI>Call Chain = ini_puts &rArr; getkeystring &rArr; f_gets &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[315]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
@@ -5796,7 +5796,6 @@ Global Symbols
 <LI><a href="#[2cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_rename
 <LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cache_flush
 <LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cache_accum
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
@@ -6085,8 +6084,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;snmp_init
 </UL>
 
-<P><STRONG><a name="[f4]"></a>main</STRONG> (Thumb, 792 bytes, Stack size 560 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1576 + Unknown Stack Size
+<P><STRONG><a name="[f4]"></a>main</STRONG> (Thumb, 738 bytes, Stack size 16 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1032 + Unknown Stack Size
 <LI>Call Chain = main &rArr; lwip_comm_init &rArr; lwip_comm_default_ip_set &rArr; ini_getl &rArr; ini_gets &rArr; getkeystring &rArr; f_gets &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
@@ -6119,7 +6118,6 @@ Global Symbols
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FSMC_SRAM_Init
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Adc_Init
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -6667,13 +6665,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[93]"></a>ping_task</STRONG> (Thumb, 432 bytes, Stack size 16 bytes, sensor.o(i.ping_task))
+<P><STRONG><a name="[93]"></a>ping_task</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, sensor.o(i.ping_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 632 + Unknown Stack Size
 <LI>Call Chain = ping_task &rArr; pingCmdSend &rArr; ping_send &rArr; raw_sendto &rArr; ip_output_if &rArr; ip_frag &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pingCmdSend
 <LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -6719,9 +6716,9 @@ Global Symbols
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UsbTask
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ini_gets
 <LI><a href="#[39c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lwip_comm_mem_malloc
+<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[316]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_memalloc
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ini_puts
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[463]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_sd_test
 <LI><a href="#[464]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_client_set_remoteip
 <LI><a href="#[324]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;first_post_data_json_test
@@ -9112,8 +9109,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[216]"></a>xTaskGetTickCount</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(i.xTaskGetTickCount))
-<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ping_task
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MqttTask
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MqttTask
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TickTask
 <LI><a href="#[3f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvSampleTimeNow
 <LI><a href="#[40c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_now
@@ -9479,7 +9475,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[8d]"></a>TickTask</STRONG> (Thumb, 210 bytes, Stack size 16 bytes, main.o(i.TickTask))
+<P><STRONG><a name="[8d]"></a>TickTask</STRONG> (Thumb, 208 bytes, Stack size 16 bytes, main.o(i.TickTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 312 + Unknown Stack Size
 <LI>Call Chain = TickTask &rArr; DOOR_SENSOR_CHECK &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -10665,9 +10661,9 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 560 + Unknown Stack Size
 <LI>Call Chain = cache_flush &rArr; f_puts &rArr; putc_bfd &rArr; f_write &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<BR>[Calls]<UL><LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_gets
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_assert
@@ -10814,9 +10810,9 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 560 + Unknown Stack Size
 <LI>Call Chain = writekey &rArr; f_puts &rArr; putc_bfd &rArr; f_write &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_strncpy
+<BR>[Calls]<UL><LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_strncpy
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_enquote
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
 <LI><a href="#[378]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strrchr
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_assert
 </UL>
@@ -10827,8 +10823,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 552 + Unknown Stack Size
 <LI>Call Chain = writesection &rArr; f_puts &rArr; putc_bfd &rArr; f_write &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_strncpy
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<BR>[Calls]<UL><LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_puts
+<LI><a href="#[332]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;save_strncpy
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[378]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strrchr
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_assert

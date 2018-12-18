@@ -2583,7 +2583,7 @@ static void ping_send(struct raw_pcb *raw, ip_addr_t *addr)
 
 //·¢ËÍping°ü
 
-	u8 pingCmdSend(u8 counts)
+u8 pingCmdSend(u8 counts)
 {
 	if((Ping_ip_array[counts].ip[0]==0)&&(Ping_ip_array[counts].ip[1]==0)&& \
 		 (Ping_ip_array[counts].ip[2]==0)&&(Ping_ip_array[counts].ip[3]==0))

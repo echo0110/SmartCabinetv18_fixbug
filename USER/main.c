@@ -183,19 +183,8 @@ int main(void)
 {
 	char *test_post_bin="1:post.bin";
 	char *file_md5_boot="1:file_md5_boot.txt";
-	char inifile[] = "1:cfg.ini";
-  u8 res,res_sd=10;
-	u8 res_test;
-	u8 res_flag=0;
-  u8 water;
-  u8 test_light,input,ups;
-  u8 test12=10;	
-	unsigned char digest_test[16]={0,1,2,3};
-	char buf[512];
-	u8 buf_write[512]="md5updateflag";
-	u8 test_buf[6]={0xAA,0x0D,0x00,0x00,0x00,0x00}; //摄像头同步命令
- 
-	
+  u8 res_sd=10;
+	u8 res_test;	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//设置系统中断优先级分组4
 	delay_init();	    				//延时函数初始化	
 	OLED_Init();
@@ -258,7 +247,7 @@ int main(void)
 	
 	DOOR_STAT= DOOR_SENSOR;
 	
- output_control_default();	
+  output_control_default();	
 		
 	USB_Queue= xQueueCreate(30, sizeof( int16_t ));
 	
@@ -283,13 +272,7 @@ int main(void)
 	
 	ping_signal=xSemaphoreCreateBinary();//创建test_signal 信号量
 	
-	//Start the main tasks
-//	xTaskCreate((TaskFunction_t )vTaskWDG,
-//                (const char*    )"vTaskWDG",
-//                (uint16_t       )512,
-//                (void*          )NULL,
-//                (UBaseType_t    )2,
-//                (TaskHandle_t*  )&WDGTask_Handler);	
+	//Start the main tasks	
 	xTaskCreate((TaskFunction_t )UsbTask,
                 (const char*    )"USB",
                 (uint16_t       )USB_TASK_STACK_SIZE,
@@ -365,7 +348,6 @@ void MainTask(void *pParameters)
 	MSG msg;
 	u8 page;
 	u8 i;
-	u8 temp;
 	while (1)
 	{	
 	 if(xQueueReceive(MainTaskQueue, &msg, portMAX_DELAY) == pdPASS)
@@ -453,15 +435,14 @@ static void TickTask(void *pParameters)
 	portTickType xLastExecutionTime;
 	MSG msg;
 	u32 counts;
-	u8 test_sd=10;
+	//u8 test_sd=10;
 	static u32 RtcCounter = 0;
 	xLastExecutionTime = xTaskGetTickCount();
 	while(1)
 	{
 		//vTaskDelayUntil(&xLastExecutionTime, configTICK_RATE_HZ / SYS_TICK_RATE_HZ);	// 10ms
 		vTaskDelayUntil(&xLastExecutionTime, 10);	// 10ms
-		
-	
+			
 		counts++;	
     DOOR_SENSOR_CHECK(); 		
 		// 1秒

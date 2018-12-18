@@ -72,21 +72,20 @@ u16 Get_Adc(u8 ch)
 u16 Get_Adc_Average(u8 ch,u8 times)
 { 
 	u32 temp_val=0;
-	u8 t;
 	u16 temp,i;
 	for(i=0;i<1000;i++)
 	{
 //		temp_val+=Get_Adc(ch);
-		if(Get_Adc(ch)>temp) temp=Get_Adc(ch);
+		if(Get_Adc(ch)>temp_val) temp_val=Get_Adc(ch);
 		//delay_ms(1);
 	}
-	return temp;
+	return temp_val;
 } 	 
 
 void Get_Vol(void)
 {
 	u16 adcx;	
-	u16 temp,i;
+	u16 temp;
 	//adcx = Get_Adc_Average(ADC_Channel_11, 20); //PC1
 	temp= Get_Adc_Average(ADC_Channel_11, 20); //PC1
 	VOL = (float)adcx*3.3/4096*1000;
@@ -110,7 +109,6 @@ void Get_Cur(void)
 void output_control_default(void)
 {
 	char inifile[] = "1:cfg.ini";
-	u8 res;
 	
 	if((ini_getl("ctr",	"L1",	0,	inifile)))    OUT_AC1_220V_ON();	
 	if(!(ini_getl("ctr","L1",	0,	inifile)))    OUT_AC1_220V_OFF();
@@ -155,9 +153,9 @@ void read_Flooding(void)
 {
 	if(GPIO_ReadOutputDataBit(GPIOB,GPIO_Pin_7)==0) //水浸
 	{
-	 GPIO_SetBits(GPIOE,GPIO_Pin_6);//L1
-   GPIO_SetBits(GPIOF,GPIO_Pin_7);//L2					 
-	 GPIO_SetBits(GPIOF,GPIO_Pin_9);//L3 
+	 GPIO_SetBits(GPIOE,GPIO_Pin_6);//关L1
+   GPIO_SetBits(GPIOF,GPIO_Pin_7);//关L2					 
+	 GPIO_SetBits(GPIOF,GPIO_Pin_9);//关L3 
 	}
 }
 

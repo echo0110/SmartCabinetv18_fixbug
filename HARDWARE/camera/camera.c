@@ -84,6 +84,8 @@ extern TaskHandle_t TickTask_Handler;
 extern TaskHandle_t MainTask_Handler;
 extern TaskHandle_t SDTask_Handler;
 
+extern TaskHandle_t PingTask_Handler;
+
 
 u8 camera_Sync_command[6]={0xAA,0x0D,0x00,0x00,0x00,0x00}; //摄像头同步命令
 u8 camera_response_command[6]={0xAA,0x0E,0x0D,0x00,0x00,0x00}; //摄像头同步命令
@@ -135,6 +137,8 @@ void camera_task(void *pvParameters)
 		 vTaskSuspend(MqttTask_Handler);		 
 		 //vTaskSuspend(USBTask_Handler);
 		 vTaskSuspend(MainTask_Handler);
+		 
+		 vTaskSuspend(PingTask_Handler);
 		 
 		 portDISABLE_INTERRUPTS(); //关中断
 		     		 
@@ -218,17 +222,11 @@ void camera_task(void *pvParameters)
 		
     vTaskResume(SDTask_Handler);  
     vTaskResume(MqttTask_Handler);		 
-		//vTaskResume(USBTask_Handler);
 		vTaskResume(MainTask_Handler);
+		vTaskResume(PingTask_Handler);
 		
 		 USB_Port_Set(1);
-		 USB_Init();
-//    PAout(12)=0;
-//	  GPIO_ResetBits(GPIOA,GPIO_Pin_12);		                                            
-//	  delay_xms(65);   
-//	  GPIO_SetBits(GPIOA,GPIO_Pin_12);	
-//	  delay_xms(65);
-//	  USB_Init();  		
+		 USB_Init();		
   }		
  }
 }
@@ -375,9 +373,7 @@ char* time_to_timestamp(void)
 {
 	static u32 RtcCounter = 0;
 	static u32 RtcCounter2 = 0;
-	//struct tm stm;
 	Rtc_Time RTC_DateStruct;
-//	Rtc_Time RTC_TimeStruct;
 	struct _date_t  RTC_date_t;
 	char timestamp_buf[20];
 	char test_buf[100];

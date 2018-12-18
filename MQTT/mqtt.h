@@ -60,7 +60,7 @@ int MQTTSubscribe(char* subtopic, enum QoS pos);
 int MQTTMsgPublish(char* subtopic, enum QoS qos, u8 retained, u8* msg, int msg_len);
 void mqtt_pktype_ctl(u8 packtype, u8 *buf, u32 buflen);
 int my_mqtt_send_pingreq(void);
-extern void open_the_door();
+extern void open_the_door(void);
 
 extern void GetCheckIP(void);
 

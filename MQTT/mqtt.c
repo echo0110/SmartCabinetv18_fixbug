@@ -778,7 +778,7 @@ int my_mqtt_send_pingreq(void)
  * 输入  ：无
  * 输出  ：无	
  */
-void open_the_door()
+void open_the_door(void)
 {
 	GPIO_SetBits(GPIOA,GPIO_Pin_8);//开门
 	delay_xms(200);
