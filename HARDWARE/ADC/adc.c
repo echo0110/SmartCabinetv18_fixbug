@@ -97,7 +97,8 @@ void Get_Cur(void)
 	u16 adcx;
 	
 	adcx = Get_Adc_Average(ADC_Channel_0, 20);//PA0
-	CUR = ((float)adcx*3.3/4096-0.02)*1000;
+	//CUR = ((float)adcx*3.3/4096-0.02)*1000;
+	CUR = (((float)adcx*3.3/4096)/400)*1500;
 	if((CUR<0) || (VOL==0))CUR = 0;
 }
 /*

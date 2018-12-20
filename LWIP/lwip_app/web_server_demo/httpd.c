@@ -1457,9 +1457,7 @@ static err_t http_post_rxpbuf(struct http_state *hs, struct pbuf *p)
 {
   err_t err;
 	
-	vTaskSuspend(USBTask_Handler);	   
-  vTaskSuspend(SDTask_Handler);
-	vTaskSuspend(USBTask_Handler);	   
+	vTaskSuspend(USBTask_Handler);	      
   vTaskSuspend(SDTask_Handler);
 	
 

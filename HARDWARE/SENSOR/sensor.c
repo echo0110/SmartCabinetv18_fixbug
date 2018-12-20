@@ -337,7 +337,7 @@ void STAT_CHECK(void)
 			stat_changed = 1;
 		}
 	}
-	
+
 	vTaskSuspendAll();
 	GET_AM2301_Data();
 	xTaskResumeAll();	

@@ -81,15 +81,15 @@ extern const char ReleaseVersion[];
 
 
 
-#define MAIN_TASK_PRIORITY			2//8//2//5//2//5//(tskIDLE_PRIORITY + 2)
-#define MAIN_TASK_STACK_SIZE		512
-#define MAIN_QUEUE_SIZE				32
-#define tcp_QUEUE_SIZE				512
-TaskHandle_t MainTask_Handler;
-TaskHandle_t tcpTask_Handler;
-xQueueHandle MainTaskQueue;
-xQueueHandle tcp_client_Queue;
-void MainTask(void *pvParameters);
+//#define MAIN_TASK_PRIORITY			2//8//2//5//2//5//(tskIDLE_PRIORITY + 2)
+//#define MAIN_TASK_STACK_SIZE		512
+//#define MAIN_QUEUE_SIZE				32
+//#define tcp_QUEUE_SIZE				512
+//TaskHandle_t MainTask_Handler;
+//TaskHandle_t tcpTask_Handler;
+//xQueueHandle MainTaskQueue;
+//xQueueHandle tcp_client_Queue;
+//void MainTask(void *pvParameters);
 
 
 #define USB_TASK_PRIORITY			4//7//(tskIDLE_PRIORITY + 3)
@@ -137,6 +137,17 @@ xQueueHandle MqttTaskQueue;
 TaskHandle_t TickTask_Handler;
 xQueueHandle TickTaskQueue;
 static void TickTask(void *pParameters);
+
+
+#define MAIN_TASK_PRIORITY			9//8//2//5//2//5//(tskIDLE_PRIORITY + 2)
+#define MAIN_TASK_STACK_SIZE		512
+#define MAIN_QUEUE_SIZE				32
+#define tcp_QUEUE_SIZE				512
+TaskHandle_t MainTask_Handler;
+TaskHandle_t tcpTask_Handler;
+xQueueHandle MainTaskQueue;
+xQueueHandle tcp_client_Queue;
+void MainTask(void *pvParameters);
 
 
 
@@ -379,7 +390,8 @@ void MainTask(void *pParameters)
 				USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 
 				USART3_RX_STA = 0;
-			}			
+			}	
+	    read_Flooding();			
    		STAT_CHECK();	// 传感器状态
 			Get_Vol();		// 电压
 			Get_Cur();		// 电流

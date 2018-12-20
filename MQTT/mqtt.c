@@ -268,8 +268,7 @@ MQTT_START:
 			{
 				pings++;
 				Printf("my mqtt send pingreq: %d\r\n", pings);
-			}
-				
+			}				
 		}
 	}
 }
