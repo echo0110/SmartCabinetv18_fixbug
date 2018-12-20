@@ -194,6 +194,7 @@ int main(void)
 	USART3_Init(38400);
  	UART4_Init(14400);
 	printf("........ SC System Power On .......\r\n");
+	printf("........ update v0.2 .......\r\n");
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();
@@ -353,18 +354,13 @@ void MainTask(void *pParameters)
 	 if(xQueueReceive(MainTaskQueue, &msg, portMAX_DELAY) == pdPASS)
 	 switch (msg.Msg)
 	 {			
-		case MSG_TICK_10ms_SECOND:
-		{		 
-		 DOOR_SENSOR_CHECK(); 		
-		}
+//		case MSG_TICK_10ms_SECOND:
+//		{		 
+//		 DOOR_SENSOR_CHECK(); 		
+//		}
 		case MSG_TICK_1_SECOND:
 		{
 			LED_MCU = !LED_MCU;						
-			for(i=0; i<MAX_MAC; i++)
-			{
-				if(MAC_COUNT[i] > 0)MAC_COUNT[i]--;
-				else strcpy(MAC_STAT[i], "0");
-			}
 			break;
 		}
 		case MSG_TICK_3_SECOND:
@@ -459,7 +455,7 @@ static void TickTask(void *pParameters)
 		}		
 		if((counts%500)==0)		// 5s
 		{
-//			// Î¹¹·
+			// Î¹¹·
 		  IWDG_ReloadCounter();	
 			msg.Msg = MSG_TICK_5_SECOND;
 			xQueueSend(MainTaskQueue, &msg, 0);

@@ -225,17 +225,10 @@ MQTT_START:
 			sprintf(msg, "%c,%d.%d,%c,%d.%d*", gpsxSC.nshemi, gpsxSC.latitude/100000, gpsxSC.latitude%100000, gpsxSC.ewhemi, gpsxSC.longitude/100000, gpsxSC.longitude%100000);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
-						
-//			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-//			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, WATER_STAT, fan_STAT, alarm_STAT,light_STAT,heat_STAT);
-//			
-//			sprintf(topic, "POWERSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-//			sprintf(msg, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", SYS12_STAT,EQU12_STAT,UPS_STAT,special_power_STAT,AC1_STAT,AC2_STAT,AC3_STAT,		
-//			DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
 			
 			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, WATER_STAT,DOOR_STAT,SYS12_STAT,EQU12_STAT,UPS_STAT,
-			special_power_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,special_power_STAT);
+			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, WATER_STAT,DOOR_STAT,SYS12_STAT,EQU12_STAT,UPS_STAT,
+			special_power_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
