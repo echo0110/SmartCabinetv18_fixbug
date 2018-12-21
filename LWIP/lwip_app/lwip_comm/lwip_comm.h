@@ -11,10 +11,12 @@ typedef struct
 {
 	u8 mac[6];      //MAC地址
 	u8 mqttip[4];	//远端主机IP地址
-	u8 remoteip[4];	//远端主机IP地址 
+	u8 remoteip[4];	//远端主机IP地址
 	u16 mqttport;
 	u8 snmpip[4];	//远端主机IP地址
-	u16 snmpport;
+	u16 snmpport; 
+	u8 servip[4];	
+	u16 servport; 
 	u8 ip[4];       //本机IP地址
 	u8 netmask[4]; 	//子网掩码
 	u8 gateway[4]; 	//默认网关的IP地址

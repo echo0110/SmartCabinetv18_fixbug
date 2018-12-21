@@ -49,7 +49,7 @@ typedef struct __MQTT_MSG
 // 需要ping的server ip结构体
 typedef struct _Ping_ip 
 {
-	u8 ip[4];       //MQTT设置ip地址
+	u8 ip[4];       //设置server ip地址
 }Ping_ip;
 
 extern Ping_ip Ping_ip_array[10];

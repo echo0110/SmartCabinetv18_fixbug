@@ -144,7 +144,7 @@ void MqttTask(void *pvParameters)
 	
 MQTT_START:
 	while(1)
-	{		
+	{
 		gsm_dect();
 		vTaskDelay(2000/portTICK_RATE_MS);
 		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
@@ -159,7 +159,7 @@ MQTT_START:
 		{
 			SIM_CON_OK = 0;
 			Printf("MQTT连接服务器失败,错误代码:%d\r\n", res);
-			gsm_reset();
+//			gsm_reset();
 		}
 		//xEventGroupSetBits(xCreatedEventGroup, TASK_BIT_MQTT);
 		vTaskDelay(3000/portTICK_RATE_MS);
@@ -189,9 +189,9 @@ MQTT_START:
 		sprintf(topic, "MQTTIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 		res += MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe MQTTIP:%d\r\n", res);
 		
-//		sprintf(topic, "camera/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-//		res += MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe MQTTIP:%d\r\n", res);
-//		
+		sprintf(topic, "SERV/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
+		res += MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe SERV:%d\r\n", res);
+		
 		sprintf(topic, "SNMPIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 		res += MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe SNMPIP:%d\r\n", res);
 		sprintf(topic, "EQUCTRL/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
@@ -214,7 +214,7 @@ MQTT_START:
 		{
 			publishSpaces = 0;
 			no_mqtt_msg_exchange = 1;
-		//	pingSpaces = 0;
+			pingSpaces = 0;
 			
 			sprintf(topic, "ASMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
@@ -227,8 +227,8 @@ MQTT_START:
 			vTaskDelay(100/portTICK_RATE_MS);
 			
 			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, WATER_STAT,DOOR_STAT,SYS12_STAT,EQU12_STAT,UPS_STAT,
-			special_power_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
+			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
+			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
@@ -248,9 +248,9 @@ MQTT_START:
 			}
 		}
 		
-		if(pingSpaces > KEEPLIVE_TIME/6*10)
+		if(pingSpaces > KEEPLIVE_TIME/2*10)
 		{
-			times = 3;
+			times = 5;
 			res = 1;
 			pingSpaces = 0;
 			while((times--)&&(res!=0))res = my_mqtt_send_pingreq();
@@ -564,7 +564,7 @@ void SNMPIP(MQTT_USER_MSG *msg)
 void ISIP(MQTT_USER_MSG *msg)
 {
 	//char delim[] = " .,*";
-	char delim[] = " ,*";
+	char delim[] = ",*";
 	char *token;
 	char inifile[] = "1:cfg.ini";
 	char buf[10][18];	
@@ -572,7 +572,6 @@ void ISIP(MQTT_USER_MSG *msg)
 	u8 i;
 	
 	for(token=strtok((char*)(msg->msg),delim),i=0; token!=NULL; token=strtok(NULL, delim),i++)
-		//strcpy(buf[i], token);
 	{
 	 memset(buf[i],0,18);
 	 memcpy(buf[i], token,strlen(token));
@@ -594,55 +593,187 @@ void ISIP(MQTT_USER_MSG *msg)
 
 void EQUCTRL(MQTT_USER_MSG *msg)
 {
-	if(msg->msg[0] == '1')  OUT_AC1_220V_ON();	//AC1
-	if(msg->msg[0] == '0')  OUT_AC1_220V_OFF();
+	char inifile[] = "1:cfg.ini";
+	//AC1
+	if(msg->msg[0] == '1') 
+  {	
+	 OUT_AC1_220V_ON();
+    AC1_STAT=1;		
+	 ini_puts("ctr", "L1", "1", inifile);
+	}
+	if(msg->msg[0] == '0')
+	{		
+	 OUT_AC1_220V_OFF();
+	 AC1_STAT=0;
+	 ini_puts("ctr", "L1", "0", inifile);
+	}		
 	if(msg->msg[0] == '2')	{}
 	
-	
-	if(msg->msg[2] == '1')  OUT_AC2_220V_ON(); //AC2
-	if(msg->msg[2] == '0')  OUT_AC2_220V_OFF();
+	//AC2
+	if(msg->msg[2] == '1') 
+	{
+		OUT_AC2_220V_ON(); 
+		AC2_STAT=1;
+		ini_puts("ctr", "L2", "1", inifile);
+	}		
+	if(msg->msg[2] == '0')
+	{		
+		OUT_AC2_220V_OFF();
+		AC2_STAT=0;
+		ini_puts("ctr", "L2", "0", inifile); //AC2		
+	}		
 	if(msg->msg[2] == '2')	{}
 		
-	if(msg->msg[4] == '1')  OUT_AC3_220V_ON();//AC3
-	if(msg->msg[4] == '0')  OUT_AC3_220V_OFF();
+	//AC3	
+	if(msg->msg[4] == '1')
+	{
+		OUT_AC3_220V_ON();
+		AC3_STAT=1;
+		ini_puts("ctr", "L3", "1", inifile);
+	}	
+	if(msg->msg[4] == '0')
+	{
+		OUT_AC3_220V_OFF();
+		AC3_STAT=0;
+		ini_puts("ctr", "L3", "0", inifile);
+	}		
 	if(msg->msg[4] == '2')	{}
 		
-	if(msg->msg[6] == '1')  out_fan_ON();//
-	if(msg->msg[6] == '0')  out_fan_OFF();
+	if(msg->msg[6] == '1')
+	{
+	 fan_STAT=1;
+	 out_fan_ON();//
+	}		
+	if(msg->msg[6] == '0') 
+	{	 
+	 out_fan_OFF();
+	 fan_STAT=0;
+	}		
 	if(msg->msg[6] == '2')	{}
 						
-	if(msg->msg[8] == '1')  alarm_ON();
-	if(msg->msg[8] == '0')  alarm_OFF();
+	if(msg->msg[8] == '1')
+	{
+	 alarm_ON();
+	 alarm_STAT=1;
+	}		
+	if(msg->msg[8] == '0')
+	{
+	 alarm_OFF();
+	 alarm_STAT=0;
+	}		
 	if(msg->msg[8] == '2')  {}
 		
-	if(msg->msg[10] == '1') light_ON();	
-	if(msg->msg[10] == '0') light_OFF();
+	if(msg->msg[10] == '1') 
+	{
+	 light_ON();
+	 light_STAT=1;
+	}	
+	if(msg->msg[10] == '0')
+	{
+	 light_OFF();
+	 light_STAT=0;
+	}		
 	if(msg->msg[10] == '2') {}
 	
-	if(msg->msg[12] == '1') heat_ON();	
-	if(msg->msg[12] == '0') heat_OFF();
+	if(msg->msg[12] == '1')
+	{
+	 heat_ON();
+	 heat_STAT=1;	
+	}			
+	if(msg->msg[12] == '0')
+	{
+	 heat_OFF();
+	 heat_STAT=0;
+	}		
 	if(msg->msg[12] == '2') {}	
-							
-	if(msg->msg[14] == '1') DC1_ON();	
-	if(msg->msg[14] == '0') DC1_OFF();
+	
+  //DC1		
+	if(msg->msg[14] == '1') 
+	{
+		DC1_ON();
+		DC1_STAT=1;
+		ini_puts("ctr", "V1", "1", inifile);		
+	}	
+	if(msg->msg[14] == '0')
+	{
+		DC1_OFF();
+		DC1_STAT=0;
+		ini_puts("ctr", "V1", "0", inifile);		
+	}		
 	if(msg->msg[14] == '2') {}
 		
-	if(msg->msg[16] == '1') DC2_ON();	
-	if(msg->msg[16] == '0') DC2_OFF();
-	if(msg->msg[16] == '0') {}
-	
-	if(msg->msg[18] == '1') DC3_ON();	
-	if(msg->msg[18] == '0') DC3_OFF();
-	if(msg->msg[18] == '2') {}
-			
-	if(msg->msg[20] == '1') DC4_ON();	
-	if(msg->msg[20] == '0') DC4_OFF();
-	if(msg->msg[20] == '2') {}
 		
-	if(msg->msg[22] == '1') open_the_door();	
+		
+	  //DC2	
+	if(msg->msg[16] == '1')
+	{
+		DC2_ON();	
+		DC2_STAT=1;
+		ini_puts("ctr", "V2", "1", inifile);
+	}		
+	if(msg->msg[16] == '0')
+	{
+	 DC2_OFF();
+	 DC2_STAT=0;
+	 ini_puts("ctr", "V2", "0", inifile);
+	}		
+	if(msg->msg[16] == '2') {}
+	
+	//DC3
+	if(msg->msg[18] == '1')
+	{
+		DC3_ON();
+		DC3_STAT=1;
+		ini_puts("ctr", "V3", "1", inifile);		
+	}		
+	if(msg->msg[18] == '0') 
+	{
+		DC3_OFF();
+		DC3_STAT=0;
+		ini_puts("ctr", "V3", "0", inifile);		
+	}
+	if(msg->msg[18] == '2') {}
+	
+  //DC4		
+	if(msg->msg[20] == '1') 
+	{
+		DC4_ON();
+		DC4_STAT=1;
+		ini_puts("ctr", "V4", "1", inifile);			
+	}	
+	if(msg->msg[20] == '0') 
+	{
+		DC4_OFF();
+		DC4_STAT=0;
+		ini_puts("ctr", "V4", "0", inifile);		
+	}
+	if(msg->msg[20] == '2') {}
+	
+  //远程开门		
+	if(msg->msg[22] == '1') 
+	{
+	 open_the_door();
+	 DOOR_STAT=1;		
+	}
 	if(msg->msg[22] == '0') {};
 	if(msg->msg[22] == '2') {}
 	//if(msg->msg[12] == '1')OPEN_DOOR();
+}
+
+
+void SERVCTRL(MQTT_USER_MSG *msg)
+{
+  char delim[] = ",*";
+	char *token;
+	char inifile[] = "1:cfg.ini";
+	char buf[2][16];
+	u8 i;
+	
+	for(token=strtok((char*)(msg->msg),delim),i=0; (token!=NULL)&&(i<2); token=strtok(NULL, delim),i++)
+		strcpy(buf[i], token);
+	
+	ini_puts("serv", "ip", buf[0], inifile);
+	ini_putl("serv", "port", atoi(buf[1]), inifile);
 }
 
 void Camera(MQTT_USER_MSG *msg)
@@ -677,6 +808,9 @@ void UserMsgCtl(MQTT_USER_MSG *msg)
 	
 	sprintf(topic, "EQUCTRL/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 	if(strcmp((char*)(msg->topic),topic) == 0)EQUCTRL(msg);
+	
+	sprintf(topic, "SERV/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
+	if(strcmp((char*)(msg->topic),topic) == 0)SERVCTRL(msg);
 	
 //	sprintf(topic, "camera/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 //	if(strcmp((char*)(msg->topic),topic) == 0)Camera(msg);
@@ -758,7 +892,7 @@ int my_mqtt_send_pingreq(void)
 	int buflen = sizeof(buf);
 	
 	len = MQTTSerialize_pingreq(buf, buflen);
-	if(sendMQTTData(buf, len, 200) < 0)return 2;
+	if(sendMQTTData(buf, len, 400) < 0)return 2;
 	if(MQTTPacket_read(buf, buflen, getMQTTData) != PINGRESP)return 3;
 
 	return 0;
@@ -773,7 +907,7 @@ int my_mqtt_send_pingreq(void)
 void open_the_door(void)
 {
 	GPIO_SetBits(GPIOA,GPIO_Pin_8);//开门
-	delay_xms(200);
+	delay_ms(200);
 	GPIO_ResetBits(GPIOA,GPIO_Pin_8);//开门
-	delay_xms(500);
+	delay_ms(500);
 }

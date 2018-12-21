@@ -88,7 +88,7 @@ void Get_Vol(void)
 	u16 temp;
 	//adcx = Get_Adc_Average(ADC_Channel_11, 20); //PC1
 	temp= Get_Adc_Average(ADC_Channel_11, 20); //PC1
-	VOL = (float)adcx*3.3/4096*1000;
+	VOL = (float)temp*3.3/4096*180;
 	if((VOL>600)||(VOL<80))VOL = 0;
 }
 
@@ -98,7 +98,7 @@ void Get_Cur(void)
 	
 	adcx = Get_Adc_Average(ADC_Channel_0, 20);//PA0
 	//CUR = ((float)adcx*3.3/4096-0.02)*1000;
-	CUR = (((float)adcx*3.3/4096)/400)*1500;
+	CUR = ((float)adcx*3.3/4096)*3.75;
 	if((CUR<0) || (VOL==0))CUR = 0;
 }
 /*
@@ -111,29 +111,91 @@ void output_control_default(void)
 {
 	char inifile[] = "1:cfg.ini";
 	
-	if((ini_getl("ctr",	"L1",	0,	inifile)))    OUT_AC1_220V_ON();	
-	if(!(ini_getl("ctr","L1",	0,	inifile)))    OUT_AC1_220V_OFF();
+	if((ini_getl("ctr",	"L1",	0,	inifile))) 
+	{		
+		OUT_AC1_220V_ON();
+		AC1_STAT=1;
+	}			
+	if(!(ini_getl("ctr","L1",	0,	inifile)))
+	{		
+	  OUT_AC1_220V_OFF();
+		AC1_STAT=0;
+	}    
   if((ini_getl("ctr",	"L1",	0,	inifile))==2) {};		
 
-	if((ini_getl("ctr",	"L2",	0,	inifile)))    OUT_AC2_220V_ON();	
-	if(!(ini_getl("ctr","L2",	0,	inifile)))    OUT_AC2_220V_OFF();	
+	if((ini_getl("ctr",	"L2",	0,	inifile))) 
+	{	 
+		OUT_AC2_220V_ON();
+		AC2_STAT=1;
+	}		
+	if(!(ini_getl("ctr","L2",	0,	inifile)))
+	{	  
+		OUT_AC2_220V_OFF();
+    AC2_STAT=0;		
+	}    
 	if((ini_getl("ctr",	"L2",	0,	inifile))==2) {};	
 
-	if((ini_getl("ctr",	"L3",	0,	inifile)))    OUT_AC3_220V_ON();	
-	if(!(ini_getl("ctr","L3",	0,	inifile)))    OUT_AC3_220V_OFF();	
+	if((ini_getl("ctr",	"L3",	0,	inifile))) 
+	{	 
+		OUT_AC3_220V_ON();
+		AC3_STAT=1;
+	}			
+	if(!(ini_getl("ctr","L3",	0,	inifile))) 
+	{	
+	 OUT_AC3_220V_OFF();
+	 AC3_STAT=0;
+	}			
 	if((ini_getl("ctr",	"L3",	0,	inifile))==2) {};	
 
-	if((ini_getl("ctr",	"V1",	0,	inifile)))    DC1_ON();	
-	if(!(ini_getl("ctr","V1",	0,	inifile)))    DC1_OFF();
+	if((ini_getl("ctr",	"V1",	0,	inifile)))
+	{	
+	 DC1_ON();
+	 DC1_STAT=1;
+	}    	
+	if(!(ini_getl("ctr","V1",	0,	inifile))) 
+	{
+		DC1_STAT=0;
+	  DC1_OFF();
+	}		
   if((ini_getl("ctr",	"V1",	0,	inifile))==2) {};			
 
-	if((ini_getl("ctr",	"V2",	0,	inifile)))    DC2_ON();	
-	if(!(ini_getl("ctr","V2",	0,	inifile)))    DC2_OFF();
+	if((ini_getl("ctr",	"V2",	0,	inifile)))
+	{
+		DC2_STAT=1;
+		DC2_ON();	
+	} 	
+	if(!(ini_getl("ctr","V2",	0,	inifile)))
+	{
+	  DC2_STAT=0;
+	  DC2_OFF();
+	}
 	if((ini_getl("ctr",	"V2",	0,	inifile))==2) {};	
 
-	if((ini_getl("ctr",	"V3",	0,	inifile)))    DC3_ON();	
-	if(!(ini_getl("ctr","V3",	0,	inifile)))    DC3_OFF();
-  if((ini_getl("ctr",	"V3",	0,	inifile))==2) {};			
+	if((ini_getl("ctr",	"V3",	0,	inifile)))
+	{
+	 DC3_STAT=1;
+	 DC3_ON();	
+	}   
+	if(!(ini_getl("ctr","V3",	0,	inifile)))
+	{
+	 DC3_STAT=0;
+	 DC3_OFF();		
+	}   
+  if((ini_getl("ctr",	"V3",	0,	inifile))==2) {};	
+
+		
+	//DC4	
+  if((ini_getl("ctr",	"V4",	0,	inifile)))
+	{
+	 DC4_STAT=1;
+	 DC4_ON();	
+	}   
+	if(!(ini_getl("ctr","V4",	0,	inifile)))
+	{
+	 DC4_STAT=0;
+	 DC4_OFF();		
+	}   
+  if((ini_getl("ctr",	"V4",	0,	inifile))==2) {};			
 
 //	if((ini_getl("ctr","light",	0,	inifile)))  light_OFF();
 //	if(!(ini_getl("ctr","light",0,	inifile)))light_ON();	

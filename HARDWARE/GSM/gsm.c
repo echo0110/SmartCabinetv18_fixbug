@@ -135,23 +135,22 @@ void gsm_reset(void)
 //	GPIO_ResetBits(GPIOC,GPIO_Pin_9);
 //	vTaskDelay(2000/portTICK_RATE_MS); // 拉低2秒可以重新开关机
 //	GPIO_SetBits(GPIOC,GPIO_Pin_9);
-//	vTaskDelay(2000/portTICK_RATE_MS); 
+//	vTaskDelay(2000/portTICK_RATE_MS);
 }
 
 u8 SIM800C_CONNECT_SERVER(u8 *servip,u8 *port)
 {
 	u8 dtbufa[50];
-	
-	if(sim800c_send_cmd((u8 *)"AT+CGATT?",(u8 *)"+CGATT: 1",100))
-	if(sim800c_send_cmd((u8 *)"AT+CIPMUX=0",(u8 *)"OK",200))	return 3;	// 单路连接
-	if(sim800c_send_cmd((u8 *)"AT+CGATT=1",(u8 *)"OK",100))		return 4;	// 将MT附着GPRS业务
+	if(sim800c_send_cmd((u8 *)"AT+CGATT?",(u8 *)"+CGATT: 1",200))
+	if(sim800c_send_cmd((u8 *)"AT+CIPMUX=0",(u8 *)"OK",400))	return 3;	// 单路连接
+	if(sim800c_send_cmd((u8 *)"AT+CGATT=1",(u8 *)"OK",400))		return 4;	// 将MT附着GPRS业务
 	if(sim800c_send_cmd((u8 *)"AT+CIPSHUT",(u8 *)"OK",400))		return 5;	// 关闭移动场景
-	if(sim800c_send_cmd((u8 *)"AT+CIPMODE=1",(u8 *)"OK",100))	return 6;	// 透明模式
+	if(sim800c_send_cmd((u8 *)"AT+CIPMODE=1",(u8 *)"OK",200))	return 6;	// 透明模式
 	// 重传次数5,时间间隔2*100ms,数据字节1024,开启转义序列1,Rxmode=0,Rxsize=1460,Rxtime=50
 	if(sim800c_send_cmd((u8 *)"AT+CIPCCFG=5,2,1024,1,0,1460,50",(u8 *)"OK",500))		return 7;
 	// 联通接入点名称uninet	移动cmnet
 	if(sim800c_send_cmd((u8 *)"AT+CSTT=\"uninet\",\"NULL\",\"NULL\"",(u8 *)"OK",200))	return 8;
-	if(sim800c_send_cmd((u8 *)"AT+CIICR",(u8 *)"OK",900))		return 9;	// 激活移动场景
+	if(sim800c_send_cmd((u8 *)"AT+CIICR",(u8 *)"OK",2000))		return 9;	// 激活移动场景
 	if(!sim800c_send_cmd((u8 *)"AT+CIFSR",(u8 *)"ERROR",200))	return 10;	// 获取本地IP
 	
 	sprintf((char*)dtbufa,"AT+CIPSTART=TCP,%s,%s\r\n",servip,port);			// TCP连接,IP,端口

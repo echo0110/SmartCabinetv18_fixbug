@@ -46,7 +46,7 @@
 EP_BUF_DSCR * pBUF_DSCR = (EP_BUF_DSCR *) 0x40006000; 
 
 float TEM = 0, HUM = 0;
-u8 DOOR_STAT=1, WATER_STAT, SYS12_STAT, EQU12_STAT, EQU24_STAT, BAT12_STAT,UPS_STAT,special_power_STAT;
+u8 DOOR_STAT=1, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STAT;
 u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 u8 stat_changed = 0;
@@ -214,11 +214,27 @@ void GET_AM2301_Data(void)
 			TEM = Sensor_Data[2]*256 + Sensor_Data[3];
 			if(TEM >= 0x8000)TEM = 0-TEM/10;
 			else TEM = TEM/10;			
-			if(TEM > 42)out_fan_ON();
-			if(TEM < 40)out_fan_OFF();
+			if(TEM > 42)
+			{
+				out_fan_ON();
+				fan_STAT=1;
+			}
+			if(TEM < 40)
+			{
+				out_fan_OFF();
+				fan_STAT=0;
+			}
 			
-			if(TEM > 2)heat_OFF();//
-			if(TEM < 0)heat_ON();
+			if(TEM > 2)
+			{
+			  heat_OFF();//
+			  heat_STAT=0;
+			}
+			if(TEM < 0)
+			{
+				heat_ON();
+				heat_STAT=1;
+			}
 		}
 	}
 }
@@ -235,7 +251,8 @@ void STAT_CHECK(void)
 		}
 	}
 	
-	if(SYS12_STAT != SYS12_SENSOR) //电源1 直流12V
+	
+	if(SYS12_STAT != SYS12_SENSOR) //电源1 直流12V  
 	{
 		delay_ms(10);
 		if(SYS12_STAT != SYS12_SENSOR)
@@ -245,98 +262,98 @@ void STAT_CHECK(void)
 		}
 	}
 	
-	if(EQU12_STAT != EQU12_SENSOR) //电源2 
+	if(BAK12_STAT != BAK12_SENSOR) //电源2 
 	{
 		delay_ms(10);
-		if(EQU12_STAT != EQU12_SENSOR)
+		if(BAK12_STAT != BAK12_SENSOR)
 		{
-			EQU12_STAT = EQU12_SENSOR;
+			BAK12_STAT = BAK12_SENSOR;			
 			stat_changed = 1;
 		}
 	}
 	
-	if(UPS_STAT != UPS_SENSOR)  //UPS_STA
+	if(UPS_STAT != UPS12_SENSOR)  //UPS_STA
 	{
 		delay_ms(10);
-		if(UPS_STAT != UPS_SENSOR)
+		if(UPS_STAT != UPS12_SENSOR)
 		{
-			UPS_STAT = UPS_SENSOR;
+			UPS_STAT = UPS12_SENSOR;
 			stat_changed = 1;
 		}
 	}	
-	if(special_power_STAT != special_power_SENSOR)  //特殊电源
+	if(AC24_STAT != AC24_SENSOR)  //特殊电源
 	{
 		delay_ms(10);
-		if(special_power_STAT != special_power_SENSOR)
+		if(AC24_STAT != AC24_SENSOR)
 		{
-			special_power_STAT = special_power_SENSOR;
+			AC24_STAT = AC24_SENSOR;
 			stat_changed = 1;
 		}
 	}		
-	if(AC1_STAT != AC1_SENSOR())  //交流L1
-	{
-		delay_ms(10);
-		if(AC1_STAT != AC1_SENSOR())
-		{
-			AC1_STAT = AC1_SENSOR();
-			stat_changed = 1;
-		}
-	}
-	if(AC2_STAT != AC2_SENSOR())  //交流L2
-	{
-		delay_ms(10);
-		if(AC2_STAT != AC2_SENSOR())
-		{
-			AC2_STAT = AC2_SENSOR();
-			stat_changed = 1;
-		}
-	}
-	if(AC3_STAT != AC3_SENSOR())  //交流L3
-	{
-		delay_ms(10);
-		if(AC3_STAT != AC3_SENSOR())
-		{
-			AC3_STAT = AC3_SENSOR();
-			stat_changed = 1;
-		}
-	}
-	if(DC1_STAT != DC1_SENSOR())  //直流DC1
-	{
-		delay_ms(10);
-		if(DC1_STAT != DC1_SENSOR())
-		{
-			DC1_STAT = DC1_SENSOR();
-			stat_changed = 1;
-		}
-	}
-	if(DC2_STAT != DC2_SENSOR())  //直流DC2
-	{
-		delay_ms(10);
-		if(DC2_STAT  !=DC2_SENSOR())
-		{
-			DC2_STAT = DC2_SENSOR();
-			stat_changed = 1;
-		}
-	}
+//	if(AC1_STAT != AC1_SENSOR())  //交流L1
+//	{
+//		delay_ms(10);
+//		if(AC1_STAT != AC1_SENSOR())
+//		{
+//			AC1_STAT = AC1_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
+//	if(AC2_STAT != AC2_SENSOR())  //交流L2
+//	{
+//		delay_ms(10);
+//		if(AC2_STAT != AC2_SENSOR())
+//		{
+//			AC2_STAT = AC2_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
+//	if(AC3_STAT != AC3_SENSOR())  //交流L3
+//	{
+//		delay_ms(10);
+//		if(AC3_STAT != AC3_SENSOR())
+//		{
+//			AC3_STAT = AC3_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
+//	if(DC1_STAT != DC1_SENSOR())  //直流DC1
+//	{
+//		delay_ms(10);
+//		if(DC1_STAT != DC1_SENSOR())
+//		{
+//			DC1_STAT = DC1_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
+//	if(DC2_STAT != DC2_SENSOR())  //直流DC2
+//	{
+//		delay_ms(10);
+//		if(DC2_STAT  !=DC2_SENSOR())
+//		{
+//			DC2_STAT = DC2_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
 	
-	if(DC3_STAT != DC3_SENSOR())  //直流DC3
-	{
-		delay_ms(10);
-		if(DC3_STAT != DC3_SENSOR())
-		{
-			DC3_STAT = DC3_SENSOR();
-			stat_changed = 1;
-		}
-	}
-	if(DC4_STAT != DC4_SENSOR())  //直流DC4
-	{
-		delay_ms(10);
-		if(DC4_STAT != DC4_SENSOR())
-		{
-			DC4_STAT = DC4_SENSOR();
-			stat_changed = 1;
-		}
-	}
+//	if(DC3_STAT != DC3_SENSOR())  //直流DC3
+//	{
+//		delay_ms(10);
+//		if(DC3_STAT != DC3_SENSOR())
+//		{
+//			DC3_STAT = DC3_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
+//	if(DC4_STAT != DC4_SENSOR())  //直流DC4
+//	{
+//		delay_ms(10);
+//		if(DC4_STAT != DC4_SENSOR())
+//		{
+//			DC4_STAT = DC4_SENSOR();
+//			stat_changed = 1;
+//		}
+//	}
 
 	vTaskSuspendAll();
 	GET_AM2301_Data();
@@ -361,11 +378,13 @@ void DOOR_SENSOR_CHECK(void) //门开关接口扫描函数
 			if(DOOR_SENSOR==1)//开门
 			{					
 				light_ON();
+				light_STAT=1;
 				xSemaphoreGive(BinarySemaphore_photo_command);		
 			}
 			else
 			{
 			 light_OFF();
+			 light_STAT=0;
 			}						
 		}
 	}
@@ -382,10 +401,12 @@ void LIGHT_SENSOR_CHECK(void)
 	if(DOOR_SENSOR==1)//如果门是开着的
 	{					
 		light_ON();
+		light_STAT=1;
 	}
 	if(DOOR_SENSOR==0)//如果门是关着的
 	{					
 		light_OFF();
+		light_STAT=0;
 	}
 }
      
@@ -500,7 +521,7 @@ void ping_task(void *pvParameters)
 				 pingFailedTimes[counts]++;
 				 if(pingFailedTimes[counts]==4)
 				 {
-				 printf("%d:ping Timeout  ErrCode 4!\n",counts);			
+				 //printf("%d:ping Timeout  ErrCode 4!\n",counts);			
 				 strcpy(IP_STAT[counts], "0");
 				 pingFailedTimes[counts]=0;
 				 }						
@@ -512,7 +533,7 @@ void ping_task(void *pvParameters)
 			 pingFailedTimes[counts]++;
 			 if(pingFailedTimes[counts]==4)
 			 {
-				printf("%d:ping Timeout  ErrCode 4!\n",counts);			
+				//printf("%d:ping Timeout  ErrCode 4!\n",counts);			
 				strcpy(IP_STAT[counts], "0");
 				pingFailedTimes[counts]=0;
 			 }		
@@ -713,17 +734,7 @@ void test_detect(void) //SD卡轮询检测
 
 }
 
-//void e0_event_function(int * nxt_state)
-//{   
-//    int cur_state;   
-//    cur_state = *nxt_state;   
-//    switch(cur_state)
-//    {       
-//        case 0: //???1,?e0?????,s1???   
-//        case 255: //??a0??;           
-//        *nxt_state = 255;
-//    }
-//}
+
 
 
 
