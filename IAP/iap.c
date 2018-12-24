@@ -28,24 +28,33 @@ void iap_write_appbin(u32 appxaddr, FIL *fp)
 	u16 ReadNum;
 	u32 i = 0;
 	u16 j = 0;
-	u8 ReadAppBuffer[512];
-	u16 ChangeBuffer[256];
+//	u8 ReadAppBuffer[512];
+//	u16 ChangeBuffer[256];
 	
-	APP_Sector = fp->fsize/512;
-	APP_Byte = fp->fsize%512;
+	u8 ReadAppBuffer[2048];	
+  u16 ChangeBuffer[1024];
+	
+//	APP_Sector = fp->fsize/512;
+//	APP_Byte = fp->fsize%512;
+	
+	APP_Sector = fp->fsize/2048;
+	APP_Byte = fp->fsize%2048;
+	
+	
 	
 	
 	for(i=0; i<APP_Sector; i++)
 	{
-		f_read(fp, ReadAppBuffer, 512, (UINT *)&ReadNum);
-		for(j=0; j<256; j++)ChangeBuffer[j] = (ReadAppBuffer[j*2+1]<<8) + ReadAppBuffer[j*2];
-		FlashWrite(appxaddr+i*512, ChangeBuffer, 256);	 
+		f_read(fp, ReadAppBuffer, 2048, (UINT *)&ReadNum);
+		//for(j=0; j<256; j++)ChangeBuffer[j] = (ReadAppBuffer[j*2+1]<<8) + ReadAppBuffer[j*2];
+		for(j=0; j<1024; j++)ChangeBuffer[j] = (ReadAppBuffer[j*2+1]<<8) + ReadAppBuffer[j*2];
+		FlashWrite(appxaddr+i*2048, ChangeBuffer, 1024);	 
 	}
 	if(APP_Byte != 0)
 	{
 		f_read(fp, ReadAppBuffer, APP_Byte, (UINT *)&ReadNum);
 		for(j=0; j<(APP_Byte/2); j++)ChangeBuffer[j] = (ReadAppBuffer[j*2+1]<<8) + ReadAppBuffer[j*2];
-		FlashWrite(appxaddr+i*512, ChangeBuffer, APP_Byte/2);
+		FlashWrite(appxaddr+i*2048, ChangeBuffer, APP_Byte/2);
 	}
 }
 

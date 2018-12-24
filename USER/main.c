@@ -20,7 +20,10 @@
 #include "MD5.h"
 
 char buff_md5[20];
+char buff_boot[20];
 void update_read_flash_test(void);
+void boot_write_to_flash(void);
+void read_boot_flash(void);
 
 extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
 
@@ -29,7 +32,8 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
 	u8 res = 0;
 	u8 key = 0;
 	unsigned char digest_test[16]={0};
-  char *md5_boot_txt="1:file_md5_boot.txt";		 
+  char *md5_boot_txt="1:file_md5_boot.txt";	
+  char *bin_boot_txt="1:bin_boot_txt";	
 	delay_init();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	KEY_Init();
@@ -52,12 +56,14 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
     update_read_flash_test();//read update Flag
 	  printf("buff_md5=%s\n",buff_md5);
 	  if(strcmp((char*)buff_md5,"md5updateflag")==0)
-	  {					
+	  {			
 			mf_unlink((u8*)md5_boot_txt);
+			mf_unlink((u8*)bin_boot_txt);
 	    printf("update  post.bin  app loading....\n");
       if(f_open(file, "1:post.bin", FA_READ|FA_OPEN_EXISTING) == 0)			
 	    {
 			 iap_write_appbin(FLASH_APP_ADDR,file);
+			 boot_write_to_flash();
 			 iap_load_app(FLASH_APP_ADDR);	
 		  }			 
 	  }
@@ -65,10 +71,16 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
 		{
 		 if(f_open(file, "1:SmartCabinet.bin", FA_READ|FA_OPEN_EXISTING) == 0)
 		 {
-		 printf("original SmartCabinet.bin  app loading....\n");	
-		 iap_write_appbin(FLASH_APP_ADDR,file);
-		 printf("iap_write_appbin over....\n");	
-		 iap_load_app(FLASH_APP_ADDR); 
+			 read_boot_flash();//读boot文件
+			 if(strcmp((char*)buff_boot,"Write_finish")==0)
+			 {
+			  iap_load_app(FLASH_APP_ADDR);  
+			 }
+			 printf("original SmartCabinet.bin  app loading....\n");	
+			 iap_write_appbin(FLASH_APP_ADDR,file);
+			 printf("iap_write_appbin over....\n");
+       boot_write_to_flash();			 
+			 iap_load_app(FLASH_APP_ADDR);        			 
 		 }			
 		}
 	
@@ -99,16 +111,62 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
  */
 void update_read_flash_test(void)
 {
-   FIL *file4;//	  
-	 u8 res,res2,res3,i,n4;
-	 {	
-		res = f_open(file, "1:file_md5_boot.txt", FA_READ | FA_WRITE | FA_OPEN_ALWAYS);
-		printf("file->fsize=%ld\n",file->fsize);
-		if(res!=FR_OK)
-		{ 
-		 printf("open file_md5_boot.txt error!\r\n");
-		}				
-		res3= f_read(file, buff_md5, file->fsize, &br);
-		f_close(file);				
+	FIL *file4;//	  
+	u8 res,res2,res3,i,n4;
+	{	
+	res = f_open(file, "1:file_md5_boot.txt", FA_READ | FA_WRITE | FA_OPEN_ALWAYS);
+	printf("file->fsize=%ld\n",file->fsize);
+	if(res!=FR_OK)
+	{ 
+	 printf("open file_md5_boot.txt error!\r\n");
+	}				
+	res3= f_read(file, buff_md5, file->fsize, &br);
+	f_close(file);				
 	}				
 }
+
+
+/*
+ * 函数名：boot引导标志
+ * 描述  
+ * 输入  ：无
+ * 输出  ：无	  
+ */
+void boot_write_to_flash(void)
+{
+	u8 res,i,n4;
+	//FIL *file_bin;//	
+	//char *file_bin="1:file_bin.txt";	
+	char buff[20]="Write_finish";
+	res = f_open(file, "1:bin_boot.txt", FA_READ | FA_WRITE | FA_OPEN_ALWAYS);
+	printf("file->fsize=%ld\n",file->fsize);
+	if(res!=FR_OK)
+	{ 
+	 printf("open bin_boot_txt error!\r\n");
+	}		
+	res=f_lseek(file, file->fsize);			
+	n4= f_write(file, buff,strlen(buff),&br);
+	f_close(file);		
+}
+
+/*
+ * 函数名：void read_boot_flash(void)
+ * 描述  读boot
+ * 输入  ：无
+ * 输出  ：无	  
+ */
+void read_boot_flash(void)
+{
+	u8 res,res2,res3,i,n4;
+	{	
+	res = f_open(file, "1:bin_boot.txt", FA_READ | FA_WRITE | FA_OPEN_ALWAYS);
+	printf("file->fsize=%ld\n",file->fsize);
+	if(res!=FR_OK)
+	{ 
+	 printf("open bin_boot_txt error!\r\n");
+	}				
+	res3= f_read(file, buff_boot, file->fsize, &br);
+	f_close(file);				
+	}				
+}
+
