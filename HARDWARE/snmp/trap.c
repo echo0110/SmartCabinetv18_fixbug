@@ -55,8 +55,8 @@ void trap_task(void * pvParameters)
 //											 ((u32_t)((ini_getl("snmp",	"ip1",	168,	inifile)) & 0xff) << 8)  | \
 //												(u32_t)((ini_getl("snmp",	"ip0",	192,	inifile)) & 0xff);
 	
-		trap_addr.addr=((u32_t)((177) & 0xff) << 24) | \
-											 ((u32_t)((1) & 0xff) << 16) | \
+		trap_addr.addr=((u32_t)((226) & 0xff) << 24) | \
+											 ((u32_t)((0) & 0xff) << 16) | \
 											 ((u32_t)((168) & 0xff) << 8)  | \
 												(u32_t)((192) & 0xff);
 	snmp_trap_dst_ip_set(0,&trap_addr);
@@ -90,7 +90,7 @@ void trap_task(void * pvParameters)
 		tcpip_callback(vSendTrapCallback2, vb_list);
 		//printf("tcpip_callback  over\n");
 		// Wait for the next cycle.
-		vTaskDelayUntil( &xLastWakeTime, 500);
+		vTaskDelayUntil( &xLastWakeTime, 1000);
 	}   
 }
 

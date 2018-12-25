@@ -167,45 +167,12 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_512 -FS08000000 -FL080000 -FP0($$Device:STM32F103ZE$Flash\STM32F10x_512.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>221</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134364046</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\Administrator\Desktop\stm32-IAP\榫?SmartCabinetv18_fixbug\LWIP\lwip_app\lwip_comm\lwip_comm.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\SmartCabinet\../LWIP/lwip_app/lwip_comm/lwip_comm.c\221</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>486</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134315226</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\Administrator\Desktop\stm32-IAP\榫?SmartCabinetv18_fixbug\HARDWARE\SENSOR\sensor.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\SmartCabinet\../HARDWARE/SENSOR/sensor.c\486</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART2_TX_BUF</ItemText>
+          <ItemText>USART2_RX_BUF</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -230,7 +197,7 @@
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>iphdr,0x0A</ItemText>
+          <ItemText>msg</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
@@ -265,7 +232,7 @@
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>VOL,0x0A</ItemText>
+          <ItemText>BAK12_STAT</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
@@ -541,6 +508,11 @@
           <count>67</count>
           <WinNumber>1</WinNumber>
           <ItemText>IP_STAT[counts]</ItemText>
+        </Ww>
+        <Ww>
+          <count>68</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>msg</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

@@ -183,6 +183,17 @@ TaskHandle_t PingTask_Handler;
 void ping_task(void *pvParameters);
 
 
+
+//任务优先级
+#define trap_TASK_PRIO		13
+//任务堆栈大小	
+#define trap_STK_SIZE 		512//1000//50  
+//任务句柄
+TaskHandle_t trapTask_Handler;
+//任务函数
+void trap_task(void *pvParameters);
+
+
 u8 test_sd;
 u8 test_w=1;
 u8 test_mkfs;	
@@ -340,7 +351,14 @@ int main(void)
                 (uint16_t       )Ping_STK_SIZE, 
                 (void*          )NULL,				
                 (UBaseType_t    )Ping_TASK_PRIO,	
-                (TaskHandle_t*  )&PingTask_Handler);								
+                (TaskHandle_t*  )&PingTask_Handler);
+   //创建TAP任务  主动上报数据帧
+   xTaskCreate((TaskFunction_t )trap_task,     	
+                (const char*    )"trap_task",   	
+                (uint16_t       )trap_STK_SIZE, 
+                (void*          )NULL,				
+                (UBaseType_t    )trap_TASK_PRIO,	
+                (TaskHandle_t*  )&trapTask_Handler);									
 	//Start the scheduler
 	vTaskStartScheduler();	
 	//Will only get here if there was not enough heap space to create the idle task
