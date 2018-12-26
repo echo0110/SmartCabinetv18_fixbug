@@ -20,7 +20,7 @@
 #include "MD5.h"
 
 char buff_md5[20];
-char buff_boot[20];
+char buff_boot[50];
 void update_read_flash_test(void);
 void boot_write_to_flash(void);
 void read_boot_flash(void);
@@ -33,7 +33,7 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
 	u8 key = 0;
 	unsigned char digest_test[16]={0};
   char *md5_boot_txt="1:file_md5_boot.txt";	
-  char *bin_boot_txt="1:bin_boot_txt";	
+  char *bin_boot_txt="1:bin_boot.txt";	
 	delay_init();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	KEY_Init();
@@ -54,6 +54,7 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
 	f_close (file);
 	key = KEY_Scan(0);
     update_read_flash_test();//read update Flag
+		read_boot_flash();//读boot文件
 	  printf("buff_md5=%s\n",buff_md5);
 	  if(strcmp((char*)buff_md5,"md5updateflag")==0)
 	  {			
@@ -70,12 +71,12 @@ extern u8 Max_Lun;				//支持的磁盘个数,0表示1个,1表示2个.
 		else
 		{
 		 if(f_open(file, "1:SmartCabinet.bin", FA_READ|FA_OPEN_EXISTING) == 0)
-		 {
-			 read_boot_flash();//读boot文件
+		 {			
 			 if(strcmp((char*)buff_boot,"Write_finish")==0)
 			 {
 			  iap_load_app(FLASH_APP_ADDR);  
 			 }
+			 mf_unlink((u8*)bin_boot_txt);
 			 printf("original SmartCabinet.bin  app loading....\n");	
 			 iap_write_appbin(FLASH_APP_ADDR,file);
 			 printf("iap_write_appbin over....\n");

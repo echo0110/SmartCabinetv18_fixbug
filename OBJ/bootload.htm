@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\bootload.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\bootload.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Mon Dec 24 12:00:11 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Dec 26 13:59:40 2018
 <BR><P>
 <H3>Maximum Stack Usage =       4512 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -346,7 +346,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;boot_write_to_flash
 </UL>
 
-<P><STRONG><a name="[12a]"></a>strcmp</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, strcmp.o(.text))
+<P><STRONG><a name="[12b]"></a>strcmp</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, strcmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1578,7 +1578,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;W25QXX_Erase_Sector
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_read_flash_test
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;boot_write_to_flash
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USB_NotConfigured_LED
@@ -1704,7 +1704,7 @@ Global Symbols
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_read_flash_test
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;boot_write_to_flash
 </UL>
@@ -1764,7 +1764,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_convert
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_read_flash_test
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;boot_write_to_flash
 </UL>
@@ -1783,7 +1783,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ff_convert
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;iap_write_appbin
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_read_flash_test
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
 </UL>
 
 <P><STRONG><a name="[110]"></a>f_sync</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, ff.o(i.f_sync))
@@ -1814,7 +1814,7 @@ Global Symbols
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_cpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mf_unlink
+<BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mf_unlink
 </UL>
 
 <P><STRONG><a name="[ed]"></a>f_write</STRONG> (Thumb, 540 bytes, Stack size 64 bytes, ff.o(i.f_write))
@@ -1904,13 +1904,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[58]"></a>main</STRONG> (Thumb, 338 bytes, Stack size 24 bytes, main.o(i.main))
+<P><STRONG><a name="[58]"></a>main</STRONG> (Thumb, 344 bytes, Stack size 24 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4512<LI>Call Chain = main &rArr; iap_write_appbin &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; W25QXX_Write &rArr; W25QXX_Write_NoCheck &rArr; W25QXX_Write_Page &rArr; W25QXX_Wait_Busy &rArr; W25QXX_ReadSR &rArr; SPI2_ReadWriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mymalloc
 <LI><a href="#[0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_mem_init
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mf_unlink
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mf_unlink
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;iap_write_appbin
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;iap_load_app
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
@@ -1929,14 +1929,14 @@ Global Symbols
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Scan
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_read_flash_test
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_boot_flash
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;boot_write_to_flash
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[12b]"></a>mf_unlink</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, key.o(i.mf_unlink))
+<P><STRONG><a name="[12c]"></a>mf_unlink</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, key.o(i.mf_unlink))
 <BR><BR>[Stack]<UL><LI>Max Depth = 712<LI>Call Chain = mf_unlink &rArr; f_unlink &rArr; follow_path &rArr; create_name &rArr; ff_convert &rArr; f_open &rArr;  follow_path (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_unlink
@@ -2004,7 +2004,7 @@ Global Symbols
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
 </UL>
 
-<P><STRONG><a name="[12c]"></a>read_boot_flash</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(i.read_boot_flash))
+<P><STRONG><a name="[12a]"></a>read_boot_flash</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(i.read_boot_flash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 472<LI>Call Chain = read_boot_flash &rArr; f_open &rArr;  follow_path (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
