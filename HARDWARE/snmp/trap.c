@@ -14,6 +14,7 @@
 #include "queue.h"
 #include "semphr.h"
 #include "camera.h"
+#include "adc.h"
 
 
 #define NUM_PRIVATE_TRAP_LIST    5
@@ -33,13 +34,15 @@ void trap_task(void * pvParameters)
 	u8_t snmpauthentraps_set= 2;
 	static ip_addr_t trap_addr;
 	//char inifile[] = "1:cfg.ini";
+	char msg[200];
+	
 	
 	
 	struct snmp_obj_id objid = {10, {1, 3, 6, 1, 4,1,26381,1,1,1}};
 	//static unsigned char msg[]  = "Alexandre_Malo-mpbc_ca";
-	static unsigned char msg[]  = "220,1.2,25.5,95,0,0,1,1,1,1*";
-	static unsigned char msg2[] = "salut simon, c'est mal";
-	static unsigned char msglen= sizeof(msg);//22;
+//	static u8 msg[]  = "220,1.2,25.5,95,0,0,1,1,1,1*";
+//	static u8 msg2[] = "salut simon, c'est mal";
+	static u8 msglen;//= sizeof(msg);//22;
 
 	struct snmp_varbind *vb;
 	struct trap_list *vb_list;
@@ -55,7 +58,7 @@ void trap_task(void * pvParameters)
 //											 ((u32_t)((ini_getl("snmp",	"ip1",	168,	inifile)) & 0xff) << 8)  | \
 //												(u32_t)((ini_getl("snmp",	"ip0",	192,	inifile)) & 0xff);
 	
-		trap_addr.addr=((u32_t)((226) & 0xff) << 24) | \
+		trap_addr.addr=((u32_t)((236) & 0xff) << 24) | \
 											 ((u32_t)((0) & 0xff) << 16) | \
 											 ((u32_t)((168) & 0xff) << 8)  | \
 												(u32_t)((192) & 0xff);
@@ -72,7 +75,14 @@ void trap_task(void * pvParameters)
 		vb_list->ent_oid = &objid;
 		vb_list->ent_oid=&objid;
 		vb_list->spc_trap = 12;	
-		vb = snmp_varbind_alloc(&objid, 4, msglen);		
+		sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
+			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
+		//msglen=sizeof(msg);
+		msglen=strlen(msg);
+		
+		vb = snmp_varbind_alloc(&objid, 4, msglen);
+
+    
 		if (vb != NULL)
 		{
 			 memcpy (vb->value, &msg, msglen);         
@@ -81,11 +91,11 @@ void trap_task(void * pvParameters)
 		
 		vb = snmp_varbind_alloc(&objid, 4, msglen);
 		
-		if (vb != NULL)
-		{
-			 memcpy (vb->value, &msg2, msglen);         
-			 snmp_varbind_tail_add(&vb_list->vb_root,vb);
-		} 
+//		if (vb != NULL)
+//		{
+//			 memcpy (vb->value, &msg2, msglen);         
+//			 snmp_varbind_tail_add(&vb_list->vb_root,vb);
+//		} 
 		
 		tcpip_callback(vSendTrapCallback2, vb_list);
 		//printf("tcpip_callback  over\n");

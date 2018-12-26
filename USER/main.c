@@ -271,6 +271,8 @@ int main(void)
 	DOOR_STAT= DOOR_SENSOR;
 	
   output_control_default();	
+	
+	snmp_init();
 		
 	USB_Queue= xQueueCreate(30, sizeof( int16_t ));
 	
