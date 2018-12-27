@@ -68,6 +68,7 @@
 #include "lwip/snmp_msg.h"
 #include "lwip/snmp_asn1.h"
 #include "snmp_structs.h"
+#include "adc.h"
 void test(void);
 void ocstrncpy2(u8_t *dst, u8_t *src, u16_t n);
 static void emmp_get_value(struct obj_def *od, u16_t len, void *value);
@@ -122,6 +123,14 @@ u8_t* sys_ptr2=(u8_t*)&sys_default2[0];
 u8_t* sys_len_ptr2 = (u8_t*)&sys_len_default2;
 
 
+u8_t  sys_default3[200];
+u8_t  sys_len_default3=sizeof(sys_default3)-1;
+u8_t* sys_ptr3=(u8_t*)&sys_default3[0];
+u8_t* sys_len_ptr3 = (u8_t*)&sys_len_default3;
+//char msg[200];
+
+
+
 /*
  * 函数名获得设备节点
  * 描述  ：
@@ -162,6 +171,15 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
         od->v_len = *sys_len_ptr2;
 					printf("case 2\n");
+        break;
+			case 3:    /* reset  */				
+				sprintf(sys_default3, "%.2f,%.2f*", VOL, CUR);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+          od->v_len = *sys_len_ptr3;
+					printf("case 3\n");
         break;
       default:
         LWIP_DEBUGF(SNMP_MIB_DEBUG,("emmp_get_object_def: no such object\n"));
@@ -420,6 +438,8 @@ struct mib_node* const sys_tem_nodes22[7] = {
 
 //struct mib_node* const sys_tem_nodes22[1] = {(struct mib_node*)&sys_tem_scalar22};
 /* work around name issue with 'sys_tem', some compiler(s?) seem to reserve 'system' */
+
+
 const struct mib_array_node sys_tem2 = {
   &noleafs_get_object_def,
   &noleafs_get_value,
@@ -429,6 +449,24 @@ const struct mib_array_node sys_tem2 = {
   7,
   sys_tem_ids22,
   sys_tem_nodes22
+};
+
+// mqtt状态  测试节点
+
+const s32_t test_ids[7] ={ 1, 2, 3, 4, 5, 6, 7 };
+struct mib_node* const test_nodes[7] = {
+  (struct mib_node*)&sys_tem_scalar2,(struct mib_node*)&sys_tem_scalar2
+};
+
+const struct mib_array_node test_node = {
+  &noleafs_get_object_def,
+  &noleafs_get_value,
+  &noleafs_set_test,
+  &noleafs_set_value,
+  MIB_NODE_AR,
+  7,
+  test_ids,
+  test_nodes
 };
 
 /* mib-2 .1.3.6.1.2.1 */
@@ -451,38 +489,30 @@ const s32_t mib2_ids2[MIB2_GROUPS] =
   11
 };
 
+//struct mib_node* const mib2_nodes2[8] = {
+//  (struct mib_node*)&sys_tem2,
+//};
+//  .1.3.6.1.4.1.(1,2,3,4,5,6...11)  节点1,2,3
 struct mib_node* const mib2_nodes2[8] = {
-  (struct mib_node*)&sys_tem2,
+  (struct mib_node*)&sys_tem2,(struct mib_node*)&sys_tem2,(struct mib_node*)&test_node
 };
 
 
-/* mgmt .1.3.6.1.4.1  */
+/* mgmt .1.3.6.1.4.1.(1,2,3,4,5,6...11)  */
 const struct mib_array_node mib22 = {
   &noleafs_get_object_def,
   &noleafs_get_value,
   &noleafs_set_test,
   &noleafs_set_value,
   MIB_NODE_AR,
-  1,
+  8,
   mib2_ids2,
   mib2_nodes2
 };
 
 
 
-///* mgmt .1.3.6.1.4.1.1 */
-//const s32_t mgmt_ids2[1] = { 1 };
-//struct mib_node* const mgmt_nodes2[1] = { (struct mib_node*)&mib22 };
-//const struct mib_array_node mgmt2 = {
-//  &noleafs_get_object_def,
-//  &noleafs_get_value,
-//  &noleafs_set_test,
-//  &noleafs_set_value,
-//  MIB_NODE_AR,
-//  1,
-//  mgmt_ids2,
-//  mgmt_nodes2
-//};
+
 
 
 

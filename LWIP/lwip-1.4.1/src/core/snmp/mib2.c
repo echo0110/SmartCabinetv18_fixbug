@@ -763,6 +763,7 @@ const mib_scalar_node sys_tem_scalar5 = {
   0
 };
 
+/* mgmt .1.3.6.1.2.1.6 */
 const s32_t mib2_ids5[1] = {6};
 struct mib_node* const mib2_nodes5[1] = { (struct mib_node*)&sys_tem_scalar5 };
 const struct mib_array_node mib5  ={
@@ -776,7 +777,7 @@ const struct mib_array_node mib5  ={
   mib2_nodes5
 };
 
-/* mgmt .1.3.6.1.4 */
+/* mgmt .1.3.6.1.2.1 */
 const s32_t mgmt_ids[1] = { 1 };
 struct mib_node* const mgmt_nodes[1] = { (struct mib_node*)&mib5 };
 const struct mib_array_node mgmt = {

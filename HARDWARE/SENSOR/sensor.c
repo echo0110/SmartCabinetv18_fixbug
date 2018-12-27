@@ -494,16 +494,6 @@ void ping_task(void *pvParameters)
 	static u8 counts,Ping_frequency;
 	while(1)
 	{		
-//		printf("Ping_ip_array[8].ip[0]==%d\n",Ping_ip_array[8].ip[0]);
-//		printf("Ping_ip_array[8].ip[1]==%d\n",Ping_ip_array[8].ip[1]);
-//		printf("Ping_ip_array[8].ip[2]==%d\n",Ping_ip_array[8].ip[2]);
-//		printf("Ping_ip_array[8].ip[3]==%d\n",Ping_ip_array[8].ip[3]);
-//		
-//		printf("Ping_ip_array[9].ip[0]==%d\n",Ping_ip_array[9].ip[0]);
-//		printf("Ping_ip_array[9].ip[1]==%d\n",Ping_ip_array[9].ip[1]);
-//		printf("Ping_ip_array[9].ip[2]==%d\n",Ping_ip_array[9].ip[2]);
-//		printf("Ping_ip_array[9].ip[3]==%d\n",Ping_ip_array[9].ip[3]);
-		//GetCheckIP();
 		for(Ping_frequency=0;Ping_frequency<4;Ping_frequency++)
 		{
 		 for(counts=0;counts<MAX_IP;counts++)

@@ -58,3 +58,4 @@
 ..\obj\lwip_prvmib.o: ..\LWIP\lwip-1.4.1\src\include\lwip/err.h
 ..\obj\lwip_prvmib.o: ..\LWIP\lwip-1.4.1\src\include\lwip/snmp_asn1.h
 ..\obj\lwip_prvmib.o: ..\LWIP\lwip-1.4.1\src\include\lwip/pbuf.h
+..\obj\lwip_prvmib.o: ..\HARDWARE\ADC\adc.h

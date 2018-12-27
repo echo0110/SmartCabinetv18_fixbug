@@ -89,7 +89,7 @@ void trap_task(void * pvParameters)
 			 snmp_varbind_tail_add(&vb_list->vb_root,vb);
 		}
 		
-		vb = snmp_varbind_alloc(&objid, 4, msglen);
+//		vb = snmp_varbind_alloc(&objid, 4, msglen);
 		
 //		if (vb != NULL)
 //		{
@@ -100,7 +100,7 @@ void trap_task(void * pvParameters)
 		tcpip_callback(vSendTrapCallback2, vb_list);
 		//printf("tcpip_callback  over\n");
 		// Wait for the next cycle.
-		vTaskDelayUntil( &xLastWakeTime, 1000);
+		vTaskDelayUntil( &xLastWakeTime, 4000);
 	}   
 }
 
