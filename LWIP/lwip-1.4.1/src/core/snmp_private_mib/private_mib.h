@@ -22,6 +22,8 @@ extern struct mib_list_rootnode moduleEntry_root;
 
 void lwip_privmib_init(void);
 
+
+
 #define SNMP_PRIVATE_MIB_INIT() lwip_privmib_init()
 
 #endif

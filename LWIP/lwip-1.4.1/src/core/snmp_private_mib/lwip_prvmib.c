@@ -75,6 +75,9 @@ static void emmp_get_value(struct obj_def *od, u16_t len, void *value);
 static u8_t emmp_set_test(struct obj_def *od, u16_t len, void *value);
 static void emmp_set_value(struct obj_def *od, u16_t len, void *value);
 static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od);
+
+char* char_arrays_to_strings(u8_t *buff,u8 len);
+
 	
 #if !SENSORS_USE_FILES || !SENSORS_SEARCH_FILES
 /** When not using & searching files, defines the number of sensors */
@@ -117,8 +120,9 @@ u8_t* sys_ptr=(u8_t*)&sys_default[0];
 u8_t* sys_len_ptr = (u8_t*)&sys_len_default;
 
 
-u8_t  sys_default2[] = "nihao";
-u8_t  sys_len_default2=sizeof(sys_default2)-1;
+//u8_t  sys_default2[] = "nihao";
+u8_t  sys_default2[100];
+u8_t  sys_len_default2;//=sizeof(sys_default2)-1;
 u8_t* sys_ptr2=(u8_t*)&sys_default2[0];
 u8_t* sys_len_ptr2 = (u8_t*)&sys_len_default2;
 
@@ -140,6 +144,7 @@ u8_t* sys_len_ptr3 = (u8_t*)&sys_len_default3;
 static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od)
 {
   u8_t id;
+	char *strings;
  
   /* return to object name, adding index depth (1) */
   ident_len += 1;
@@ -164,7 +169,11 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 			  od->v_len =*sys_len_ptr;//sizeof(u32_t);			  
 				printf("case 1 \n");
         break;
-      case 2:    /* reset  */
+      case 2:    /* reset  */				
+				sprintf((char*)sys_default2, "%.2f,%.2f*", VOL, CUR);
+			  strings=char_arrays_to_strings(sys_default2,strlen((char*)sys_default2));
+			 //sys_len_default2=sizeof(strings)-1;
+			sys_len_default2=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
         od->access = MIB_OBJECT_READ_WRITE;
 			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
@@ -173,7 +182,8 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 					printf("case 2\n");
         break;
 			case 3:    /* reset  */				
-				sprintf(sys_default3, "%.2f,%.2f*", VOL, CUR);
+				sprintf((char*)sys_default3, "%.2f,%.2f*", VOL, CUR);
+			  
         od->instance = MIB_OBJECT_SCALAR;
         od->access = MIB_OBJECT_READ_WRITE;
 			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
@@ -1032,171 +1042,17 @@ sensorentry_set_value_pc(u8_t rid, struct obj_def *od)
 }
 
 
-/*****test*******/
-#if 0      
-static void emmp_get_value(struct obj_def *od, u16_t len, void *value)
+//字符数组转成字符串
+char* char_arrays_to_strings(u8_t *buff,u8 len)
 {
-  u8_t id;
- 
-  id = od->id_inst_ptr[0];
-  switch (id)
-  {
-    case 1:    /* restart  */
-      {
-        s32_t *sint_ptr = value;
-        *sint_ptr = 42;
-      }
-      break;
-    case 2:    /* reset  */
-      {
-        s32_t *sint_ptr = value;
-        *sint_ptr = 43;
-      }
-      break;
-  };
-}
-static u8_t emmp_set_test(struct obj_def *od, u16_t len, void *value)
-{
-  u8_t id, set_ok;
- 
-  set_ok = 0;
-  id = od->id_inst_ptr[0];
-  switch (id)
-  {
-    case 1:    /* restart  */
-  /* validate the value argument and set ok  */
-      break;
-    case 2:    /* reset  */
-  /* validate the value argument and set ok  */
-      break;
-  };
-  return set_ok;
-}
-static void emmp_set_value(struct obj_def *od, u16_t len, void *value)
-{
-  u8_t id;
- 
-  id = od->id_inst_ptr[0];
-  switch (id)
-  {
-    case 1:    /* restart  */
-      {
-        s32_t *sint_ptr = value;
-         //= *sint_ptr;  /* do something with the value */
-      }
-      break;
-    case 2:    /* reset  */
-      {
-        s32_t *sint_ptr = value;
-         //= *sint_ptr;  /* do something with the value */
-      }
-      break;
-  };
-}
-
-
-
-static void moduleEntry_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od)
-{
-  u8_t id;
- 
-  /* return to object name, adding index depth (1) */
-  ident_len += 1;
-  ident -= 1;
-  if (ident_len == 2)
-  {
-    od->id_inst_len = ident_len;
-    od->id_inst_ptr = ident;
- 
-    id = ident[0];
-    LWIP_DEBUGF(SNMP_MIB_DEBUG,("get_object_def private moduleEntry.%"U16_F".0\n",(u16_t)id));
-    switch (id)
-    {
-      case 1:    /* moduleIndex  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_ONLY;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 2:    /* moduleAddr  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_ONLY;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 3:    /* moduleReset  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_WRITE;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 4:    /* moduleActive  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_WRITE;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 5:    /* moduleBusy  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_ONLY;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 6:    /* moduleType  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_WRITE;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 7:    /* moduleAsDestination  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_WRITE;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
-        od->v_len = sizeof(u32_t);
-        break;
-      case 8:    /* moduleComment  */
-        od->instance = MIB_OBJECT_TAB;
-        od->access = MIB_OBJECT_READ_WRITE;
-        od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR);
-        od->v_len = sizeof(u32_t);
-        break;
-      default:
-        LWIP_DEBUGF(SNMP_MIB_DEBUG,("moduleEntry_get_object_def: no such object\n"));
-        od->instance = MIB_OBJECT_NONE;
-        break;
-    };
-  }
-  else
-  {
-    LWIP_DEBUGF(SNMP_MIB_DEBUG,("private moduleEntry_get_object_def: no scalar\n"));
-    od->instance = MIB_OBJECT_NONE;
-  }
-}
-void test(void)
-{
-	struct mib_list_rootnode *module_rn;
-	struct mib_list_node *module_node;
-	module_node = NULL;
- if(module_node->nptr == NULL) {
-        module_rn = snmp_mib_lrn_alloc();
-        module_node->nptr = (struct mib_node*)module_rn;
- 
-        if (module_rn != NULL) {
-            module_rn->get_object_def = moduleEntry_get_object_def;
-//            module_rn->get_value = moduleEntry_get_value;
-//            module_rn->set_test = moduleEntry_set_test;
-//            module_rn->set_value = moduleEntry_set_value;
-        } else {
-           printf("error\n");; // Error allocation
-        }
- 
-    } else {
-        module_rn = (struct mib_list_rootnode*)module_node->nptr;
-    }
- 
-    modulesTable.maxlength = 1;
-}
-#endif
-
+	//char a[5]={'h','e','l','l','o'};
+	int i=0;
+	char* b;
+	for(i=0;i<len;i++)
+	{
+		b[i]=buff[i];
+	}
+	return b;
+} 
 
 //#endif /* LWIP_SNMP */
