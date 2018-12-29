@@ -388,6 +388,8 @@ void MainTask(void *pParameters)
 	MSG msg;
 	u8 page;
 	u8 i;
+	u8 Flag_reset=0;
+	u8 test_water=10;
 	while (1)
 	{	
 	 if(xQueueReceive(MainTaskQueue, &msg, portMAX_DELAY) == pdPASS)
@@ -416,12 +418,22 @@ void MainTask(void *pParameters)
 				if(NMEA_GNRMC_Analysis(&gpsxSC, USART3_RX_BUF)==0)
 				if(gpsxSC.latitude!=0&&gpsxSC.longitude!=0)
 				USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
-			  if(calendar.hour==1)
+				
+//				printf("calendar.w_year=%d:calendar.w_month=%d:%d",calendar.w_year,calendar.w_month,calendar.w_date);	
+//		    printf("calendar.hour=%d:calendar.min=%d:%d",calendar.hour,calendar.min,calendar.sec);	
+			  if(calendar.hour==1&&Flag_reset)
 				{
 				 NVIC_SystemReset();
 				}
+				if(calendar.hour==2)
+				{
+				 Flag_reset=1;
+				}
 				USART3_RX_STA = 0;
-			}	
+			}
+			test_water=GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_7);
+			printf("test_water=%d\n",test_water);
+      read_Flooding();//水浸			
    		STAT_CHECK();	// 传感器状态
 			Get_Vol();		// 电压
 			Get_Cur();		// 电流

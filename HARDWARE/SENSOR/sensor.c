@@ -35,10 +35,16 @@
 #include <stdio.h>
 #include "usb_regs.h"
 #include "mqtt.h"
+#include "math.h"
+
+#include "stdlib.h"
 
 #define	USB_EP_NUM	4
 
 #define EP_BUF_ADDR (sizeof(EP_BUF_DSCR)*USB_EP_NUM)  
+
+#define Change_TEM  5//10
+#define Change_VOL  10//10
 
 //EP_BUF_DSCR *EP0_DSCR = (EP_BUF_DSCR *) 0x40006000;
 
@@ -53,6 +59,8 @@ u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_S
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 u8 stat_changed = 0;
 u32 check_stat_times;
+u8 TEM_STAT=0;
+u8 VOL_STAT=0;
 
 int SD_STAT;
 
@@ -94,8 +102,12 @@ void SENSOR_Init(void)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	// PB7	水浸
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		// 推挽
+//	GPIO_Init(GPIOB, &GPIO_InitStructure);
+
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		// 推挽
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;		// 上拉输入
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	// PC12	温湿度
@@ -256,8 +268,7 @@ void STAT_CHECK(void)
 			WATER_STAT = WATER_SENSOR;
 			stat_changed = 1;
 		}
-	}
-	
+	}		
 	
 	if(SYS12_STAT != SYS12_SENSOR) //电源1 直流12V  
 	{
@@ -297,74 +308,30 @@ void STAT_CHECK(void)
 			stat_changed = 1;
 		}
 	}		
-//	if(AC1_STAT != AC1_SENSOR())  //交流L1
-//	{
-//		delay_ms(10);
-//		if(AC1_STAT != AC1_SENSOR())
-//		{
-//			AC1_STAT = AC1_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
-//	if(AC2_STAT != AC2_SENSOR())  //交流L2
-//	{
-//		delay_ms(10);
-//		if(AC2_STAT != AC2_SENSOR())
-//		{
-//			AC2_STAT = AC2_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
-//	if(AC3_STAT != AC3_SENSOR())  //交流L3
-//	{
-//		delay_ms(10);
-//		if(AC3_STAT != AC3_SENSOR())
-//		{
-//			AC3_STAT = AC3_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
-//	if(DC1_STAT != DC1_SENSOR())  //直流DC1
-//	{
-//		delay_ms(10);
-//		if(DC1_STAT != DC1_SENSOR())
-//		{
-//			DC1_STAT = DC1_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
-//	if(DC2_STAT != DC2_SENSOR())  //直流DC2
-//	{
-//		delay_ms(10);
-//		if(DC2_STAT  !=DC2_SENSOR())
-//		{
-//			DC2_STAT = DC2_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
-	
-//	if(DC3_STAT != DC3_SENSOR())  //直流DC3
-//	{
-//		delay_ms(10);
-//		if(DC3_STAT != DC3_SENSOR())
-//		{
-//			DC3_STAT = DC3_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
-//	if(DC4_STAT != DC4_SENSOR())  //直流DC4
-//	{
-//		delay_ms(10);
-//		if(DC4_STAT != DC4_SENSOR())
-//		{
-//			DC4_STAT = DC4_SENSOR();
-//			stat_changed = 1;
-//		}
-//	}
+
 
 	vTaskSuspendAll();
 	GET_AM2301_Data();
-	xTaskResumeAll();	
+	xTaskResumeAll();
+
+  if((abs)(TEM_STAT-TEM)>=Change_TEM)  //温度 变化 20% 5度 
+	{
+		delay_ms(10);
+		if((abs)(TEM_STAT-TEM)>Change_TEM)
+		{
+			TEM_STAT = TEM;
+			stat_changed = 1;
+		}
+	}	
+	if((abs)(VOL_STAT-VOL)>=Change_VOL)  //电压 变化 10V 20V
+	{
+		delay_ms(10);
+		if((abs)(VOL_STAT-VOL)>Change_VOL)
+		{
+			VOL_STAT = VOL;
+			stat_changed = 1;
+		}
+	}	
 }
 
 /*

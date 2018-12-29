@@ -99,8 +99,8 @@ void trap_task(void * pvParameters)
 //		} 
 		
 		tcpip_callback(vSendTrapCallback2, vb_list);
-		RTC_Get();//更新时间	
-		printf("calendar.hour=%d:calendar.min=%d:%d",calendar.hour,calendar.min,calendar.sec);	
+		//RTC_Get();//更新时间	
+		
 		
 		//printf("tcpip_callback  over\n");
 		// Wait for the next cycle.

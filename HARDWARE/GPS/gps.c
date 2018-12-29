@@ -266,7 +266,7 @@ int NMEA_GNRMC_Analysis(nmea_msg *gpsx, u8 *buf)
 		 calendar.hour=calendar.hour-24;
 		}
     calendar.min=gpsx->utc.min;
-    calendar.min=gpsx->utc.sec;	
+    calendar.sec=gpsx->utc.sec;	
 	}
 	else return -1;
 	
@@ -320,7 +320,7 @@ int NMEA_GNRMC_Analysis(nmea_msg *gpsx, u8 *buf)
 		
 		calendar.w_year=gpsx->utc.year;
 		calendar.w_month=gpsx->utc.month;
-		calendar.w_date=gpsx->utc.year;
+		calendar.w_date=gpsx->utc.date;
 	}
 	else return -1;
 	

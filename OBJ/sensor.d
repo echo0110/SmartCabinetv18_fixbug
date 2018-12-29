@@ -96,3 +96,5 @@
 ..\obj\sensor.o: ..\MQTT\mqtt.h
 ..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\sensor.o: ..\USB\STM32_USB-FS-Device_Driver\inc\usb_regs.h
+..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

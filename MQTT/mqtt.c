@@ -30,6 +30,9 @@
 
 #define Change_percent  10//10
 
+
+#define Change_CUR  10//10
+
 u8 no_mqtt_msg_exchange = 1;
 //u32 no_mqtt_msg_times;
 u16 publishSpaces = MAX_PUB_TIME*10;
@@ -209,6 +212,7 @@ MQTT_START:
 	{ 
 		
 		u8 latitude_temp,longitude_temp;
+		u16 TEM_temp,VOL_temp,CUR_temp;
 		vTaskDelayUntil(&xLastExecutionTime, 100);//100ms,configTICK_RATE_HZ / SYS_TICK_RATE_HZ
 		publishSpaces++;pingSpaces++;
     		
@@ -216,7 +220,7 @@ MQTT_START:
 		/* 发送事件标志，表示任务正常运行 */
 	 // xEventGroupSetBits(xCreatedEventGroup, TASK_BIT_MQTT);		
 		
-		//每隔MAX_PUB_TIME秒发布一次消息
+		//每隔MAX_PUB_TIME秒发布一次消息   正常情况下一分钟一次,发生变化比较明显时,直接立马推送 温度和电压  
 		if((publishSpaces>MAX_PUB_TIME*10) || (!no_mqtt_msg_exchange))
 		{
 			publishSpaces = 0;
@@ -228,11 +232,11 @@ MQTT_START:
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
 			
-			if(abs(gpsxSC.latitude/100000-latitude_temp/100000)/(gpsxSC.latitude/100000)*100>Change_percent|| \
-			abs(gpsxSC.longitude/100000-gpsxSC.longitude/100000)/(gpsxSC.longitude/100000)*100>Change_percent) //大于百分之10
+//			if(abs(gpsxSC.latitude/100000-latitude_temp/100000)/(gpsxSC.latitude/100000)*100>Change_percent|| \
+//			abs(gpsxSC.longitude/100000-gpsxSC.longitude/100000)/(gpsxSC.longitude/100000)*100>Change_percent) //大于百分之10
 			{
-		  latitude_temp=gpsxSC.latitude;
-		  longitude_temp=gpsxSC.longitude;
+//		  latitude_temp=gpsxSC.latitude;
+//		  longitude_temp=gpsxSC.longitude;
 			sprintf(topic, "GPSSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%c,%d.%d,%c,%d.%d*", gpsxSC.nshemi, gpsxSC.latitude/100000, gpsxSC.latitude%100000, gpsxSC.ewhemi, gpsxSC.longitude/100000, gpsxSC.longitude%100000);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
@@ -245,7 +249,15 @@ MQTT_START:
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
-		}		
+		}
+		//温度或电压 
+    if(stat_changed==1)
+		{
+			stat_changed=0;
+			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
+			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
+			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
+		}			
 		if(USART2_RX_STA & 0X8000)
 		{
 			type = MQTTPacket_read(buf, buflen, getMQTTData);

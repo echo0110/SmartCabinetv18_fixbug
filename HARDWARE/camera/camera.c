@@ -395,7 +395,7 @@ char* time_to_timestamp(void)
 void time_to_sd_path(char *buff)
 {
 	char test_buf[100];
-	RTC_Get();//更新时间	
+	//RTC_Get();//更新时间	
 	sprintf(buff, "%d:%d_%d_%d_%d_%d_%d.%s",0,calendar.w_year,calendar.w_month,calendar.w_date,
 	calendar.hour,calendar.min,calendar.sec,"jpeg");	
 }

@@ -214,7 +214,7 @@ void output_control_default(void)
  */
 void read_Flooding(void)
 {
-	if(GPIO_ReadOutputDataBit(GPIOB,GPIO_Pin_7)==0) //水浸
+	if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_7)==0) //水浸
 	{
 	 GPIO_SetBits(GPIOE,GPIO_Pin_6);//关L1
    GPIO_SetBits(GPIOF,GPIO_Pin_7);//关L2					 
