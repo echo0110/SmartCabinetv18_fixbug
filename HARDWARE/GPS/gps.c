@@ -7,6 +7,7 @@
 #include "math.h"
 #include "print.h"
 #include "FreeRTOS.h"
+#include "rtc.h"
 
 nmea_msg gpsxSC;
 const u32 BAUD_id[9]={4800,9600,19200,38400,57600,115200,230400,460800,921600};//模块支持波特率数组
@@ -256,6 +257,16 @@ int NMEA_GNRMC_Analysis(nmea_msg *gpsx, u8 *buf)
 		gpsx->utc.hour = temp/10000;
 		gpsx->utc.min = (temp/100)%100;
 		gpsx->utc.sec = temp%100;
+		
+		
+		
+		calendar.hour=gpsx->utc.hour+8;
+		if(calendar.hour>=24)
+		{
+		 calendar.hour=calendar.hour-24;
+		}
+    calendar.min=gpsx->utc.min;
+    calendar.min=gpsx->utc.sec;	
 	}
 	else return -1;
 	
@@ -306,6 +317,10 @@ int NMEA_GNRMC_Analysis(nmea_msg *gpsx, u8 *buf)
 		gpsx->utc.date = temp/10000;
 		gpsx->utc.month = (temp/100)%100;
 		gpsx->utc.year = 2000+temp%100;
+		
+		calendar.w_year=gpsx->utc.year;
+		calendar.w_month=gpsx->utc.month;
+		calendar.w_date=gpsx->utc.year;
 	}
 	else return -1;
 	

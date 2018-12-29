@@ -87,3 +87,4 @@
 ..\obj\trap.o: ..\HARDWARE\DM9000\dm9000.h
 ..\obj\trap.o: ..\HARDWARE\camera\camera.h
 ..\obj\trap.o: ..\HARDWARE\ADC\adc.h
+..\obj\trap.o: ..\SYSTEM\rtc\rtc.h

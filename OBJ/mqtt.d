@@ -86,3 +86,4 @@
 ..\obj\mqtt.o: ..\FreeRTOS\include\event_groups.h
 ..\obj\mqtt.o: ..\FreeRTOS\include\timers.h
 ..\obj\mqtt.o: ..\LWIP\lwip_app\web_server_demo\httpd.h
+..\obj\mqtt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

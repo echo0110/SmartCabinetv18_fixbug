@@ -46,6 +46,8 @@
 EP_BUF_DSCR * pBUF_DSCR = (EP_BUF_DSCR *) 0x40006000; 
 
 float TEM = 0, HUM = 0;
+u16 temp=0;
+//float  HUM = 0;
 u8 DOOR_STAT=1, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STAT;
 u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
@@ -54,6 +56,11 @@ u32 check_stat_times;
 
 int SD_STAT;
 
+//union data_TEM 
+//{
+// char c[4];
+// float TEM;
+//} union_TEM;
 
 void USB_CTR_Handler(void);
 extern xQueueHandle MainTaskQueue;
@@ -212,7 +219,7 @@ void GET_AM2301_Data(void)
 			HUM = Sensor_Data[0]*256 + Sensor_Data[1];
 			HUM = HUM/10;
 			TEM = Sensor_Data[2]*256 + Sensor_Data[3];
-			if(TEM >= 0x8000)TEM = 0-TEM/10;
+      if(TEM >= 0x8000)TEM = 0-(TEM-0x8000)/10;
 			else TEM = TEM/10;			
 			if(TEM > 42)
 			{

@@ -764,17 +764,17 @@ const mib_scalar_node sys_tem_scalar5 = {
 };
 
 /* mgmt .1.3.6.1.2.1.6 */
-const s32_t mib2_ids5[1] = {6};
-struct mib_node* const mib2_nodes5[1] = { (struct mib_node*)&sys_tem_scalar5 };
+//const s32_t mib2_ids5[1] = {1};
+//struct mib_node* const mib2_nodes5[1] = { (struct mib_node*)&sys_tem_scalar5 };
 const struct mib_array_node mib5  ={
   &noleafs_get_object_def,
   &noleafs_get_value,
   &noleafs_set_test,
   &noleafs_set_value,
   MIB_NODE_AR,
-	1,
-  mib2_ids5,
-  mib2_nodes5
+	8,
+  mib2_ids,
+  mib2_nodes
 };
 
 /* mgmt .1.3.6.1.2.1 */

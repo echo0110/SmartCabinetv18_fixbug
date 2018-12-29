@@ -64,7 +64,7 @@ const struct t_Month MonthTable[] =
 +--------------------------------------------------------------------------*/
 u32 _mktime(Rtc_Time *tm);
 int _localtime(u32 timereg, Rtc_Time *tm);
-void _WriteTime(u16 year, u8 month, u8 date, u8 hour, u8 minute, u8 second);
+ void _WriteTime(u16 year, u8 month, u8 date, u8 hour, u8 minute, u8 second);
 
 /*--------------------------------------------------------------------------+
 | System Initialization Routines                                            |

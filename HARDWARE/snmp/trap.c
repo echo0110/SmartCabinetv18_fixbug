@@ -15,6 +15,7 @@
 #include "semphr.h"
 #include "camera.h"
 #include "adc.h"
+#include "rtc.h"
 
 
 #define NUM_PRIVATE_TRAP_LIST    5
@@ -98,6 +99,9 @@ void trap_task(void * pvParameters)
 //		} 
 		
 		tcpip_callback(vSendTrapCallback2, vb_list);
+		RTC_Get();//更新时间	
+		printf("calendar.hour=%d:calendar.min=%d:%d",calendar.hour,calendar.min,calendar.sec);	
+		
 		//printf("tcpip_callback  over\n");
 		// Wait for the next cycle.
 		vTaskDelayUntil( &xLastWakeTime, 4000);

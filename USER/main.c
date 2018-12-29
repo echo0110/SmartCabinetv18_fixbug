@@ -64,6 +64,8 @@
 #include "sensor.h"
 #include "iwdg.h"
 
+#include "rtc.h"
+
 
 
 
@@ -79,6 +81,7 @@ extern const char ReleaseVersion[];
 //TaskHandle_t WDGTask_Handler;
 //void vTaskWDG(void *pvParameters);
 
+void _WriteTime(u16 year, u8 month, u8 date, u8 hour, u8 minute, u8 second);
 
 
 //#define MAIN_TASK_PRIORITY			2//8//2//5//2//5//(tskIDLE_PRIORITY + 2)
@@ -273,7 +276,12 @@ int main(void)
   output_control_default();	
 	
 	snmp_init();
-		
+	
+	//RTC_SetTime(12, 30, 0);	
+//	_WriteTime(2018,12, 29, 4, 30, 0);
+ //	_WriteTime(2018,12, 29, 6, 30, 0);
+//		
+//	RTC_Get();
 	USB_Queue= xQueueCreate(30, sizeof( int16_t ));
 	
 	MainTaskQueue= xQueueCreate(MAIN_QUEUE_SIZE, sizeof(MSG));
@@ -408,7 +416,10 @@ void MainTask(void *pParameters)
 				if(NMEA_GNRMC_Analysis(&gpsxSC, USART3_RX_BUF)==0)
 				if(gpsxSC.latitude!=0&&gpsxSC.longitude!=0)
 				USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
-
+			  if(calendar.hour==1)
+				{
+				 NVIC_SystemReset();
+				}
 				USART3_RX_STA = 0;
 			}	
    		STAT_CHECK();	// 传感器状态
@@ -425,6 +436,11 @@ void MainTask(void *pParameters)
 		} 		
 		case MSG_TICK_60_SECOND:
 		{ 
+			//RTC_Get();//更新时间	
+//			if(calendar.hour==1)
+//			{
+//			 NVIC_SystemReset();
+//			}
 			break;
 		} 
 		case MSG_UART1_RX_BYTE:
