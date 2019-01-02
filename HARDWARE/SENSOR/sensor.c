@@ -58,6 +58,7 @@ u8 DOOR_STAT=1, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STA
 u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 u8 stat_changed = 0;
+u8 tem_stat_changed=0,vol_stat_changed= 0;
 u32 check_stat_times;
 u8 TEM_STAT=0;
 u8 VOL_STAT=0;
@@ -106,6 +107,7 @@ void SENSOR_Init(void)
 //	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		// 推挽
 //	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
+  // PB7	水浸
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;		// 上拉输入
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
@@ -140,10 +142,10 @@ void SENSOR_Init(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	// 推挽输出
 	GPIO_Init(GPIOB, &GPIO_InitStructure);	
-	// PB7	水浸
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;		// 下拉输入
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
+//	// PB7	水浸
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;		// 下拉输入
+//	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	// PE2	V3
 	// PE3	V2
@@ -320,7 +322,7 @@ void STAT_CHECK(void)
 		if((abs)(TEM_STAT-TEM)>Change_TEM)
 		{
 			TEM_STAT = TEM;
-			stat_changed = 1;
+			tem_stat_changed = 1;
 		}
 	}	
 	if((abs)(VOL_STAT-VOL)>=Change_VOL)  //电压 变化 10V 20V
@@ -329,7 +331,7 @@ void STAT_CHECK(void)
 		if((abs)(VOL_STAT-VOL)>Change_VOL)
 		{
 			VOL_STAT = VOL;
-			stat_changed = 1;
+			vol_stat_changed = 1;
 		}
 	}	
 }

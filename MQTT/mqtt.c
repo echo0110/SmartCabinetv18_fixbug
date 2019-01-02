@@ -251,7 +251,7 @@ MQTT_START:
 			vTaskDelay(100/portTICK_RATE_MS);
 		}
 		//ÎÂ¶È»òµçÑ¹ 
-    if(stat_changed==1)
+    if(tem_stat_changed==1||vol_stat_changed==1)
 		{
 			stat_changed=0;
 			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);

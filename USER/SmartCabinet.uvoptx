@@ -77,7 +77,7 @@
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
-      <CpuCode>255</CpuCode>
+      <CpuCode>18</CpuCode>
       <Books>
         <Book>
           <Number>0</Number>
@@ -176,27 +176,27 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART2_RX_BUF</ItemText>
+          <ItemText>USART3_RX_BUF</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_MAC</ItemText>
+          <ItemText>posx+1</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART3_RX_BUF[600]</ItemText>
+          <ItemText>posx+2</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DMA_Rece_Buf</ItemText>
+          <ItemText>posx+3,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buf_test[0]</ItemText>
+          <ItemText>posx+4,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
@@ -216,7 +216,7 @@
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>sys_default3</ItemText>
+          <ItemText>buf</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
@@ -256,7 +256,7 @@
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>msg</ItemText>
+          <ItemText>temp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>17</count>
@@ -271,252 +271,277 @@
         <Ww>
           <count>19</count>
           <WinNumber>1</WinNumber>
-          <ItemText>str_len,0x0A</ItemText>
+          <ItemText>calendar</ItemText>
         </Ww>
         <Ww>
           <count>20</count>
           <WinNumber>1</WinNumber>
-          <ItemText>temp_str</ItemText>
+          <ItemText>file3-&gt;fsize,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>21</count>
           <WinNumber>1</WinNumber>
-          <ItemText>file3-&gt;fsize,0x0A</ItemText>
+          <ItemText>temp_md5</ItemText>
         </Ww>
         <Ww>
           <count>22</count>
           <WinNumber>1</WinNumber>
-          <ItemText>temp_md5</ItemText>
+          <ItemText>digest_temp</ItemText>
         </Ww>
         <Ww>
           <count>23</count>
           <WinNumber>1</WinNumber>
-          <ItemText>digest_temp</ItemText>
+          <ItemText>CHECK_IP[0]</ItemText>
         </Ww>
         <Ww>
           <count>24</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[0]</ItemText>
+          <ItemText>CHECK_IP[1]</ItemText>
         </Ww>
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[1]</ItemText>
+          <ItemText>CHECK_IP[2]</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[2]</ItemText>
+          <ItemText>data[2]</ItemText>
         </Ww>
         <Ww>
           <count>27</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data[2]</ItemText>
+          <ItemText>calendar,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>28</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC.nshemi</ItemText>
+          <ItemText>gpsxSC.ewhemi</ItemText>
         </Ww>
         <Ww>
           <count>29</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC.ewhemi</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>30</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>data[1]</ItemText>
         </Ww>
         <Ww>
           <count>31</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>test12</ItemText>
         </Ww>
         <Ww>
           <count>32</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data[1]</ItemText>
+          <ItemText>TASK_BIT_camera_flag</ItemText>
         </Ww>
         <Ww>
           <count>33</count>
           <WinNumber>1</WinNumber>
-          <ItemText>test12</ItemText>
+          <ItemText>buf</ItemText>
         </Ww>
         <Ww>
           <count>34</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TASK_BIT_camera_flag</ItemText>
+          <ItemText>gpsxSC</ItemText>
         </Ww>
         <Ww>
           <count>35</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buf</ItemText>
+          <ItemText>gpsxSC.latitude</ItemText>
         </Ww>
         <Ww>
           <count>36</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC</ItemText>
+          <ItemText>Ping_ip_arrry[0].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>37</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC.latitude</ItemText>
+          <ItemText>Ping_ip_arrry[0].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>38</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[0].ip[2],0x0A</ItemText>
+          <ItemText>buf_test[0]</ItemText>
         </Ww>
         <Ww>
           <count>39</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[0].ip[3],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>40</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buf_test[0]</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>41</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>42</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[1],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>43</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[2],0x0A</ItemText>
+          <ItemText>ip_buf[2]</ItemText>
         </Ww>
         <Ww>
           <count>44</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[3],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>45</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ip_buf[2]</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>46</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>47</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[1],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>48</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[2],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>49</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[3],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>50</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[2]</ItemText>
         </Ww>
         <Ww>
           <count>51</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[1]</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>52</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[2]</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>53</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[3],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>54</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>55</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[1],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[3]</ItemText>
         </Ww>
         <Ww>
           <count>56</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[2],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[8].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>57</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[3]</ItemText>
+          <ItemText>Ping_ip_arrry[8].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>58</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[8].ip[0]</ItemText>
+          <ItemText>ping_dst,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>59</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[8].ip[1]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>60</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ping_dst,0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>61</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[2]</ItemText>
         </Ww>
         <Ww>
           <count>62</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[1]</ItemText>
+          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>63</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[2]</ItemText>
+          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>64</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
+          <ItemText>CHECK_IP[counts]</ItemText>
         </Ww>
         <Ww>
           <count>65</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
+          <ItemText>IP_STAT[counts]</ItemText>
         </Ww>
         <Ww>
           <count>66</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[counts]</ItemText>
+          <ItemText>msg</ItemText>
         </Ww>
         <Ww>
           <count>67</count>
           <WinNumber>1</WinNumber>
-          <ItemText>IP_STAT[counts]</ItemText>
+          <ItemText>gpsx,0x10</ItemText>
         </Ww>
         <Ww>
           <count>68</count>
           <WinNumber>1</WinNumber>
-          <ItemText>msg</ItemText>
+          <ItemText>gpsx-&gt;utc.hour,0x10</ItemText>
+        </Ww>
+        <Ww>
+          <count>69</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>gpsx-&gt;utc.min,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>70</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>gpsx-&gt;utc.sec,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>71</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>gpsx-&gt;utc.date,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>72</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>calendar.hour,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>73</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>calendar,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

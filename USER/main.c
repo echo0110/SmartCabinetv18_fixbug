@@ -219,7 +219,7 @@ int main(void)
 	USART3_Init(38400);
  	UART4_Init(14400);
 	printf("........ SC System Power On .......\r\n");
-	printf("........ update v0.4 .......\r\n");
+	printf("........ update v0.5 .......\r\n");
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();

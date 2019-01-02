@@ -131,6 +131,9 @@ extern u8 AC1_STAT, AC2_STAT, AC3_STAT, fan_STAT, alarm_STAT, light_STAT,heat_ST
 extern u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 extern u8 stat_changed;
 
+extern u8 tem_stat_changed;
+extern u8 vol_stat_changed;
+
 extern int SD_STAT;
 
 void SENSOR_Init(void);
