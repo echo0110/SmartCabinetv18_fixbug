@@ -70,6 +70,7 @@
 #include "snmp_structs.h"
 #include "adc.h"
 #include "string.h"
+#include "sensor.h"
 void test(void);
 void ocstrncpy2(u8_t *dst, u8_t *src, u16_t n);
 static void emmp_get_value(struct obj_def *od, u16_t len, void *value);
@@ -121,25 +122,128 @@ u8_t* sys_ptr=(u8_t*)&sys_default[0];
 u8_t* sys_len_ptr = (u8_t*)&sys_len_default;
 
 
-u8_t  sys_default2[] = "nihao";
-u8_t  sys_len_default2=sizeof(sys_default2)-1;
+//u8_t  sys_default2[] = "nihao";
+u8_t  sys_default2[10];
+u8_t  sys_len_default2;
+//u8_t  sys_len_default2=sizeof(sys_default2)-1;
 u8_t* sys_ptr2=(u8_t*)&sys_default2[0];
 u8_t* sys_len_ptr2 = (u8_t*)&sys_len_default2;
 
-
-u8_t  sys_default3[100];
+//TEM
+u8_t  sys_default3[10];
 u8_t  sys_len_default3;//=14;//sizeof(sys_default3)-1;
 //u8_t  sys_len_default3;//=strlen(sys_default3);
 u8_t* sys_ptr3=(u8_t*)&sys_default3[0];
 u8_t* sys_len_ptr3 = (u8_t*)&sys_len_default3;
 
+//HUM
+u8_t  sys_default4[10];
+u8_t  sys_len_default4;
+u8_t* sys_ptr4=(u8_t*)&sys_default4[0];
+u8_t* sys_len_ptr4 = (u8_t*)&sys_len_default4;
 
-u8_t  sys_default9[]="test11";
-u8_t  sys_len_default9=sizeof(sys_len_default9)-1;
+
+//水浸
+u8_t  sys_default5[5];
+u8_t  sys_len_default5;
+u8_t* sys_ptr5=(u8_t*)&sys_default5[0];
+u8_t* sys_len_ptr5 =(u8_t*)&sys_len_default5;
+
+//门禁
+u8_t  sys_default6[5];
+u8_t  sys_len_default6;
+u8_t* sys_ptr6=(u8_t*)&sys_default6[0];
+u8_t* sys_len_ptr6 =(u8_t*)&sys_len_default6;
+
+//直流电源
+u8_t  sys_default7[5];
+u8_t  sys_len_default7;
+u8_t* sys_ptr7=(u8_t*)&sys_default7[0];
+u8_t* sys_len_ptr7 =(u8_t*)&sys_len_default7;
+
+//备用电源
+u8_t  sys_default8[5];
+u8_t  sys_len_default8;
+u8_t* sys_ptr8=(u8_t*)&sys_default8[0];
+u8_t* sys_len_ptr8 =(u8_t*)&sys_len_default8;
+
+//UPS电源
+u8_t  sys_default9[5];
+u8_t  sys_len_default9;
 u8_t* sys_ptr9=(u8_t*)&sys_default9[0];
-u8_t* sys_len_ptr9 = (u8_t*)&sys_len_default9;
-char msg[200];
+u8_t* sys_len_ptr9 =(u8_t*)&sys_len_default9;
 
+//特殊电源
+u8_t  sys_default10[5];
+u8_t  sys_len_default10;
+u8_t* sys_ptr10=(u8_t*)&sys_default10[0];
+u8_t* sys_len_ptr10=(u8_t*)&sys_len_default10;
+
+//输出AC1
+u8_t  sys_default_ac1[5];
+u8_t  sys_len_default_ac1;
+u8_t* sys_ptr_ac1=(u8_t*)&sys_default_ac1[0];
+u8_t* sys_len_ptr_ac1=(u8_t*)&sys_len_default_ac1;
+
+//输出AC2
+u8_t  sys_default_ac2[5];
+u8_t  sys_len_default_ac2;
+u8_t* sys_ptr_ac2=(u8_t*)&sys_default_ac2[0];
+u8_t* sys_len_ptr_ac2=(u8_t*)&sys_len_default_ac2;
+
+//输出AC3
+u8_t  sys_default_ac3[5];
+u8_t  sys_len_default_ac3;
+u8_t* sys_ptr_ac3=(u8_t*)&sys_default_ac3[0];
+u8_t* sys_len_ptr_ac3=(u8_t*)&sys_len_default_ac3;
+
+//风扇
+u8_t  sys_default_fan[5];
+u8_t  sys_len_default_fan;
+u8_t* sys_ptr_fan=(u8_t*)&sys_default_fan[0];
+u8_t* sys_len_ptr_fan=(u8_t*)&sys_len_default_fan;
+
+//警报
+u8_t  sys_default_alarlm[5];
+u8_t  sys_len_default_alarlm;
+u8_t* sys_ptr_alarlm=(u8_t*)&sys_default_alarlm[0];
+u8_t* sys_len_ptr_alarlm=(u8_t*)&sys_len_default_alarlm;
+
+//照明
+u8_t  sys_default_light[5];
+u8_t  sys_len_default_light;
+u8_t* sys_ptr_light=(u8_t*)&sys_default_light[0];
+u8_t* sys_len_ptr_light=(u8_t*)&sys_len_default_light;
+
+//加热
+u8_t  sys_default_heat[5];
+u8_t  sys_len_default_heat;
+u8_t* sys_ptr_heat=(u8_t*)&sys_default_heat[0];
+u8_t* sys_len_ptr_heat=(u8_t*)&sys_len_default_heat;
+
+//输出DC1
+u8_t  sys_default_dc1[5];
+u8_t  sys_len_default_dc1;
+u8_t* sys_ptr_dc1=(u8_t*)&sys_default_dc1[0];
+u8_t* sys_len_ptr_dc1=(u8_t*)&sys_len_default_dc1;
+
+//输出DC2
+u8_t  sys_default_dc2[5];
+u8_t  sys_len_default_dc2;
+u8_t* sys_ptr_dc2=(u8_t*)&sys_default_dc2[0];
+u8_t* sys_len_ptr_dc2=(u8_t*)&sys_len_default_dc2;
+
+//输出DC3
+u8_t  sys_default_dc3[5];
+u8_t  sys_len_default_dc3;
+u8_t* sys_ptr_dc3=(u8_t*)&sys_default_dc3[0];
+u8_t* sys_len_ptr_dc3=(u8_t*)&sys_len_default_dc3;
+
+//输出特殊 DC4
+u8_t  sys_default_dc4[5];
+u8_t  sys_len_default_dc4;
+u8_t* sys_ptr_dc4=(u8_t*)&sys_default_dc4[0];
+u8_t* sys_len_ptr_dc4=(u8_t*)&sys_len_default_dc4;
 
 
 /*
@@ -175,7 +279,11 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 			  od->v_len =*sys_len_ptr;//sizeof(u32_t);			  
 				printf("case 1 \n");
         break;
-      case 2:    /* reset  */
+      case 2:    /* cur  */
+				sprintf((char*)sys_default2, "%.2f", CUR);
+			  strings=char_arrays_to_strings(sys_default2,strlen((char*)sys_default2));
+			  sys_len_default2=strlen(strings);
+			
         od->instance = MIB_OBJECT_SCALAR;
         od->access = MIB_OBJECT_READ_WRITE;
 			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
@@ -183,8 +291,8 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr2;
 					printf("case 2\n");
         break;
-			case 3:    /* reset  */					
-			  sprintf((char*)sys_default3, "%.2f,%.2f*", VOL, CUR);
+			case 3:    /* TEM  */					
+			  sprintf((char*)sys_default3, "%.1f",TEM);
 			  strings=char_arrays_to_strings(sys_default3,strlen((char*)sys_default3));
 			  sys_len_default3=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -194,15 +302,68 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
           od->v_len = *sys_len_ptr3;
 					printf("case 3\n");
         break;
-//			case 9:    /* reset  */				
-//				//sprintf(sys_default11, "%.2f,%.2f*", VOL, CUR);
-//        od->instance = MIB_OBJECT_SCALAR;
-//        od->access = MIB_OBJECT_READ_WRITE;
-//			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
-//        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
-//          od->v_len = *sys_len_ptr9;
-//					printf("case 9\n");
-//        break;
+			case 4:    /* HUM  */				
+				sprintf((char*)sys_default4, "%.1f",HUM);
+			  strings=char_arrays_to_strings(sys_default4,strlen((char*)sys_default4));
+			  sys_len_default4=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+          od->v_len = *sys_len_ptr4;
+					printf("case 4\n");
+        break;
+			case 5:    /* 水浸  */				
+				sprintf((char*)sys_default5,  "%d",WATER_STAT);
+			  strings=char_arrays_to_strings(sys_default5,strlen((char*)sys_default5));
+			  sys_len_default5=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr5;
+        break;
+			case 6:    /* 门禁  */				
+				sprintf((char*)sys_default6, "%d",DOOR_STAT);
+			  strings=char_arrays_to_strings(sys_default6,strlen((char*)sys_default6));
+			  sys_len_default6=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr6;
+				printf("case 6\n");
+        break;
+			case 7:    /* 直流电源 */				
+				sprintf((char*)sys_default7, "%d",SYS12_STAT);
+			  strings=char_arrays_to_strings(sys_default7,strlen((char*)sys_default7));
+			  sys_len_default7=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr7;
+        break;
+			case 8:   /*备用电源*/			
+				sprintf((char*)sys_default8, "%d",BAK12_STAT);
+			  strings=char_arrays_to_strings(sys_default8,strlen((char*)sys_default8));
+			  sys_len_default8=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr8;
+        break;
+			case 9:   /*ups电源*/		
+				sprintf((char*)sys_default9, "%d",UPS_STAT);
+			  strings=char_arrays_to_strings(sys_default9,strlen((char*)sys_default9));
+			  sys_len_default9=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr9;
+        break;
       default:
         LWIP_DEBUGF(SNMP_MIB_DEBUG,("emmp_get_object_def: no such object\n"));
         od->instance = MIB_OBJECT_NONE;
@@ -236,7 +397,7 @@ static void emmp_get_value(struct obj_def *od, u16_t len, void *value)
 				ocstrncpy2((u8_t*)sint_ptr, sys_ptr, len);
       }
       break;
-    case 2:    /* reset  */
+    case 2:    /* CUR  */
       {
         s32_t *sint_ptr = value;
         printf("id2=%d\n",id);
@@ -251,13 +412,43 @@ static void emmp_get_value(struct obj_def *od, u16_t len, void *value)
 				ocstrncpy2((u8_t*)sint_ptr, sys_ptr3, len);
 			}
 		break;
-//		case 11:    /* reset  */
-//		{
-//			s32_t *sint_ptr = value;
-//			printf("id2=%d\n",id);
-//			ocstrncpy2((u8_t*)sint_ptr, sys_ptr11, len);
-//		}
-//      break;
+		case 4:    /*HUM*/
+		{
+			s32_t *sint_ptr = value;
+			printf("id2=%d\n",id);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr4, len);
+		}
+      break;
+		case 5:    /*水浸*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr5, len);
+		}
+      break;
+		case 6:    /*门禁*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr6, len);
+		}
+      break;
+		case 7:    /*直流电源*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr7, len);
+		}
+      break;
+		case 8:    /*备用电源*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr8, len);
+		}
+      break;
+		case 9:   /*ups电源*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr9, len);
+		}
+      break;
   };
 }
 /*
@@ -463,13 +654,13 @@ const mib_scalar_node sys_tem_scalar2 = {
   MIB_NODE_SC,
   0
 };
-const s32_t sys_tem_ids22[7] ={ 1, 2, 3, 4, 5, 6, 7 };
-struct mib_node* const sys_tem_nodes22[7] = {
+const s32_t sys_tem_ids22[9] ={ 1, 2, 3, 4, 5, 6, 7,8,9};
+struct mib_node* const sys_tem_nodes22[9] = {
+  (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2
-
 };
 
 
@@ -483,7 +674,7 @@ const struct mib_array_node sys_tem2 = {
   &noleafs_set_test,
   &noleafs_set_value,
   MIB_NODE_AR,
-  7,
+  9,
   sys_tem_ids22,
   sys_tem_nodes22
 };
