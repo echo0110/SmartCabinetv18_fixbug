@@ -130,3 +130,13 @@
 ..\obj\main.o: ..\USB\CONFIG\usb_prop.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\IWDG\iwdg.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip\dns.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/api.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netbuf.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip/lwip_sys.h
+..\obj\main.o: ..\LWIP\arch/sys_arch.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\main.o: ..\FreeRTOS\include\StackMacros.h
+..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/inet.h

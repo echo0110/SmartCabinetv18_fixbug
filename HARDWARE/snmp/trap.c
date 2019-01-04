@@ -17,6 +17,8 @@
 #include "adc.h"
 #include "rtc.h"
 
+#include "lwip_comm.h" 
+
 
 #define NUM_PRIVATE_TRAP_LIST    5
 extern struct snmp_msg_trap trap_msg;
@@ -38,8 +40,14 @@ void trap_task(void * pvParameters)
 	char msg[200];
 	
 	
+	struct snmp_obj_id objid = {10, {1,3,6,1,4,1,1,1,1}};
 	
-	struct snmp_obj_id objid = {10, {1, 3, 6, 1, 4,1,26381,1,1,1}};
+//	struct snmp_obj_id objid_vol = {10, {1,3,6,1,4,1,1,1,1}};	
+//	struct snmp_obj_id objid_cur = {10, {1,3,6,1,4,1,1,1,2}};	
+//	struct snmp_obj_id objid_vol = {10, {1,3,6,1,4,1,1,1,1}};	
+//	struct snmp_obj_id objid_cur = {10, {1,3,6,1,4,1,1,1,2}};
+	
+	//struct snmp_obj_id objid_cur = {10, {1,3,6,1,4,1,1,1,2}};
 	//static unsigned char msg[]  = "Alexandre_Malo-mpbc_ca";
 //	static u8 msg[]  = "220,1.2,25.5,95,0,0,1,1,1,1*";
 //	static u8 msg2[] = "salut simon, c'est mal";
@@ -59,10 +67,10 @@ void trap_task(void * pvParameters)
 //											 ((u32_t)((ini_getl("snmp",	"ip1",	168,	inifile)) & 0xff) << 8)  | \
 //												(u32_t)((ini_getl("snmp",	"ip0",	192,	inifile)) & 0xff);
 	
-		trap_addr.addr=((u32_t)((236) & 0xff) << 24) | \
-											 ((u32_t)((0) & 0xff) << 16) | \
-											 ((u32_t)((168) & 0xff) << 8)  | \
-												(u32_t)((192) & 0xff);
+	trap_addr.addr=((u32_t)((lwipdev.snmpip[3]) & 0xff) << 24) | \
+											 ((u32_t)((lwipdev.snmpip[2]) & 0xff) << 16) | \
+											 ((u32_t)((lwipdev.snmpip[1]) & 0xff) << 8)  | \
+												(u32_t)((lwipdev.snmpip[0]) & 0xff);
 	snmp_trap_dst_ip_set(0,&trap_addr);
 	snmp_trap_dst_enable(0,trap_flag);
 	snmp_set_snmpenableauthentraps(&snmpauthentraps_set);

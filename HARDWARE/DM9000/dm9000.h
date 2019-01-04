@@ -116,11 +116,15 @@ typedef struct
 
 
 // STM32的唯一ID
-#define STM32ID0	((*(vu32*)(0x1FFFF7F0))>>24)&0XFF
-#define STM32ID1	((*(vu32*)(0x1FFFF7F0))>>16)&0XFF
-#define STM32ID2	((*(vu32*)(0x1FFFF7F0))>>8)&0XFF
+//#define STM32ID0	((*(vu32*)(0x1FFFF7F0))>>24)&0XFF
+//#define STM32ID1	((*(vu32*)(0x1FFFF7F0))>>16)&0XFF
+//#define STM32ID2	((*(vu32*)(0x1FFFF7F0))>>8)&0XFF
 #define STM32ID3	(*(vu32*)(0x1FFFF7F0))&0XFF
 
+
+#define STM32ID2	((*(vu32*)(0x1FFFF7F0))>>24)&0XFF
+#define STM32ID1	((*(vu32*)(0x1FFFF7F0))>>16)&0XFF
+#define STM32ID0	((*(vu32*)(0x1FFFF7F0))>>8)&0XFF
 
 //DM9000工作模式定义
 enum DM9000_PHY_mode

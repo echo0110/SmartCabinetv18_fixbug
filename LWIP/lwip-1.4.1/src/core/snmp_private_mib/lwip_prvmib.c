@@ -114,9 +114,9 @@ s32_t sensor_values[SENSOR_COUNT];
 
 u8_t  len_test;
 //u8_t  sys_default[] = "1,2,3,4,9,8,,10.13*,12";
-u8_t  sys_default[] = "S,31,W,117*8,9,10.3,8,0,i";
+u8_t  sys_default[10];// = "S,31,W,117*8,9,10.3,8,0,i";
 //u8_t  sys_len_default =19;//22;//4;
-u8_t  sys_len_default=sizeof(sys_default)-1;
+u8_t  sys_len_default;//=sizeof(sys_default)-1;
 //len_test=sizeof(sys_default);
 u8_t* sys_ptr=(u8_t*)&sys_default[0];
 u8_t* sys_len_ptr = (u8_t*)&sys_len_default;
@@ -204,10 +204,10 @@ u8_t* sys_ptr_fan=(u8_t*)&sys_default_fan[0];
 u8_t* sys_len_ptr_fan=(u8_t*)&sys_len_default_fan;
 
 //警报
-u8_t  sys_default_alarlm[5];
-u8_t  sys_len_default_alarlm;
-u8_t* sys_ptr_alarlm=(u8_t*)&sys_default_alarlm[0];
-u8_t* sys_len_ptr_alarlm=(u8_t*)&sys_len_default_alarlm;
+u8_t  sys_default_alarm[5];
+u8_t  sys_len_default_alarm;
+u8_t* sys_ptr_alarm=(u8_t*)&sys_default_alarm[0];
+u8_t* sys_len_ptr_alarm=(u8_t*)&sys_len_default_alarm;
 
 //照明
 u8_t  sys_default_light[5];
@@ -270,14 +270,17 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
     LWIP_DEBUGF(SNMP_MIB_DEBUG,("get_object_def private emmp.%"U16_F".0\n",(u16_t)id));
     switch (id)
     {
-      case 1:    /* restart  */
+      case 1:    /* VOL  */
+			  sprintf((char*)sys_default, "%.2f", VOL);
+			  strings=char_arrays_to_strings(sys_default,strlen((char*)sys_default));
+			  sys_len_default2=strlen(strings);	
+			
         od->instance = MIB_OBJECT_SCALAR;
         od->access = MIB_OBJECT_READ_WRITE;
         //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);
         od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
         //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_SEQ);  			
 			  od->v_len =*sys_len_ptr;//sizeof(u32_t);			  
-				printf("case 1 \n");
         break;
       case 2:    /* cur  */
 				sprintf((char*)sys_default2, "%.2f", CUR);
@@ -289,7 +292,6 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
         //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
         od->v_len = *sys_len_ptr2;
-					printf("case 2\n");
         break;
 			case 3:    /* TEM  */					
 			  sprintf((char*)sys_default3, "%.1f",TEM);
@@ -314,7 +316,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 					printf("case 4\n");
         break;
 			case 5:    /* 水浸  */				
-				sprintf((char*)sys_default5,  "%d",WATER_STAT);
+				sprintf((char*)sys_default5,  "%d",!WATER_STAT);
 			  strings=char_arrays_to_strings(sys_default5,strlen((char*)sys_default5));
 			  sys_len_default5=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -335,7 +337,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 				printf("case 6\n");
         break;
 			case 7:    /* 直流电源 */				
-				sprintf((char*)sys_default7, "%d",SYS12_STAT);
+				sprintf((char*)sys_default7, "%d",!SYS12_STAT);
 			  strings=char_arrays_to_strings(sys_default7,strlen((char*)sys_default7));
 			  sys_len_default7=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -345,7 +347,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr7;
         break;
 			case 8:   /*备用电源*/			
-				sprintf((char*)sys_default8, "%d",BAK12_STAT);
+				sprintf((char*)sys_default8, "%d",!BAK12_STAT);
 			  strings=char_arrays_to_strings(sys_default8,strlen((char*)sys_default8));
 			  sys_len_default8=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -355,7 +357,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr8;
         break;
 			case 9:   /*ups电源*/		
-				sprintf((char*)sys_default9, "%d",UPS_STAT);
+				sprintf((char*)sys_default9, "%d",!UPS_STAT);
 			  strings=char_arrays_to_strings(sys_default9,strlen((char*)sys_default9));
 			  sys_len_default9=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -363,6 +365,126 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
 			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
         //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
         od->v_len = *sys_len_ptr9;
+        break;
+			case 10:   /*特殊电源*/		
+				sprintf((char*)sys_default10, "%d",!AC24_STAT);
+			  strings=char_arrays_to_strings(sys_default10,strlen((char*)sys_default10));
+			  sys_len_default10=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr10;
+        break;
+			case 11:  /*AC1*/	
+				sprintf((char*)sys_default_ac1, "%d",AC1_STAT);
+			  strings=char_arrays_to_strings(sys_default_ac1,strlen((char*)sys_default_ac1));
+			  sys_len_default_ac1=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_ac1;
+        break;
+			case 12:  /*AC2*/	
+				sprintf((char*)sys_default_ac2, "%d",AC2_STAT);
+			  strings=char_arrays_to_strings(sys_default_ac2,strlen((char*)sys_default_ac2));
+			  sys_len_default_ac2=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_ac2;
+        break;
+			case 13:  /*AC3*/	
+				sprintf((char*)sys_default_ac3, "%d",AC3_STAT);
+			  strings=char_arrays_to_strings(sys_default_ac3,strlen((char*)sys_default_ac3));
+			  sys_len_default_ac3=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_ac3;
+        break;
+			case 14:  /*fan*/	
+				sprintf((char*)sys_default_fan, "%d",fan_STAT);
+			  strings=char_arrays_to_strings(sys_default_fan,strlen((char*)sys_default_fan));
+			  sys_len_default_fan=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_fan;
+        break;
+			case 15:  /*alarm*/	
+				sprintf((char*)sys_default_alarm, "%d",alarm_STAT);
+			  strings=char_arrays_to_strings(sys_default_alarm,strlen((char*)sys_default_alarm));
+			  sys_len_default_alarm=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_alarm;
+        break;
+			case 16:  /*light*/	
+				sprintf((char*)sys_default_light, "%d",light_STAT);
+			  strings=char_arrays_to_strings(sys_default_light,strlen((char*)sys_default_light));
+			  sys_len_default_light=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_light;
+        break;
+			case 17:  /*heat*/	
+				sprintf((char*)sys_default_heat, "%d",heat_STAT);
+			  strings=char_arrays_to_strings(sys_default_heat,strlen((char*)sys_default_heat));
+			  sys_len_default_heat=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_heat;
+        break;
+			case 18:  /*DC1*/	
+				sprintf((char*)sys_default_dc1, "%d",DC1_STAT);
+			  strings=char_arrays_to_strings(sys_default_dc1,strlen((char*)sys_default_dc1));
+			  sys_len_default_dc1=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_dc1;
+        break;
+			case 19:  /*DC2*/	
+				sprintf((char*)sys_default_dc2, "%d",DC2_STAT);
+			  strings=char_arrays_to_strings(sys_default_dc2,strlen((char*)sys_default_dc2));
+			  sys_len_default_dc2=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_dc2;
+        break;
+			case 20:  /*DC3*/	
+				sprintf((char*)sys_default_dc3, "%d",DC3_STAT);
+			  strings=char_arrays_to_strings(sys_default_dc3,strlen((char*)sys_default_dc3));
+			  sys_len_default_dc3=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_dc3;
+        break;
+			case 21:  /*DC4*/	
+				sprintf((char*)sys_default_dc4, "%d",DC4_STAT);
+			  strings=char_arrays_to_strings(sys_default_dc4,strlen((char*)sys_default_dc4));
+			  sys_len_default_dc4=strlen(strings);
+        od->instance = MIB_OBJECT_SCALAR;
+        od->access = MIB_OBJECT_READ_WRITE;
+			  od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_OC_STR); 
+        //od->asn_type = (SNMP_ASN1_UNIV | SNMP_ASN1_PRIMIT | SNMP_ASN1_INTEG);			  
+        od->v_len = *sys_len_ptr_dc4;
         break;
       default:
         LWIP_DEBUGF(SNMP_MIB_DEBUG,("emmp_get_object_def: no such object\n"));
@@ -390,7 +512,7 @@ static void emmp_get_value(struct obj_def *od, u16_t len, void *value)
 	  printf("id1=%d\n",id);
   switch (id)
   {
-    case 1:    /* restart  */
+    case 1:    /* VOL  */
       {
 				s32_t *sint_ptr =value;
 				printf("len=%d\n",len);
@@ -447,6 +569,78 @@ static void emmp_get_value(struct obj_def *od, u16_t len, void *value)
 		{
 			s32_t *sint_ptr = value;
 			ocstrncpy2((u8_t*)sint_ptr, sys_ptr9, len);
+		}
+      break;
+		case 10:   /*特殊电源*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr10, len);
+		}
+      break;
+		case 11:   /*AC1*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_ac1, len);
+		}
+      break;
+		case 12:   /*AC2*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_ac2, len);
+		}
+      break;
+		case 13:   /*AC3*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_ac3, len);
+		}
+      break;
+		case 14:   /*fan*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_fan, len);
+		}
+      break;
+		case 15:   /*alarm*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_alarm, len);
+		}
+      break;
+		case 16:   /*light*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_light, len);
+		}
+      break;
+		case 17:   /*heat*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_heat, len);
+		}
+      break;
+		case 18:   /*DC1*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc1, len);
+		}
+      break;
+		case 19:   /*DC2*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc2, len);
+		}
+      break;
+		case 20:   /*DC3*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc3, len);
+		}
+      break;
+		case 21:   /*DC4*/
+		{
+			s32_t *sint_ptr = value;
+			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc4, len);
 		}
       break;
   };
@@ -654,12 +848,20 @@ const mib_scalar_node sys_tem_scalar2 = {
   MIB_NODE_SC,
   0
 };
-const s32_t sys_tem_ids22[9] ={ 1, 2, 3, 4, 5, 6, 7,8,9};
-struct mib_node* const sys_tem_nodes22[9] = {
+const s32_t sys_tem_ids22[21] ={ 1, 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14, \
+15,16,17,18,19,20,21
+};
+struct mib_node* const sys_tem_nodes22[21] = {
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
+	(struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
+	(struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
+	(struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
+	(struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
+	(struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
+	(struct mib_node*)&sys_tem_scalar2, (struct mib_node*)&sys_tem_scalar2,
   (struct mib_node*)&sys_tem_scalar2
 };
 
@@ -674,7 +876,7 @@ const struct mib_array_node sys_tem2 = {
   &noleafs_set_test,
   &noleafs_set_value,
   MIB_NODE_AR,
-  9,
+  21,
   sys_tem_ids22,
   sys_tem_nodes22
 };

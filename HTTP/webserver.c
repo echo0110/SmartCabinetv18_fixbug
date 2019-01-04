@@ -1058,7 +1058,7 @@ int HttpGetVar(char VarID, char *RxBuf)
 		else
 #endif // LWIP_DHCP
 		{
-			ip.s_addr = htonl(conf.DnsAddr);
+			//ip.s_addr = htonl(conf.DnsAddr);
 		}
 		pstr = inet_ntoa(ip);
 		rt = strlen(pstr);
@@ -1077,7 +1077,7 @@ int HttpGetVar(char VarID, char *RxBuf)
 		else
 #endif // LWIP_DHCP
 		{
-			ip.s_addr = htonl(conf.DnsAddr2);
+			//ip.s_addr = htonl(conf.DnsAddr2);
 		}
 		pstr = inet_ntoa(ip);
 		rt = strlen(pstr);

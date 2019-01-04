@@ -469,7 +469,7 @@ void ping_task(void *pvParameters)
 	u8 pingFailedTimes[10];//++;
 	static u8 counts,Ping_frequency;
 	while(1)
-	{		
+	{	
 		for(Ping_frequency=0;Ping_frequency<4;Ping_frequency++)
 		{
 		 for(counts=0;counts<MAX_IP;counts++)

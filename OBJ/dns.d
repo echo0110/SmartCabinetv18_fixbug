@@ -48,3 +48,15 @@
 ..\obj\dns.o: ..\FreeRTOS\include\task.h
 ..\obj\dns.o: ..\FreeRTOS\include\list.h
 ..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/opt.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/udp.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/pbuf.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/err.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netif.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/def.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/mem.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/memp.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/memp_std.h
+..\obj\dns.o: ..\LWIP\lwip-1.4.1\src\include\lwip/dns.h
+..\obj\dns.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

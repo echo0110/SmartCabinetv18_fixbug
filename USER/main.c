@@ -66,7 +66,14 @@
 
 #include "rtc.h"
 
+#include "dns.h"
+//#include "api_lib.h"
 
+#include "lwip/api.h"
+
+#include "lwip/inet.h"
+
+#include "lwip/ip_addr.h"
 
 
 
@@ -277,11 +284,8 @@ int main(void)
 	
 	snmp_init();
 	
-	//RTC_SetTime(12, 30, 0);	
-//	_WriteTime(2018,12, 29, 4, 30, 0);
- //	_WriteTime(2018,12, 29, 6, 30, 0);
-//		
-//	RTC_Get();
+	dns_init();//dns解析初始化
+
 	USB_Queue= xQueueCreate(30, sizeof( int16_t ));
 	
 	MainTaskQueue= xQueueCreate(MAIN_QUEUE_SIZE, sizeof(MSG));
@@ -388,17 +392,33 @@ void MainTask(void *pParameters)
 	MSG msg;
 	u8 page;
 	u8 i;
+	struct ip_addr addr;
+	err_t err;
 	u8 Flag_reset=0;
 	u8 test_water=10;
+	
+	
+	//char hostname[]="www.baidu.com";   www.cncqs.cn
+	char hostname[]="www.cncqs.cn";      
+	
+	
 	while (1)
-	{	
+	{		
+		if((err = netconn_gethostbyname((char*)(hostname), &(addr))) == ERR_OK) 
+		{		
+		//	inet_ntoa((struct in_addr){addr.addr});
+		//	inet_ntoa(addr.addr);
+		 printf("netconn_gethostbyname(%s)==%s\n", (char*)(hostname),inet_ntoa(addr.addr));
+			//printf("netconn_gethostbyname==%s\n",inet_ntoa((struct in_addr){addr.addr}));
+		}	
+		else 
+		{
+			printf("netconn_gethostbyname(%s)==%i\n", (char*)(hostname), (int)(err));
+		}
+		
 	 if(xQueueReceive(MainTaskQueue, &msg, portMAX_DELAY) == pdPASS)
 	 switch (msg.Msg)
 	 {			
-//		case MSG_TICK_10ms_SECOND:
-//		{		 
-//		 DOOR_SENSOR_CHECK(); 		
-//		}
 		case MSG_TICK_1_SECOND:
 		{
 			LED_MCU = !LED_MCU;						
@@ -417,8 +437,7 @@ void MainTask(void *pParameters)
 			{
 				if(NMEA_GNRMC_Analysis(&gpsxSC, USART3_RX_BUF)==0)
 				if(gpsxSC.latitude!=0&&gpsxSC.longitude!=0)
-				USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
-				
+				USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);				
 //				printf("calendar.w_year=%d:calendar.w_month=%d:%d",calendar.w_year,calendar.w_month,calendar.w_date);	
 //		    printf("calendar.hour=%d:calendar.min=%d:%d",calendar.hour,calendar.min,calendar.sec);	
 			  if(calendar.hour==1&&Flag_reset)
@@ -431,8 +450,6 @@ void MainTask(void *pParameters)
 				}
 				USART3_RX_STA = 0;
 			}
-			test_water=GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_7);
-			printf("test_water=%d\n",test_water);
       read_Flooding();//水浸			
    		STAT_CHECK();	// 传感器状态
 			Get_Vol();		// 电压

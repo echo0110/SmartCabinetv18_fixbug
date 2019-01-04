@@ -231,17 +231,12 @@ MQTT_START:
 			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
-			
-//			if(abs(gpsxSC.latitude/100000-latitude_temp/100000)/(gpsxSC.latitude/100000)*100>Change_percent|| \
-//			abs(gpsxSC.longitude/100000-gpsxSC.longitude/100000)/(gpsxSC.longitude/100000)*100>Change_percent) //大于百分之10
-			{
-//		  latitude_temp=gpsxSC.latitude;
-//		  longitude_temp=gpsxSC.longitude;
+
 			sprintf(topic, "GPSSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%c,%d.%d,%c,%d.%d*", gpsxSC.nshemi, gpsxSC.latitude/100000, gpsxSC.latitude%100000, gpsxSC.ewhemi, gpsxSC.longitude/100000, gpsxSC.longitude%100000);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
-			}
+
 			
 			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
