@@ -13,5 +13,7 @@ struct trap_list
    u8 in_use; //表示发送了trap  
 };
 //extern struct trap_list;
- 
+
+extern void changed_trap(struct snmp_obj_id *objid,u8 data);
+
 #endif 

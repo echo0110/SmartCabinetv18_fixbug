@@ -67,6 +67,7 @@
 #include "rtc.h"
 
 #include "dns.h"
+//#include "fec.h"
 //#include "api_lib.h"
 
 #include "lwip/api.h"
@@ -392,30 +393,10 @@ void MainTask(void *pParameters)
 	MSG msg;
 	u8 page;
 	u8 i;
-	struct ip_addr addr;
-	err_t err;
 	u8 Flag_reset=0;
-	u8 test_water=10;
-	
-	
-	//char hostname[]="www.baidu.com";   www.cncqs.cn
-	char hostname[]="www.cncqs.cn";      
-	
-	
+	u8 test_water=10;	
 	while (1)
-	{		
-		if((err = netconn_gethostbyname((char*)(hostname), &(addr))) == ERR_OK) 
-		{		
-		//	inet_ntoa((struct in_addr){addr.addr});
-		//	inet_ntoa(addr.addr);
-		 printf("netconn_gethostbyname(%s)==%s\n", (char*)(hostname),inet_ntoa(addr.addr));
-			//printf("netconn_gethostbyname==%s\n",inet_ntoa((struct in_addr){addr.addr}));
-		}	
-		else 
-		{
-			printf("netconn_gethostbyname(%s)==%i\n", (char*)(hostname), (int)(err));
-		}
-		
+	{				
 	 if(xQueueReceive(MainTaskQueue, &msg, portMAX_DELAY) == pdPASS)
 	 switch (msg.Msg)
 	 {			
@@ -450,10 +431,10 @@ void MainTask(void *pParameters)
 				}
 				USART3_RX_STA = 0;
 			}
-      read_Flooding();//水浸			
-   		STAT_CHECK();	// 传感器状态
-			Get_Vol();		// 电压
-			Get_Cur();		// 电流
+      read_Flooding();//水浸	
+      Get_Vol();		// 电压
+			Get_Cur();		// 电流			
+   		STAT_CHECK();	// 传感器状态			
 			break;
 		}
 		case MSG_TICK_30_SECOND:

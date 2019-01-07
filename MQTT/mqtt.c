@@ -25,6 +25,13 @@
 #include "httpd.h"
 
 #include <math.h>
+#include "lwip/netif.h"
+#include "dns.h"
+#include "lwip/api.h"
+
+#include "lwip/inet.h"
+
+#include "lwip/ip_addr.h"
 
 #define MAX_PUB_TIME 60//10
 
@@ -131,23 +138,44 @@ void GetCheckMAC(void)
 void MqttTask(void *pvParameters)
 {
 	int res, times, pings = 0;
-//	u32 curtick, pubtick;
 	u32 xLastExecutionTime;
 	int type;
 	u8 buf[200];
 	int buflen = sizeof(buf);
 	int sessionPresent = 0;
+	
+	struct ip_addr addr;
+	err_t err;
+	
 	char topic[MSG_TOPIC_LEN];
 	char msg[200];
 	char host_name[16];
 	char host_port[6];
-	
+	char hostname[]="www.cncqs.cn";   
+	u8 mqtt_ip[16]={0};
 	Printf("...... MQTT Connecting Server......\r\n");
+	
+//	sprintf(host_name, "%d.%d.%d.%d", lwipdev.mqttip[0], lwipdev.mqttip[1], lwipdev.mqttip[2], lwipdev.mqttip[3]);
+//	sprintf(host_port, "%d", lwipdev.mqttport);
+
+	GetCheckIP();
+	
+	if((err = netconn_gethostbyname((char*)(hostname), &(addr))) == ERR_OK) 
+	{	
+    inet_ntoa(addr.addr);		
+		lwipdev.mqttip[0]=addr.addr;
+    lwipdev.mqttip[1]=addr.addr>>8; 
+    lwipdev.mqttip[2]=addr.addr>>16;
+    lwipdev.mqttip[3]=addr.addr>>24;
+	 //printf("netconn_gethostbyname(%s)==%s\n", (char*)(hostname),inet_ntoa(addr.addr));
+	}	
+	else 
+	{
+		printf("netconn_gethostbyname(%s)==%i\n", (char*)(hostname), (int)(err));
+	}
 	
 	sprintf(host_name, "%d.%d.%d.%d", lwipdev.mqttip[0], lwipdev.mqttip[1], lwipdev.mqttip[2], lwipdev.mqttip[3]);
 	sprintf(host_port, "%d", lwipdev.mqttport);
-
-	GetCheckIP();
 	
 MQTT_START:
 	while(1)

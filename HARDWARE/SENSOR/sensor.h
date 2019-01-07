@@ -133,6 +133,8 @@ extern u8 stat_changed;
 
 extern u8 tem_stat_changed;
 extern u8 vol_stat_changed;
+extern u8 sys12_stat_changed;
+extern u8 bak12_stat_changed,ups_stat_changed,ac24_stat_changed;
 
 extern int SD_STAT;
 

@@ -36,8 +36,10 @@
 #include "usb_regs.h"
 #include "mqtt.h"
 #include "math.h"
+#include "trap.h"
 
 #include "stdlib.h"
+
 
 #define	USB_EP_NUM	4
 
@@ -58,7 +60,8 @@ u8 DOOR_STAT=1, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STA
 u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 u8 stat_changed = 0;
-u8 tem_stat_changed=0,vol_stat_changed= 0;
+u8 tem_stat_changed=0,vol_stat_changed= 0,sys12_stat_changed=0;
+u8 bak12_stat_changed=0,ups_stat_changed= 0,ac24_stat_changed=0;
 u32 check_stat_times;
 u8 TEM_STAT=0;
 u8 VOL_STAT=0;
@@ -261,7 +264,15 @@ void GET_AM2301_Data(void)
 }
 
 void STAT_CHECK(void)
-{
+{	
+
+
+//  objid[0]=objid_vol;
+//	changed_trap(&objid[0],VOL);
+//	
+//	objid[1]=objid_cur;
+//	changed_trap(&objid[0],CUR);
+	
 	if(WATER_STAT != WATER_SENSOR)  //水浸状态改变推送
 	{
 		delay_ms(10);
@@ -269,6 +280,8 @@ void STAT_CHECK(void)
 		{
 			WATER_STAT = WATER_SENSOR;
 			stat_changed = 1;
+//			objid[4]=objid_water;
+//			changed_trap(&objid[4],WATER_STAT);
 		}
 	}		
 	
@@ -279,6 +292,9 @@ void STAT_CHECK(void)
 		{
 			SYS12_STAT = SYS12_SENSOR;
 			stat_changed = 1;
+			sys12_stat_changed=1;
+//		  objid[6]=objid_sys12;
+//			changed_trap(&objid[6],SYS12_STAT);
 		}
 	}
 	
@@ -289,6 +305,10 @@ void STAT_CHECK(void)
 		{
 			BAK12_STAT = BAK12_SENSOR;			
 			stat_changed = 1;
+			bak12_stat_changed=1;
+			
+//			objid[7]=objid_bak12;
+//			changed_trap(&objid[7],BAK12_STAT);
 		}
 	}
 	
@@ -299,6 +319,9 @@ void STAT_CHECK(void)
 		{
 			UPS_STAT = UPS12_SENSOR;
 			stat_changed = 1;
+			ups_stat_changed=1;
+//			objid[8]=objid_ups;
+//			changed_trap(&objid[8],UPS_STAT);
 		}
 	}	
 	if(AC24_STAT != AC24_SENSOR)  //特殊电源
@@ -308,6 +331,8 @@ void STAT_CHECK(void)
 		{
 			AC24_STAT = AC24_SENSOR;
 			stat_changed = 1;
+//			objid[9]=objid_ac24;
+//			changed_trap(&objid[9],AC24_STAT);
 		}
 	}		
 

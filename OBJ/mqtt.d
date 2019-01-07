@@ -87,3 +87,15 @@
 ..\obj\mqtt.o: ..\FreeRTOS\include\timers.h
 ..\obj\mqtt.o: ..\LWIP\lwip_app\web_server_demo\httpd.h
 ..\obj\mqtt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netif.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/def.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip\dns.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/api.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/netbuf.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/lwip_sys.h
+..\obj\mqtt.o: ..\LWIP\arch/sys_arch.h
+..\obj\mqtt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+..\obj\mqtt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+..\obj\mqtt.o: ..\FreeRTOS\include\StackMacros.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/inet.h

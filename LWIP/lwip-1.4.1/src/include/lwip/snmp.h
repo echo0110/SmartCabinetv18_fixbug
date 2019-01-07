@@ -88,7 +88,7 @@ enum snmp_ifType {
 #define SNMP_SYSUPTIME_INTERVAL 10
 
 /** fixed maximum length for object identifier type */
-#define LWIP_SNMP_OBJ_ID_LEN 32
+#define LWIP_SNMP_OBJ_ID_LEN 15//32
 
 /** internal object identifier representation */
 struct snmp_obj_id

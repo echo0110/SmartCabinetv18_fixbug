@@ -97,4 +97,9 @@
 ..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\sensor.o: ..\USB\STM32_USB-FS-Device_Driver\inc\usb_regs.h
 ..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\sensor.o: ..\HARDWARE\SNMP\trap.h
+..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\include\lwip\snmp_msg.h
+..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\include\lwip/snmp.h
+..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\include\lwip/snmp_structs.h
+..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\private_mib.h
 ..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
