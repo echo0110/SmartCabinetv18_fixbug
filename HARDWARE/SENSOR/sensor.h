@@ -127,6 +127,7 @@
 extern float TEM, HUM;
 extern u8 DOOR_STAT, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STAT;
 extern u8 AC1_STAT, AC2_STAT, AC3_STAT, fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
+extern u8 TEM_STAT,VOL_STAT;
 
 extern u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 extern u8 stat_changed;
@@ -135,6 +136,8 @@ extern u8 tem_stat_changed;
 extern u8 vol_stat_changed;
 extern u8 sys12_stat_changed;
 extern u8 bak12_stat_changed,ups_stat_changed,ac24_stat_changed;
+
+extern u8 snmp_tem_changed,snmp_vol_changed;
 
 extern int SD_STAT;
 

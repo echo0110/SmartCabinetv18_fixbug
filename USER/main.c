@@ -409,7 +409,7 @@ void MainTask(void *pParameters)
 		{
 			page++;
 			show_oled(page%maxPages);			
-			LIGHT_SENSOR_CHECK();
+			LIGHT_SENSOR_CHECK();			
 			break;
 		}
 		case MSG_TICK_5_SECOND:

@@ -1,9 +1,25 @@
 #ifndef __trap_H
-#define __trap_H	
+#define __trap_H
+
+
+	
 #include "sys.h"
 
 #include "stm32f10x.h"
 #include "snmp_msg.h"
+
+
+#ifdef __cplusplus  
+extern "C" {  
+#endif  
+  
+  
+#ifdef __cplusplus  
+}  
+#endif 
+
+
+//extern "C" void trap_task(void * pvParameters);
 
 struct trap_list
 {
@@ -14,6 +30,6 @@ struct trap_list
 };
 //extern struct trap_list;
 
-extern void changed_trap(struct snmp_obj_id *objid,u8 data);
+//extern void changed_trap(struct snmp_obj_id *objid,T & data);
 
 #endif 

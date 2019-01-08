@@ -61,6 +61,9 @@ u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_S
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 u8 stat_changed = 0;
 u8 tem_stat_changed=0,vol_stat_changed= 0,sys12_stat_changed=0;
+
+u8 snmp_tem_changed=0,snmp_vol_changed= 0;
+
 u8 bak12_stat_changed=0,ups_stat_changed= 0,ac24_stat_changed=0;
 u32 check_stat_times;
 u8 TEM_STAT=0;
@@ -293,8 +296,6 @@ void STAT_CHECK(void)
 			SYS12_STAT = SYS12_SENSOR;
 			stat_changed = 1;
 			sys12_stat_changed=1;
-//		  objid[6]=objid_sys12;
-//			changed_trap(&objid[6],SYS12_STAT);
 		}
 	}
 	
@@ -348,6 +349,7 @@ void STAT_CHECK(void)
 		{
 			TEM_STAT = TEM;
 			tem_stat_changed = 1;
+			snmp_tem_changed=1;
 		}
 	}	
 	if((abs)(VOL_STAT-VOL)>=Change_VOL)  //µÁ—π ±‰ªØ 10V 20V
@@ -357,6 +359,7 @@ void STAT_CHECK(void)
 		{
 			VOL_STAT = VOL;
 			vol_stat_changed = 1;
+		  snmp_vol_changed=1;
 		}
 	}	
 }
