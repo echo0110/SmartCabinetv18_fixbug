@@ -138,10 +138,6 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>DLGUARM</Key>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -246,7 +242,7 @@
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buff</ItemText>
+          <ItemText>msg</ItemText>
         </Ww>
         <Ww>
           <count>15</count>
@@ -256,232 +252,232 @@
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>temp,0x0A</ItemText>
+          <ItemText>p-&gt;payload</ItemText>
         </Ww>
         <Ww>
           <count>17</count>
           <WinNumber>1</WinNumber>
-          <ItemText>p-&gt;payload</ItemText>
+          <ItemText>calendar_buf,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>18</count>
           <WinNumber>1</WinNumber>
-          <ItemText>calendar_buf,0x0A</ItemText>
+          <ItemText>calendar</ItemText>
         </Ww>
         <Ww>
           <count>19</count>
           <WinNumber>1</WinNumber>
-          <ItemText>calendar</ItemText>
+          <ItemText>file3-&gt;fsize,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>20</count>
           <WinNumber>1</WinNumber>
-          <ItemText>file3-&gt;fsize,0x0A</ItemText>
+          <ItemText>temp_md5</ItemText>
         </Ww>
         <Ww>
           <count>21</count>
           <WinNumber>1</WinNumber>
-          <ItemText>temp_md5</ItemText>
+          <ItemText>digest_temp</ItemText>
         </Ww>
         <Ww>
           <count>22</count>
           <WinNumber>1</WinNumber>
-          <ItemText>digest_temp</ItemText>
+          <ItemText>CHECK_IP[0]</ItemText>
         </Ww>
         <Ww>
           <count>23</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[0]</ItemText>
+          <ItemText>CHECK_IP[1]</ItemText>
         </Ww>
         <Ww>
           <count>24</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[1]</ItemText>
+          <ItemText>CHECK_IP[2]</ItemText>
         </Ww>
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[2]</ItemText>
+          <ItemText>data[2]</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data[2]</ItemText>
+          <ItemText>mqtt_ip,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>27</count>
           <WinNumber>1</WinNumber>
-          <ItemText>mqtt_ip,0x0A</ItemText>
+          <ItemText>gpsxSC.ewhemi</ItemText>
         </Ww>
         <Ww>
           <count>28</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC.ewhemi</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>29</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>data[1]</ItemText>
         </Ww>
         <Ww>
           <count>30</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data[1]</ItemText>
+          <ItemText>test12</ItemText>
         </Ww>
         <Ww>
           <count>31</count>
           <WinNumber>1</WinNumber>
-          <ItemText>test12</ItemText>
+          <ItemText>TASK_BIT_camera_flag</ItemText>
         </Ww>
         <Ww>
           <count>32</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TASK_BIT_camera_flag</ItemText>
+          <ItemText>buf</ItemText>
         </Ww>
         <Ww>
           <count>33</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buf</ItemText>
+          <ItemText>gpsxSC</ItemText>
         </Ww>
         <Ww>
           <count>34</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC</ItemText>
+          <ItemText>gpsxSC.latitude</ItemText>
         </Ww>
         <Ww>
           <count>35</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC.latitude</ItemText>
+          <ItemText>Ping_ip_arrry[0].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>36</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[0].ip[2],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[0].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>37</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[0].ip[3],0x0A</ItemText>
+          <ItemText>buf_test[0]</ItemText>
         </Ww>
         <Ww>
           <count>38</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buf_test[0]</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>39</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>40</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[1],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>41</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[2],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[1].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>42</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[3],0x0A</ItemText>
+          <ItemText>ip_buf[2]</ItemText>
         </Ww>
         <Ww>
           <count>43</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ip_buf[2]</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>44</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>45</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[1],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>46</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[2],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[2].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>47</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[3],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>48</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>49</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[1]</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[2]</ItemText>
         </Ww>
         <Ww>
           <count>50</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[2]</ItemText>
+          <ItemText>Ping_ip_arrry[5].ip[3],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>51</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[3],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[0],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>52</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[0],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[1],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>53</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[1],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[2],0x0A</ItemText>
         </Ww>
         <Ww>
           <count>54</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[2],0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[9].ip[3]</ItemText>
         </Ww>
         <Ww>
           <count>55</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[3]</ItemText>
+          <ItemText>Ping_ip_arrry[8].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>56</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[8].ip[0]</ItemText>
+          <ItemText>Ping_ip_arrry[8].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>57</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[8].ip[1]</ItemText>
+          <ItemText>ping_dst,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>58</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ping_dst,0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>59</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>60</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[1]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[2]</ItemText>
         </Ww>
         <Ww>
           <count>61</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[2]</ItemText>
+          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>62</count>
@@ -491,55 +487,50 @@
         <Ww>
           <count>63</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
+          <ItemText>CHECK_IP[counts]</ItemText>
         </Ww>
         <Ww>
           <count>64</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[counts]</ItemText>
+          <ItemText>IP_STAT[counts]</ItemText>
         </Ww>
         <Ww>
           <count>65</count>
           <WinNumber>1</WinNumber>
-          <ItemText>IP_STAT[counts]</ItemText>
+          <ItemText>msg</ItemText>
         </Ww>
         <Ww>
           <count>66</count>
           <WinNumber>1</WinNumber>
-          <ItemText>msg</ItemText>
+          <ItemText>gpsx,0x10</ItemText>
         </Ww>
         <Ww>
           <count>67</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx,0x10</ItemText>
+          <ItemText>gpsx-&gt;utc.hour,0x10</ItemText>
         </Ww>
         <Ww>
           <count>68</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.hour,0x10</ItemText>
+          <ItemText>gpsx-&gt;utc.min,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>69</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.min,0x0A</ItemText>
+          <ItemText>gpsx-&gt;utc.sec,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>70</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.sec,0x0A</ItemText>
+          <ItemText>gpsx-&gt;utc.date,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>71</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.date,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>72</count>
-          <WinNumber>1</WinNumber>
           <ItemText>calendar.hour,0x0A</ItemText>
         </Ww>
         <Ww>
-          <count>73</count>
+          <count>72</count>
           <WinNumber>1</WinNumber>
           <ItemText>calendar,0x0A</ItemText>
         </Ww>
@@ -647,7 +638,7 @@
 
   <Group>
     <GroupName>HARDWARE</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -763,8 +754,8 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\HARDWARE\snmp\trap.c</PathWithFileName>
-      <FilenameWithoutPath>trap.c</FilenameWithoutPath>
+      <PathWithFileName>..\HARDWARE\SDIO\sdio_sdcard.c</PathWithFileName>
+      <FilenameWithoutPath>sdio_sdcard.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -776,21 +767,21 @@
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\HARDWARE\SDIO\sdio_sdcard.c</PathWithFileName>
-      <FilenameWithoutPath>sdio_sdcard.c</FilenameWithoutPath>
+      <PathWithFileName>..\HARDWARE\TIMER\timer.c</PathWithFileName>
+      <FilenameWithoutPath>timer.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>15</FileNumber>
-      <FileType>1</FileType>
+      <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\HARDWARE\TIMER\timer.c</PathWithFileName>
-      <FilenameWithoutPath>timer.c</FilenameWithoutPath>
+      <PathWithFileName>..\HARDWARE\snmp\trap.cpp</PathWithFileName>
+      <FilenameWithoutPath>trap.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2089,7 +2080,7 @@
 
   <Group>
     <GroupName>HTTP</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2259,7 +2250,7 @@
 
   <Group>
     <GroupName>SNMP</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

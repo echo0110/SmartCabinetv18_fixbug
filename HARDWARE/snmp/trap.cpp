@@ -19,6 +19,7 @@
 
 #include "lwip_comm.h"
 #include "sensor.h"
+#include "delay.h"
 
 #include <typeinfo>  //使用类型获取函数必须包含此头文件
 
@@ -79,10 +80,6 @@ extern "C" void trap_task(void * pvParameters)
 	static unsigned char trap_flag=1;
 	u8_t snmpauthentraps_set= 2;
 	static ip_addr_t trap_addr;
-	char msg_vol[5],msg_cur[5];
-	
-	
-  //struct snmp_obj_id objid = {10, {1,3,6,1,4,1,1,1,2}};
 	
   //struct snmp_obj_id objid[22];	
 	struct snmp_obj_id objid_vol = {10, {1,3,6,1,4,1,1,1,1}};	
@@ -98,7 +95,7 @@ extern "C" void trap_task(void * pvParameters)
 	struct snmp_obj_id objid_ac1= {10, {1,3,6,1,4,1,1,1,11}};
 	struct snmp_obj_id objid_ac2 = {10, {1,3,6,1,4,1,1,1,12}};	
 	struct snmp_obj_id objid_ac3= {10, {1,3,6,1,4,1,1,1,13}};	
-//	
+	
 	struct snmp_obj_id objid_fan= {10, {1,3,6,1,4,1,1,1,14}};
 	struct snmp_obj_id objid_alarm = {10, {1,3,6,1,4,1,1,1,15}};	
 	struct snmp_obj_id objid_light= {10, {1,3,6,1,4,1,1,1,16}};	
@@ -136,11 +133,11 @@ extern "C" void trap_task(void * pvParameters)
 	{		 
     xLastWakeTime = xTaskGetTickCount();			
 		//changed_trap(&objid_hum,3.14);
-		float y=10.23;
-		changed_trap(&objid_vol,y);
+		u8 y=17;
+		changed_trap(&objid_dc4,y);
 		
 		if(snmp_vol_changed==1)
-		{
+		{			
 		 changed_trap(&objid_hum,VOL_STAT);
 		 sys12_stat_changed=0;		
 		}		
@@ -155,20 +152,24 @@ extern "C" void trap_task(void * pvParameters)
 		 sys12_stat_changed=0;
 	  }
 		if(bak12_stat_changed)
-		{
-		 bak12_stat_changed=0;
-		 changed_trap(&objid_bak12,BAK12_STAT);		
+		{		 
+		 changed_trap(&objid_bak12,BAK12_STAT);
+     bak12_stat_changed=0;			
 		}			
     if(ups_stat_changed)
-		{
-		 ups_stat_changed=0;
-		 changed_trap(&objid_ups,UPS_STAT);	
+		{		 
+		 changed_trap(&objid_ups,UPS_STAT);
+     ups_stat_changed=0;			
 		}		
     if(ac24_stat_changed)
-		{
-		 ac24_stat_changed=0;
-		 changed_trap(&objid_ac24,AC24_STAT);	
-		}				
+		{		
+		 changed_trap(&objid_ac24,AC24_STAT);
+     ac24_stat_changed=0;			
+		}	
+		vTaskDelay(1000);
+    changed_trap(&objid_ac24,AC1_STAT);	
+    changed_trap(&objid_ac24,AC2_STAT);	
+    changed_trap(&objid_ac24,AC3_STAT);			
 				
 	 //printf("test C++\n");
 		// Wait for the next cycle.
@@ -235,81 +236,6 @@ void freePrivateTrapList(struct trap_list * list)
 	list->in_use = 0;
 }
 
-
-
-
-
-
-
-/*
- * 函数名：void changed_trap(struct snmp_obj_id *objid,float VOL)
- * 描述  ：指定节点  上报对应的  状态量
- * 输入  ：无
- * 输出  ：无	
- */
-//void changed_trap(struct snmp_obj_id *objid,u8 data)
-//{
-//	char msg[5];
-//	static u8 msglen;
-//	struct trap_list *vb_list;
-//	struct snmp_varbind *vb;
-//	//vb_list->spc_trap = 12;
-//	
-//	sprintf(msg, "%d", data);
-//	vb_list = getNextFreePrivateTrapList();
-//	
-//	vb_list->ent_oid =objid;
-//	vb_list->spc_trap = 12;
-//	msglen=strlen(msg);
-//	vb = snmp_varbind_alloc(objid, 4, msglen);
-//	if (vb!= NULL)
-//	{
-//	 memcpy (vb->value, &msg, msglen);         
-//	 snmp_varbind_tail_add(&vb_list->vb_root,vb);
-//	} 					
-//	tcpip_callback(vSendTrapCallback2, vb_list);  
-//}
-
-
-
-
-
-//class Mytrap
-//{
-//public:
-//    void changed_trap(struct snmp_obj_id objid[],float VOL)
-//		{
-//			char msg[5];
-//			static u8 msglen;
-//			struct trap_list *vb_list;
-//			struct snmp_varbind *vb;
-//			vb_list->ent_oid =objid;
-//			sprintf(msg, "%.2f", VOL);
-//			if (vb!= NULL)
-//			{
-//			 msglen=strlen(msg);
-//			 memcpy (vb->value, &msg, msglen);         
-//			 snmp_varbind_tail_add(&vb_list->vb_root,vb);
-//			} 			
-//			tcpip_callback(vSendTrapCallback2, vb_list);  
-//		}
-////    void changed_trap(struct snmp_obj_id **objid,int VOL)
-////		{
-////			char msg[5];
-////			static u8 msglen;
-////			struct trap_list *vb_list;
-////			struct snmp_varbind *vb;
-////			vb_list->ent_oid =*objid;
-////			sprintf(msg, "%d", VOL);
-////			if (vb!= NULL)
-////			{
-////			 msglen=strlen(msg);
-////			 memcpy (vb->value, &msg, msglen);         
-////			 snmp_varbind_tail_add(&vb_list->vb_root,vb);
-////			} 					
-////			tcpip_callback(vSendTrapCallback2, vb_list);  
-////		}
-//};
 
 
 

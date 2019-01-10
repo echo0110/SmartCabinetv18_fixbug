@@ -273,7 +273,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
       case 1:    /* VOL  */
 			  sprintf((char*)sys_default, "%.2f", VOL);
 			  strings=char_arrays_to_strings(sys_default,strlen((char*)sys_default));
-			  sys_len_default2=strlen(strings);	
+			  sys_len_default=strlen(strings);	
 			
         od->instance = MIB_OBJECT_SCALAR;
         od->access = MIB_OBJECT_READ_WRITE;
@@ -367,7 +367,8 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr9;
         break;
 			case 10:   /*ÌØÊâµçÔ´*/		
-				sprintf((char*)sys_default10, "%d",!AC24_STAT);
+				//sprintf((char*)sys_default10, "%d",!AC24_STAT);
+			  sprintf((char*)sys_default10, "%d",17);
 			  strings=char_arrays_to_strings(sys_default10,strlen((char*)sys_default10));
 			  sys_len_default10=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -377,7 +378,9 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr10;
         break;
 			case 11:  /*AC1*/	
-				sprintf((char*)sys_default_ac1, "%d",AC1_STAT);
+				//sprintf((char*)sys_default_ac1, "%d",AC1_STAT);
+			  //sprintf((char*)sys_default_ac1, "%d",23);
+			  sprintf((char*)sys_default_ac1, "%d",34);
 			  strings=char_arrays_to_strings(sys_default_ac1,strlen((char*)sys_default_ac1));
 			  sys_len_default_ac1=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -477,7 +480,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr_dc3;
         break;
 			case 21:  /*DC4*/	
-				sprintf((char*)sys_default_dc4, "%d",DC4_STAT);
+				sprintf((char*)sys_default_dc4, "%d",0);
 			  strings=char_arrays_to_strings(sys_default_dc4,strlen((char*)sys_default_dc4));
 			  sys_len_default_dc4=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -580,67 +583,67 @@ static void emmp_get_value(struct obj_def *od, u16_t len, void *value)
 		case 11:   /*AC1*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_ac1, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_ac1, len);
 		}
       break;
 		case 12:   /*AC2*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_ac2, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_ac2, len);
 		}
       break;
 		case 13:   /*AC3*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_ac3, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_ac3, len);
 		}
       break;
 		case 14:   /*fan*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_fan, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_fan, len);
 		}
       break;
 		case 15:   /*alarm*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_alarm, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_alarm, len);
 		}
       break;
 		case 16:   /*light*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_light, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_light, len);
 		}
       break;
 		case 17:   /*heat*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_heat, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_heat, len);
 		}
       break;
 		case 18:   /*DC1*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc1, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_dc1, len);
 		}
       break;
 		case 19:   /*DC2*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc2, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_dc2, len);
 		}
       break;
 		case 20:   /*DC3*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc3, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_dc3, len);
 		}
       break;
 		case 21:   /*DC4*/
 		{
 			s32_t *sint_ptr = value;
-			ocstrncpy2((u8_t*)sint_ptr, sys_len_ptr_dc4, len);
+			ocstrncpy2((u8_t*)sint_ptr, sys_ptr_dc4, len);
 		}
       break;
   };

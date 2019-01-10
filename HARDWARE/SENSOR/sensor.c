@@ -283,8 +283,6 @@ void STAT_CHECK(void)
 		{
 			WATER_STAT = WATER_SENSOR;
 			stat_changed = 1;
-//			objid[4]=objid_water;
-//			changed_trap(&objid[4],WATER_STAT);
 		}
 	}		
 	
@@ -307,9 +305,6 @@ void STAT_CHECK(void)
 			BAK12_STAT = BAK12_SENSOR;			
 			stat_changed = 1;
 			bak12_stat_changed=1;
-			
-//			objid[7]=objid_bak12;
-//			changed_trap(&objid[7],BAK12_STAT);
 		}
 	}
 	
@@ -321,8 +316,6 @@ void STAT_CHECK(void)
 			UPS_STAT = UPS12_SENSOR;
 			stat_changed = 1;
 			ups_stat_changed=1;
-//			objid[8]=objid_ups;
-//			changed_trap(&objid[8],UPS_STAT);
 		}
 	}	
 	if(AC24_STAT != AC24_SENSOR)  //Ãÿ ‚µÁ‘¥
@@ -332,8 +325,7 @@ void STAT_CHECK(void)
 		{
 			AC24_STAT = AC24_SENSOR;
 			stat_changed = 1;
-//			objid[9]=objid_ac24;
-//			changed_trap(&objid[9],AC24_STAT);
+			ac24_stat_changed=1;
 		}
 	}		
 
