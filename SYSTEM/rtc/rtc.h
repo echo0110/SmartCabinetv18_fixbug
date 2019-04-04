@@ -91,6 +91,9 @@ void RTC_Init(void);
 
 u32 RTC_GetTime(Rtc_Time *tm);
 u32 _mktime(Rtc_Time *tm);
+
+u32 GPS_mktime(_calendar_obj *tm);
+
 int RTC_SetTime(u8 hour, u8 minute, u8 second);
 int RTC_SetDate(u16 year, u8 month, u8 date);
 

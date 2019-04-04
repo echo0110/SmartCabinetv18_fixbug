@@ -506,6 +506,41 @@ u32 _mktime(Rtc_Time *tm)
 	return temp;
 }
 
+// ½«ÎÒÃÇÊìÏ¤µÄÄê¡¢ÔÂ¡¢ÈÕ¸ñÊ½µÄÊ±¼ä×ª»»³ÉSTM32µÄÓ²¼ş¼ÆÊıÆ÷µÄÖµ GPSÊ±¼ä×ª»¯³ÉÊ±¼ä´Á
+u32 GPS_mktime(_calendar_obj *tm)
+{
+	u32 temp;
+	int i;
+
+	temp = tm->w_year - 1970;				// Ïà¶ÔÓÚ1970ÄêËù¾­ÀúµÄÄê·İ
+	temp *= DAYS_PER_YEAR;				// ³ËÒÔÃ¿ÄêµÄÌìÊı
+	temp += (tm->w_year - 1968)/4;		// ÔÙ¼ÓÉÏÃ¿¸öÈòÄê¶îÍâ¶à³öµÄ1Ìì£¬ÓÉÓÚÖ»ĞèÒª¿¼ÂÇ
+										// 1970-2099ÄêÖ¼ä£¬¶ø2000ÓÖÊÇÈòÄê£¬ËùÒÔ²»¿¼ÂÇ
+										// 100µÄÕıÊıÄê²»ÊÇÈòÄê¶ø400µÄÕûÊıÄêÊÇÈòÄêµÄÎÊÌâ
+	for (i=1; i<tm->w_month; i++)		// ¼ÓÉÏ¸ÃÔÂ·İÔÚ¸ÃÄêÖĞµÄÌìÊı
+	{
+		temp += (u32)(MonthTable[i].Days);
+	}
+	if (tm->w_month <= 2)					// Èç¹ûÊÇÈòÄê£¬¶øÔÂ·İĞ¡ÓÚ3ÔÂ·İ£¬ÔòĞèÒª¼õÈ¥ÖÇ°¶à¼ÓµÄ1
+	{
+		if (IsLeapYear(tm->w_year))
+		{
+			temp -= 1;
+		}
+	}
+	temp += (tm->w_date - 1);		// ¼ÓÉÏµ±ÔÂµÄÌìÊı£¬µÃµ½¾àÀë1970Äê01ÔÂ01ÈÕËù¹ıÈ¥µÄÌìÊı
+	temp *= HOURS_PER_DAY;				// ³ËÒÔÃ¿ÌìµÄĞ¡Ê±Êı£¬
+	temp += tm->hour;					// ¼ÓÉÏĞ¡Ê±Êı
+	temp *= MINUTES_PER_HOUR;			// ³ËÒÔÃ¿Ğ¡Ê±60·Ö
+	temp += tm->min;					// ¼ÓÉÏ·ÖÖÓÊı
+	temp *= SECONDS_PER_MINUTE;			// ³ËÒÔÃ¿·ÖÖÓ60Ãë
+	temp += tm->sec;					// ¼ÓÉÏÃëÊı£¬µÃµ½µ±Ç°Ê±¼äÀë1970Äê01ÔÂ01ÈÕ00Ê±00·Ö00ÃëËù¹ıÈ¥µÄÃëÊı
+										// Õâ¾ÍÊÇÎÒÃÇ½«ÒªĞ´Èëµ½STM322µÄÓ²¼şÊ±ÖÓ¼ÆÊıÆ÷ÀïÃæµÄÖµ
+
+	return temp;
+}
+
+
 void RTC_FormatDateStr(char *pbuf)
 {
 	sprintf(pbuf, "%04d-%02d-%02d ", time.Year, time.Month, time.DayOfMonth);

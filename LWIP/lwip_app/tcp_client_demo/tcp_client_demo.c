@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include "lwip/api.h"
+#include "rtc.h"
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
@@ -262,7 +263,7 @@ err_t tcp_client_poll(void *arg, struct tcp_pcb *tpcb)
 			char topic[20];
 			timestamp_buf[0]='@';
 			timestamp_buf[1]='@';
-		  timestamp_buf[2]=RTC_GetTime(NULL);	
+		  timestamp_buf[2]=GPS_mktime(&calendar);//RTC_GetTime(NULL);	
       timestamp_buf[3]='*';	
       timestamp_buf[4]='*';	
 			sprintf(topic, "%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);//机箱ID
