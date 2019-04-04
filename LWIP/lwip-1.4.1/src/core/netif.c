@@ -446,8 +446,7 @@ netif_set_default(struct netif *netif)
  * Bring an interface up, available for processing
  * traffic.
  * 
- * @note: Enabling DHCP on a down interface will make it come
- * up once configured.
+ * @note: 
  * 
  * @see dhcp_start()
  */ 
@@ -539,7 +538,7 @@ void netif_set_link_up(struct netif *netif )
 {
   if (!(netif->flags & NETIF_FLAG_LINK_UP)) {
     netif->flags |= NETIF_FLAG_LINK_UP;
-
+  
 #if LWIP_DHCP
     if (netif->dhcp) {
       dhcp_network_changed(netif);

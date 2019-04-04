@@ -84,6 +84,9 @@ extern const char BuildDate[];
 extern const char BuildTime[];
 extern const char ReleaseVersion[];
 
+
+
+extern u16 link_status;
 //#define WDG_TASK_PRIORITY			2
 //#define WDG_TASK_STACK_SIZE			512
 //TaskHandle_t WDGTask_Handler;
@@ -217,6 +220,7 @@ int main(void)
 	char *test_post_bin="1:post.bin";
 	char *file_md5_boot="1:file_md5_boot.txt";
   u8 res_sd=10;
+	u8 SD_IN=13;
 	u8 res_test;	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//设置系统中断优先级分组4
 	delay_init();	    				//延时函数初始化	
@@ -231,14 +235,15 @@ int main(void)
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();
-	RTC_Init();
+ // RTC_Init();
 	Init_Shell();
 	FSMC_SRAM_Init();		
 	USART1_Sem = xSemaphoreCreateMutex();
 	W25QXX_Init();
 	exfuns_init();
-  
-	if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_4)==1)
+	
+ 
+	if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_3)==0) //sd card insert 
   {
 	 res_sd=SD_Initialize();
    SD_STAT=0;		
@@ -368,12 +373,12 @@ int main(void)
                 (UBaseType_t    )Ping_TASK_PRIO,	
                 (TaskHandle_t*  )&PingTask_Handler);
    //创建TAP任务  主动上报数据帧
-   xTaskCreate((TaskFunction_t )trap_task,     	
-                (const char*    )"trap_task",   	
-                (uint16_t       )trap_STK_SIZE, 
-                (void*          )NULL,				
-                (UBaseType_t    )trap_TASK_PRIO,	
-                (TaskHandle_t*  )&trapTask_Handler);									
+//   xTaskCreate((TaskFunction_t )trap_task,     	
+//                (const char*    )"trap_task",   	
+//                (uint16_t       )trap_STK_SIZE, 
+//                (void*          )NULL,				
+//                (UBaseType_t    )trap_TASK_PRIO,	
+//                (TaskHandle_t*  )&trapTask_Handler);									
 	//Start the scheduler
 	vTaskStartScheduler();	
 	//Will only get here if there was not enough heap space to create the idle task
@@ -408,8 +413,9 @@ void MainTask(void *pParameters)
 		case MSG_TICK_3_SECOND:
 		{
 			page++;
-			show_oled(page%maxPages);			
-			LIGHT_SENSOR_CHECK();			
+			//show_oled(page%maxPages);			
+			LIGHT_SENSOR_CHECK();
+     // netif_set_remove_callback(struct netif *netif, netif_status_callback_fn remove_callback);			
 			break;
 		}
 		case MSG_TICK_5_SECOND:
@@ -499,21 +505,26 @@ static void TickTask(void *pParameters)
 		counts++;	
     DOOR_SENSOR_CHECK(); 		
 		// 1秒
-		if (RtcCounter != RTC_GetCounter())
-		{				
-			RtcCounter = RTC_GetTime(NULL);
+//		if(RtcCounter != RTC_GetCounter())
+//		{				
+//			RtcCounter = RTC_GetTime(NULL);
+//			msg.Msg = MSG_TICK_1_SECOND;
+//			xQueueSend(MainTaskQueue, &msg, 0);
+//		}
+		if((counts%100)==0)		// 1s
+		{			
 			msg.Msg = MSG_TICK_1_SECOND;
 			xQueueSend(MainTaskQueue, &msg, 0);
 		}		
 		if((counts%300)==0)		// 3s
-		{	      	
+		{			
 			msg.Msg = MSG_TICK_3_SECOND;
 			xQueueSend(MainTaskQueue, &msg, 0);
 		}		
 		if((counts%500)==0)		// 5s
 		{
 			// 喂狗
-		  IWDG_ReloadCounter();	
+      IWDG_ReloadCounter();	
 			msg.Msg = MSG_TICK_5_SECOND;
 			xQueueSend(MainTaskQueue, &msg, 0);
 		}		

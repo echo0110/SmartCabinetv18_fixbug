@@ -138,6 +138,11 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -207,12 +212,12 @@
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data</ItemText>
+          <ItemText>CUR</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>buf</ItemText>
+          <ItemText>vb-&gt;value</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
@@ -232,32 +237,32 @@
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>BAK12_STAT</ItemText>
+          <ItemText>VOL</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TEM</ItemText>
+          <ItemText>sint_ptr</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>msg</ItemText>
+          <ItemText>sys_default_ac1</ItemText>
         </Ww>
         <Ww>
           <count>15</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data_test[0]</ItemText>
+          <ItemText>adcx,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>p-&gt;payload</ItemText>
+          <ItemText>sys_default_ac1</ItemText>
         </Ww>
         <Ww>
           <count>17</count>
           <WinNumber>1</WinNumber>
-          <ItemText>calendar_buf,0x0A</ItemText>
+          <ItemText>NETIF_FLAG_LINK_UP</ItemText>
         </Ww>
         <Ww>
           <count>18</count>
@@ -267,12 +272,12 @@
         <Ww>
           <count>19</count>
           <WinNumber>1</WinNumber>
-          <ItemText>file3-&gt;fsize,0x0A</ItemText>
+          <ItemText>netif-&gt;flags</ItemText>
         </Ww>
         <Ww>
           <count>20</count>
           <WinNumber>1</WinNumber>
-          <ItemText>temp_md5</ItemText>
+          <ItemText>lwip_netif</ItemText>
         </Ww>
         <Ww>
           <count>21</count>
@@ -282,7 +287,7 @@
         <Ww>
           <count>22</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[0]</ItemText>
+          <ItemText>lwip_netif</ItemText>
         </Ww>
         <Ww>
           <count>23</count>
@@ -297,7 +302,7 @@
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data[2]</ItemText>
+          <ItemText>netif</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
@@ -312,12 +317,12 @@
         <Ww>
           <count>28</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>netif-&gt;flags</ItemText>
         </Ww>
         <Ww>
           <count>29</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data[1]</ItemText>
+          <ItemText>lwipdev,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>30</count>
@@ -337,12 +342,12 @@
         <Ww>
           <count>33</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC</ItemText>
+          <ItemText>strings</ItemText>
         </Ww>
         <Ww>
           <count>34</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsxSC.latitude</ItemText>
+          <ItemText>strings+1</ItemText>
         </Ww>
         <Ww>
           <count>35</count>
@@ -352,7 +357,7 @@
         <Ww>
           <count>36</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[0].ip[3],0x0A</ItemText>
+          <ItemText>vb-&gt;value</ItemText>
         </Ww>
         <Ww>
           <count>37</count>
@@ -362,7 +367,7 @@
         <Ww>
           <count>38</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[0],0x0A</ItemText>
+          <ItemText>sys_default10</ItemText>
         </Ww>
         <Ww>
           <count>39</count>
@@ -372,7 +377,7 @@
         <Ww>
           <count>40</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[1].ip[2],0x0A</ItemText>
+          <ItemText>VOL</ItemText>
         </Ww>
         <Ww>
           <count>41</count>
@@ -382,157 +387,132 @@
         <Ww>
           <count>42</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ip_buf[2]</ItemText>
+          <ItemText>sys_default10</ItemText>
         </Ww>
         <Ww>
           <count>43</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[0],0x0A</ItemText>
+          <ItemText>netif-&gt;flags</ItemText>
         </Ww>
         <Ww>
           <count>44</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[1],0x0A</ItemText>
+          <ItemText>temp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>45</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[2],0x0A</ItemText>
+          <ItemText>msg_ps-&gt;vb_ptr-&gt;value</ItemText>
         </Ww>
         <Ww>
           <count>46</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[2].ip[3],0x0A</ItemText>
+          <ItemText>m_stat-&gt;pcb</ItemText>
         </Ww>
         <Ww>
           <count>47</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[0],0x0A</ItemText>
+          <ItemText>raw_ptr</ItemText>
         </Ww>
         <Ww>
           <count>48</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[1]</ItemText>
+          <ItemText>raw_ptr+1</ItemText>
         </Ww>
         <Ww>
           <count>49</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[2]</ItemText>
+          <ItemText>NETIF_FLAG_LINK_UP</ItemText>
         </Ww>
         <Ww>
           <count>50</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[5].ip[3],0x0A</ItemText>
+          <ItemText>raw_ptr+1</ItemText>
         </Ww>
         <Ww>
           <count>51</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[0],0x0A</ItemText>
+          <ItemText>raw_ptr</ItemText>
         </Ww>
         <Ww>
           <count>52</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[1],0x0A</ItemText>
+          <ItemText>raw_ptr+1</ItemText>
         </Ww>
         <Ww>
           <count>53</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[2],0x0A</ItemText>
+          <ItemText>ping_dst,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>54</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[9].ip[3]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>55</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[8].ip[0]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[1]</ItemText>
         </Ww>
         <Ww>
           <count>56</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[8].ip[1]</ItemText>
+          <ItemText>Ping_ip_arrry[counts].ip[2]</ItemText>
         </Ww>
         <Ww>
           <count>57</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ping_dst,0x0A</ItemText>
+          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
         </Ww>
         <Ww>
           <count>58</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[0]</ItemText>
+          <ItemText>sys_default_ac1</ItemText>
         </Ww>
         <Ww>
           <count>59</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[1]</ItemText>
+          <ItemText>sys_ptr_ac1</ItemText>
         </Ww>
         <Ww>
           <count>60</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[counts].ip[2]</ItemText>
+          <ItemText>sys_ptr_ac1+1</ItemText>
         </Ww>
         <Ww>
           <count>61</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
+          <ItemText>object_def</ItemText>
         </Ww>
         <Ww>
           <count>62</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ping_ip_arrry[3].ip[0]</ItemText>
+          <ItemText>gpsx,0x10</ItemText>
         </Ww>
         <Ww>
           <count>63</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CHECK_IP[counts]</ItemText>
+          <ItemText>gpsx-&gt;utc.sec,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>64</count>
           <WinNumber>1</WinNumber>
-          <ItemText>IP_STAT[counts]</ItemText>
+          <ItemText>sys_len_ptr_ac1</ItemText>
         </Ww>
         <Ww>
           <count>65</count>
           <WinNumber>1</WinNumber>
-          <ItemText>msg</ItemText>
+          <ItemText>calendar.hour,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>66</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx,0x10</ItemText>
+          <ItemText>calendar,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>67</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.hour,0x10</ItemText>
-        </Ww>
-        <Ww>
-          <count>68</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.min,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>69</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.sec,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>70</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>gpsx-&gt;utc.date,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>71</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>calendar.hour,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>72</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>calendar,0x0A</ItemText>
+          <ItemText>NETIF_FLAG_LINK_UP</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

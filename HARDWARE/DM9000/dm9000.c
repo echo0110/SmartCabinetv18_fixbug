@@ -23,6 +23,8 @@ void *DM_bSem;			// 二值信号量句柄  数据接收信号量
 void *DM_xSem;			// 互斥信号量
 void *tcp_udp_Sem=NULL;//互斥信号量
 
+u16 link_status;
+
 u8 DM9000_Init(void)
 {
 	u32 temp;
@@ -425,12 +427,18 @@ __error_retry:
 void DMA9000_ISRHandler(void)
 {
 	u16 int_status;
+	//u16 link_status;
+	
 	u16 last_io; 
 	portBASE_TYPE xSwitchRequired;
 	BaseType_t xHigherPriorityTaskWoken;
 	
 	last_io = DM9000->REG;
-	int_status = DM9000_ReadReg(DM9000_ISR); 
+	int_status = DM9000_ReadReg(DM9000_ISR);
+  
+  //link_status = DM9000_ReadReg(NSR_LINKST);	
+ // printf("int_status=%d\n",int_status);	
+	
 	DM9000_WriteReg(DM9000_ISR, int_status);
 	if(int_status & ISR_ROS)printf("dm9000.c：overflow \r\n");
     if(int_status & ISR_ROOS)printf("dm9000.c：overflow counter overflow \r\n");	

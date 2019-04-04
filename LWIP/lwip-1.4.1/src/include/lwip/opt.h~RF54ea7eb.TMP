@@ -1145,7 +1145,7 @@
  * when a netif has been removed
  */
 #ifndef LWIP_NETIF_REMOVE_CALLBACK
-#define LWIP_NETIF_REMOVE_CALLBACK      1//0
+#define LWIP_NETIF_REMOVE_CALLBACK      0
 #endif
 
 /**

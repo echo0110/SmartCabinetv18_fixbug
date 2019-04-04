@@ -367,8 +367,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr9;
         break;
 			case 10:   /*ÌØÊâµçÔ´*/		
-				//sprintf((char*)sys_default10, "%d",!AC24_STAT);
-			  sprintf((char*)sys_default10, "%d",17);
+				sprintf((char*)sys_default10, "%d",!AC24_STAT);
 			  strings=char_arrays_to_strings(sys_default10,strlen((char*)sys_default10));
 			  sys_len_default10=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;
@@ -378,9 +377,7 @@ static void emmp_get_object_def(u8_t ident_len, s32_t *ident, struct obj_def *od
         od->v_len = *sys_len_ptr10;
         break;
 			case 11:  /*AC1*/	
-				//sprintf((char*)sys_default_ac1, "%d",AC1_STAT);
-			  //sprintf((char*)sys_default_ac1, "%d",23);
-			  sprintf((char*)sys_default_ac1, "%d",34);
+				sprintf((char*)sys_default_ac1, "%d",AC1_STAT);
 			  strings=char_arrays_to_strings(sys_default_ac1,strlen((char*)sys_default_ac1));
 			  sys_len_default_ac1=strlen(strings);
         od->instance = MIB_OBJECT_SCALAR;

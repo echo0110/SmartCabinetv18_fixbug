@@ -58,6 +58,7 @@ u16 temp=0;
 //float  HUM = 0;
 u8 DOOR_STAT=1, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STAT;
 u8 AC1_STAT, AC2_STAT, AC3_STAT,fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
+u8 NET_STAT;
 u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 u8 stat_changed = 0;
 u8 tem_stat_changed=0,vol_stat_changed= 0,sys12_stat_changed=0;
@@ -92,11 +93,11 @@ void SENSOR_Init(void)
 	
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC|RCC_APB2Periph_AFIO,ENABLE);
 	
-	// PA4	SD卡CS引脚
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-	GPIO_InitStructure.GPIO_Mode =GPIO_Mode_IPD;  //下拉输入
+	// PC3	SD卡SD_IN 检测引脚
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Mode =GPIO_Mode_IPU;  //上拉输入  insert-0   no-insert--1
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  //
-	GPIO_Init(GPIOA,&GPIO_InitStructure);  	
+	GPIO_Init(GPIOC,&GPIO_InitStructure); 
 	// PC7	外部中断引脚
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7|GPIO_Pin_8;
 	GPIO_InitStructure.GPIO_Mode =GPIO_Mode_IPU;  //上拉输入
@@ -108,10 +109,6 @@ void SENSOR_Init(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		// 推挽
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
-	// PB7	水浸
-//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		// 推挽
-//	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
   // PB7	水浸
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
@@ -156,8 +153,9 @@ void SENSOR_Init(void)
 	// PE2	V3
 	// PE3	V2
 	// PE4	V1
-	// PE5	风扇
-	// PE6	交流L1
+		
+	// PE6 C4	 fan
+	// PE5 C5  alarm
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6;	    		 //LED1-->PE.5 
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	
@@ -165,20 +163,30 @@ void SENSOR_Init(void)
 	GPIO_SetBits(GPIOE,GPIO_Pin_2);//V3  默认开	
 	GPIO_SetBits(GPIOE,GPIO_Pin_3);//V2  默认开	
 	GPIO_SetBits(GPIOE,GPIO_Pin_4);//V1  默认开	
-	GPIO_SetBits(GPIOE,GPIO_Pin_5);//关风扇
-	GPIO_ResetBits(GPIOE,GPIO_Pin_6);//L1  默认开	
+	GPIO_SetBits(GPIOE,GPIO_Pin_6);//关风扇
 	
-	// PF6	报警器
-	// PF7	交流L2
+	GPIO_ResetBits(GPIOE,GPIO_Pin_5);						 //报警器  默认关
+
+	
+	// PF6 C1	AC1
+	// PF7 C2	AC2
+	// PF9 C3 AC3
 	// PF8	照明
-	// PF9	交流L3
+	
 	// PF10	加热控制
 	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	// 推挽输出
 	GPIO_Init(GPIOF, &GPIO_InitStructure);
-	GPIO_ResetBits(GPIOF,GPIO_Pin_7);						 //L2  默认开					 
-	GPIO_ResetBits(GPIOF,GPIO_Pin_9);						 //L3  默认开	
+	
+	
+	GPIO_ResetBits(GPIOF,GPIO_Pin_6);						 //AC1  默认开					 
+	GPIO_ResetBits(GPIOF,GPIO_Pin_7);						 //AC2  默认开	
+	GPIO_ResetBits(GPIOF,GPIO_Pin_9);						 //AC3  默认开					 
+	
   GPIO_SetBits(GPIOF,GPIO_Pin_8);						 //F8  照明默认关
+	
+	
+	
 	
 	
 	//测试引脚
@@ -192,6 +200,13 @@ void SENSOR_Init(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	// 推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
+			
+	// PA11  D-引脚
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	// 推挽输出
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
 			
 }
 
@@ -541,12 +556,13 @@ void ping_task(void *pvParameters)
 void SD_SENSOR_CHECK(void) //SD卡轮询检测
 {	
 	u16 temp=0;
-	temp=SD_Initialize();
-	//printf("temp=%d\n",temp);
+	//temp=SD_Initialize();
+	temp=GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_3);
 	if(SD_STAT!= temp)
 	{
 		delay_ms(10);
-		temp=SD_Initialize();
+		//temp=SD_Initialize();
+		temp=GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_3);
 		if(SD_STAT != temp)
 		{
 			SD_STAT = temp;					
@@ -561,9 +577,9 @@ void SD_SENSOR_CHECK(void) //SD卡轮询检测
 			 Mass_Block_Count[1]=0xE6D000;
 			 PAout(12)=0;
 			 GPIO_ResetBits(GPIOA,GPIO_Pin_12);		                                            
-			 delay_xms(65);   
+			 delay_ms(65);   
 			 GPIO_SetBits(GPIOA,GPIO_Pin_12);	
-			 delay_xms(65);
+			 delay_ms(65);
 	     USB_Init();
 			}
 			else 

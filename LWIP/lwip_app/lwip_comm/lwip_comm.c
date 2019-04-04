@@ -185,21 +185,21 @@ void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 void Enc_LinkCallbackFunc(struct netif *netif)
 {
 	MSG msg;
-
-	msg.Msg = MSG_LINKSTATE_CHANGE;
-	msg.wParam = NETIF_FLAG_LINK_UP;
-	msg.lParam = (u32)netif;
-	xQueueSend(MainTaskQueue, &msg, 0);
+  printf("...... Enc_LinkCallbackFunc......\r\n");
+//	msg.Msg = MSG_LINKSTATE_CHANGE;
+//	msg.wParam = NETIF_FLAG_LINK_UP;
+//	msg.lParam = (u32)netif;
+//	xQueueSend(MainTaskQueue, &msg, 0);
 }
 
 void Enc_StatusCallbackFunc(struct netif *netif)
 {
 	MSG msg;
-
-	msg.Msg = MSG_LINKSTATE_CHANGE;
-	msg.wParam = NETIF_FLAG_UP;
-	msg.lParam = (u32)netif;
-	xQueueSend(MainTaskQueue, &msg, 0);
+  printf("...... Enc_StatusCallbackFunc......\r\n");
+//	msg.Msg = MSG_LINKSTATE_CHANGE;
+//	msg.wParam = NETIF_FLAG_UP;
+//	msg.lParam = (u32)netif;
+//	xQueueSend(MainTaskQueue, &msg, 0);
 }
 
 //LWIP初始化(LWIP启动的时候使用)
@@ -234,13 +234,13 @@ u8 lwip_comm_init(void)
 #endif
 	Netif_Init_Flag=netif_add(&lwip_netif,&ipaddr,&netmask,&gw,NULL,&ethernetif_init,&ethernet_input);
 	if(Netif_Init_Flag != NULL)
-	{
-		/* init netif link callback function */
-	//	netif_set_link_callback(&lwip_netif, Enc_LinkCallbackFunc);
-	//	netif_set_status_callback(&lwip_netif, Enc_StatusCallbackFunc);
-		
+	{	
+/* init netif link callback function */
+		//netif_set_link_callback(&lwip_netif, Enc_LinkCallbackFunc);
+	  //netif_set_status_callback(&lwip_netif, Enc_StatusCallbackFunc);	
+	
 		netif_set_default(&lwip_netif);
-		netif_set_up(&lwip_netif);
+		netif_set_up(&lwip_netif);		
 	}
 	taskENTER_CRITICAL();
 

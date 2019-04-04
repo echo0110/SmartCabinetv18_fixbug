@@ -151,7 +151,8 @@ void MqttTask(void *pvParameters)
 	char msg[200];
 	char host_name[16];
 	char host_port[6];
-	char hostname[]="www.cncqs.cn";   
+	//char hostname[]="117.64.249.208";//"www.cncqs.cn"; 
+  char hostname[]="www.cncqs.cn";   
 	u8 mqtt_ip[16]={0};
 	Printf("...... MQTT Connecting Server......\r\n");
 	
@@ -180,9 +181,7 @@ void MqttTask(void *pvParameters)
 MQTT_START:
 	while(1)
 	{
-		Printf("gsm_dect()  before\r\n");
 		gsm_dect();
-		Printf("gsm_dect()  after\r\n");
 		vTaskDelay(2000/portTICK_RATE_MS);
 		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
 		if(res == 0)
@@ -198,7 +197,6 @@ MQTT_START:
 			Printf("MQTT连接服务器失败,错误代码:%d\r\n", res);
 //			gsm_reset();
 		}
-		//xEventGroupSetBits(xCreatedEventGroup, TASK_BIT_MQTT);
 		vTaskDelay(3000/portTICK_RATE_MS);
 		/* 发送事件标志，表示任务正常运行 */
 	 	
@@ -256,7 +254,7 @@ MQTT_START:
 		{
 			publishSpaces = 0;
 			no_mqtt_msg_exchange = 1;
-			pingSpaces = 0;
+			//pingSpaces = 0;
 			
 			sprintf(topic, "ASMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
@@ -270,8 +268,11 @@ MQTT_START:
 
 			
 			sprintf(topic, "EQUSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
+//			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
+//			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
+			
 			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
-			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
+			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
@@ -303,11 +304,11 @@ MQTT_START:
 			}
 		}
 		
-		if(pingSpaces > KEEPLIVE_TIME/6*10)
+		if(pingSpaces > KEEPLIVE_TIME/2*10)
 		{
 			times = 5;
 			res = 1;
-			pingSpaces = 0;
+			pingSpaces=0;
 			while((times--)&&(res!=0))res = my_mqtt_send_pingreq();
 		//	res = my_mqtt_send_pingreq();
 		//	Printf("ping times: %d\r\n", 10-times);

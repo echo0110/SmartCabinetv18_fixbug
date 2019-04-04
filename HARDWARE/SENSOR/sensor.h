@@ -43,10 +43,10 @@
 
 
 
-// PE6	AC1-220V输出控制  L1
-#define AC1_SENSOR()		PEin(6)
-#define OUT_AC1_220V_ON()		{PEout(6) = 0;}
-#define OUT_AC1_220V_OFF()	{PEout(6) = 1;}
+// PF6	AC1-220V输出控制  L1
+#define AC1_SENSOR()		PFin(6)
+#define OUT_AC1_220V_ON()		{PFout(6) = 0;}
+#define OUT_AC1_220V_OFF()	{PFout(6) = 1;}
 
 // PF7	AC2-220V输出控制  L2
 #define AC2_SENSOR()		PFin(7)
@@ -58,15 +58,15 @@
 #define OUT_AC3_220V_ON()		{PFout(9) = 0;}
 #define OUT_AC3_220V_OFF()	{PFout(9) = 1;}
 
-// PE5	风扇控制
-#define out_fan_SENSOR()		PEin(5)
-#define out_fan_ON()		{PEout(5) = 0;}
-#define out_fan_OFF()	  {PEout(5) = 1;}
+// PE6	风扇控制
+#define out_fan_SENSOR()		PFin(6)
+#define out_fan_ON()		{PEout(6) = 0;}
+#define out_fan_OFF()	  {PEout(6) = 1;}
 
-// PF5   警报
-#define alarm_SENSOR()		PFin(6)
-#define alarm_ON()		{PFout(6) = 0;}
-#define alarm_OFF()	  {PFout(6) = 1;}
+// PE5   警报
+#define alarm_SENSOR()		PEin(5)
+#define alarm_ON()		{PEout(5) = 0;}
+#define alarm_OFF()	  {PEout(5) = 1;}
 
 // PF8   照明
 #define light_SENSOR()		PFin(8)
@@ -110,17 +110,16 @@
 #define WATER_OUT	1
 
 // PC7	门锁状态 0-开 1-关   测试使用  正式使用要改引脚
-#define DOOR_SENSOR		PCin(7)
+//#define DOOR_SENSOR		PCin(7)
+
+// PD2	门锁状态 0-开 1-关
+#define DOOR_SENSOR		PDin(2)
 #define DOOR_OPEN		1
 #define DOOR_CLOSE	0
 
 
-
-
-
-
-
-
+// PG7	
+//#define NET_STAT		PGin(6)	
 
 
 
@@ -128,6 +127,7 @@ extern float TEM, HUM;
 extern u8 DOOR_STAT, WATER_STAT, SYS12_STAT, BAK12_STAT, BAT12_STAT,UPS_STAT,AC24_STAT;
 extern u8 AC1_STAT, AC2_STAT, AC3_STAT, fan_STAT, alarm_STAT, light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT,out_special_STAT;
 extern u8 TEM_STAT,VOL_STAT;
+extern u8 NET_STAT;
 
 extern u8 IS_EQU_SYS12V, IS_EQU_UPS12V;
 extern u8 stat_changed;

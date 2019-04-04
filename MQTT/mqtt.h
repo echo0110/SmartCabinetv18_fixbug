@@ -6,7 +6,8 @@
 enum QoS { QOS0, QOS1, QOS2 };
 #define MSG_MAX_LEN		200
 #define MSG_TOPIC_LEN	20
-#define	KEEPLIVE_TIME	120
+#define	KEEPLIVE_TIME	100//120
+#define	KEEPLIVE_TIME_test	100
 #define MAX_MAC			10
 #define MAX_IP		10
 #define MAC_KEEP_TIME	120

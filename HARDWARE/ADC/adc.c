@@ -87,7 +87,8 @@ void Get_Vol(void)
 	u16 adcx;	
 	u16 temp;
 	//adcx = Get_Adc_Average(ADC_Channel_11, 20); //PC1
-	temp= Get_Adc_Average(ADC_Channel_11, 20); //PC1
+	//temp= Get_Adc_Average(ADC_Channel_11, 20); //PC1
+	temp = Get_Adc_Average(ADC_Channel_0, 20);//PA0
 	VOL = (float)temp*3.3/4096*180;
 	if((VOL>600)||(VOL<80))VOL = 0;	
 }
@@ -96,9 +97,11 @@ void Get_Cur(void)
 {
 	u16 adcx;
 	
-	adcx = Get_Adc_Average(ADC_Channel_0, 20);//PA0
+	//adcx = Get_Adc_Average(ADC_Channel_0, 20);//PA0
+	adcx = Get_Adc_Average(ADC_Channel_11, 20); //PC1
 	//CUR = ((float)adcx*3.3/4096-0.02)*1000;
-	CUR = ((float)adcx*3.3/4096)*3.75;
+	//CUR = ((float)adcx*3.3/4096)*3.75;
+	CUR = ((float)adcx*3.3/4096)*4.545;//330¦¸ µç×è
 	if((CUR<0) || (VOL==0))CUR = 0;
 }
 /*
