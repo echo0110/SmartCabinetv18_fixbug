@@ -231,7 +231,7 @@ int main(void)
 	USART3_Init(38400);
  	UART4_Init(14400);
 	printf("........ SC System Power On .......\r\n");
-	printf("........ update v0.5 .......\r\n");
+	printf("........ update v0.6 .......\r\n");
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();
@@ -242,7 +242,6 @@ int main(void)
 	W25QXX_Init();
 	exfuns_init();
 	
- 
 	if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_3)==0) //sd card insert 
   {
 	 res_sd=SD_Initialize();
@@ -505,13 +504,7 @@ static void TickTask(void *pParameters)
 		counts++;	
     DOOR_SENSOR_CHECK(); 		
 		// 1√Î
-//		if(RtcCounter != RTC_GetCounter())
-//		{				
-//			RtcCounter = RTC_GetTime(NULL);
-//			msg.Msg = MSG_TICK_1_SECOND;
-//			xQueueSend(MainTaskQueue, &msg, 0);
-//		}
-		if((counts%100)==0)		// 1s
+		if((counts%92)==0)		// 1s
 		{			
 			msg.Msg = MSG_TICK_1_SECOND;
 			xQueueSend(MainTaskQueue, &msg, 0);

@@ -99,11 +99,17 @@ void SENSOR_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  //
 	GPIO_Init(GPIOC,&GPIO_InitStructure); 
 	// PC7	外部中断引脚
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7|GPIO_Pin_8;
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7|GPIO_Pin_8;
+//	GPIO_InitStructure.GPIO_Mode =GPIO_Mode_IPU;  //上拉输入
+//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  //
+//	GPIO_Init(GPIOC,&GPIO_InitStructure);  
+	
+	// PD2	门禁引脚
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
 	GPIO_InitStructure.GPIO_Mode =GPIO_Mode_IPU;  //上拉输入
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;  //
-	GPIO_Init(GPIOC,&GPIO_InitStructure);  
-	
+	GPIO_Init(GPIOD,&GPIO_InitStructure);  
+//	
 	// PA8	远程开门
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;		// 推挽
@@ -165,7 +171,7 @@ void SENSOR_Init(void)
 	GPIO_SetBits(GPIOE,GPIO_Pin_4);//V1  默认开	
 	GPIO_SetBits(GPIOE,GPIO_Pin_6);//关风扇
 	
-	GPIO_ResetBits(GPIOE,GPIO_Pin_5);						 //报警器  默认关
+	GPIO_SetBits(GPIOE,GPIO_Pin_5);						 //报警器  默认关
 
 	
 	// PF6 C1	AC1
@@ -409,12 +415,12 @@ void DOOR_SENSOR_CHECK(void) //门开关接口扫描函数
  */
 void LIGHT_SENSOR_CHECK(void)
 {
-	if(DOOR_SENSOR==1)//如果门是开着的
+	if(DOOR_SENSOR==0)//如果门是开着的
 	{					
 		light_ON();
 		light_STAT=1;
 	}
-	if(DOOR_SENSOR==0)//如果门是关着的
+	if(DOOR_SENSOR==1)//如果门是关着的
 	{					
 		light_OFF();
 		light_STAT=0;

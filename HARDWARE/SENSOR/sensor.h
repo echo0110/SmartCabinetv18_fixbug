@@ -118,6 +118,7 @@
 #define DOOR_CLOSE	0
 
 
+
 // PG7	
 //#define NET_STAT		PGin(6)	
 
