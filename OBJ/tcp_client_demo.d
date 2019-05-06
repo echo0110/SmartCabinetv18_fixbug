@@ -92,3 +92,5 @@
 ..\obj\tcp_client_demo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\tcp_client_demo.o: ..\FreeRTOS\include\timers.h
 ..\obj\tcp_client_demo.o: ..\FreeRTOS\include\StackMacros.h
+..\obj\tcp_client_demo.o: ..\HARDWARE\GPS\gps.h
+..\obj\tcp_client_demo.o: ..\HARDWARE\USART3\usart3.h

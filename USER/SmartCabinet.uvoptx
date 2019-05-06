@@ -139,7 +139,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -172,7 +171,40 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_512 -FS08000000 -FL080000 -FP0($$Device:STM32F103ZE$Flash\STM32F10x_512.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>2052</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134290924</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\LWIP\lwip_app\web_server_demo\httpd.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\SmartCabinet\../LWIP/lwip_app/web_server_demo/httpd.c\2052</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>105</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134235408</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\HARDWARE\ADC\adc.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\SmartCabinet\../HARDWARE/ADC/adc.c\105</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -182,7 +214,7 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>posx+1</ItemText>
+          <ItemText>res</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
@@ -302,12 +334,12 @@
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>netif</ItemText>
+          <ItemText>calendar</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
           <WinNumber>1</WinNumber>
-          <ItemText>mqtt_ip,0x0A</ItemText>
+          <ItemText>gpsx-&gt;utc.min</ItemText>
         </Ww>
         <Ww>
           <count>27</count>
@@ -322,17 +354,17 @@
         <Ww>
           <count>29</count>
           <WinNumber>1</WinNumber>
-          <ItemText>lwipdev,0x0A</ItemText>
+          <ItemText>res</ItemText>
         </Ww>
         <Ww>
           <count>30</count>
           <WinNumber>1</WinNumber>
-          <ItemText>test12</ItemText>
+          <ItemText>temp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>31</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TASK_BIT_camera_flag</ItemText>
+          <ItemText>calendar.min</ItemText>
         </Ww>
         <Ww>
           <count>32</count>
@@ -342,7 +374,7 @@
         <Ww>
           <count>33</count>
           <WinNumber>1</WinNumber>
-          <ItemText>strings</ItemText>
+          <ItemText>temp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>34</count>
@@ -432,7 +464,7 @@
         <Ww>
           <count>51</count>
           <WinNumber>1</WinNumber>
-          <ItemText>raw_ptr</ItemText>
+          <ItemText>VOL</ItemText>
         </Ww>
         <Ww>
           <count>52</count>
@@ -1170,7 +1202,7 @@
 
   <Group>
     <GroupName>FreeRTOS</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1758,7 +1790,7 @@
 
   <Group>
     <GroupName>FATFS</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1831,7 +1863,7 @@
 
   <Group>
     <GroupName>USB</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2060,7 +2092,7 @@
 
   <Group>
     <GroupName>HTTP</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2136,7 +2168,7 @@
 
   <Group>
     <GroupName>LWIP_APP</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2329,7 +2361,7 @@
 
   <Group>
     <GroupName>Camera</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

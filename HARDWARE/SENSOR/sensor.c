@@ -171,6 +171,7 @@ void SENSOR_Init(void)
 	GPIO_SetBits(GPIOE,GPIO_Pin_4);//V1  默认开	
 	GPIO_SetBits(GPIOE,GPIO_Pin_6);//关风扇
 	
+	
 	GPIO_SetBits(GPIOE,GPIO_Pin_5);						 //报警器  默认关
 
 	

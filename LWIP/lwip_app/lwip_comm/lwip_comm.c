@@ -101,15 +101,15 @@ void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	for(token=strtok((char*)buf,delim),i=0; (token!=NULL)&&(i<4); token=strtok(NULL, delim),i++)
 		lwipx->ip[i]= atol(token);
 	
-	ini_gets("local", "mask", "255.255.255.240", buf, 16, inifile);
+	ini_gets("local", "mask", "255.255.255.0", buf, 16, inifile);
 	for(token=strtok((char*)buf,delim),i=0; (token!=NULL)&&(i<4); token=strtok(NULL, delim),i++)
 		lwipx->netmask[i]= atol(token);
 	
-	ini_gets("local", "gw", "172.28.86.145", buf, 16, inifile);
+	ini_gets("local", "gw", "192.168.0.1", buf, 16, inifile);
 	for(token=strtok((char*)buf,delim),i=0; (token!=NULL)&&(i<4); token=strtok(NULL, delim),i++)
 		lwipx->gateway[i]= atol(token);
 	
-	ini_gets("mqtt", "ip", "120.210.134.49", buf, 16, inifile);
+	ini_gets("mqtt", "ip", "192.168.0.31", buf, 16, inifile);
 	for(token=strtok((char*)buf,delim),i=0; (token!=NULL)&&(i<4); token=strtok(NULL, delim),i++)
 		lwipx->mqttip[i]= atol(token);
 	lwipx->mqttport =ini_getl("mqtt", "port", 1883, inifile);

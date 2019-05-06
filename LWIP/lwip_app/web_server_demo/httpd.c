@@ -2082,6 +2082,7 @@ static err_t http_init_file(struct http_state *hs, struct fs_file *file, int is_
     hs->handle = file;
     hs->file = (char*)file->data;
     LWIP_ASSERT("File length must be positive!", (file->len >= 0));
+		printf("File length must be positive!\r\n");
     hs->left = file->len;
     hs->retries = 0;
 #if LWIP_HTTPD_TIMING

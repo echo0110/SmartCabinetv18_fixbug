@@ -89,7 +89,7 @@ void Get_Vol(void)
 	//adcx = Get_Adc_Average(ADC_Channel_11, 20); //PC1
 	//temp= Get_Adc_Average(ADC_Channel_11, 20); //PC1
 	temp = Get_Adc_Average(ADC_Channel_0, 20);//PA0
-	VOL = (float)temp*3.3/4096*180;
+	VOL = (float)temp*3.3/4096*1640+10;
 	if((VOL>600)||(VOL<80))VOL = 0;	
 }
 

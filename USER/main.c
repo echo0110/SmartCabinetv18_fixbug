@@ -235,7 +235,7 @@ int main(void)
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();
- // RTC_Init();
+  //RTC_Init();
 	Init_Shell();
 	FSMC_SRAM_Init();		
 	USART1_Sem = xSemaphoreCreateMutex();
@@ -339,7 +339,7 @@ int main(void)
                 (void*          )NULL,
                 (UBaseType_t    )MQTT_TASK_PRIORITY,
                 (TaskHandle_t*  )&MqttTask_Handler);
-   //创建IAP任务 web前端升级程序  
+//   //创建IAP任务 web前端升级程序  
 	 xTaskCreate((TaskFunction_t )iap_task,     
                 (const char*    )"iap_task",   
                 (uint16_t       )IAP_STK_SIZE, 
@@ -371,7 +371,7 @@ int main(void)
                 (void*          )NULL,				
                 (UBaseType_t    )Ping_TASK_PRIO,	
                 (TaskHandle_t*  )&PingTask_Handler);
-   //创建TAP任务  主动上报数据帧
+//   //创建TAP任务  主动上报数据帧
 //   xTaskCreate((TaskFunction_t )trap_task,     	
 //                (const char*    )"trap_task",   	
 //                (uint16_t       )trap_STK_SIZE, 
@@ -412,9 +412,7 @@ void MainTask(void *pParameters)
 		case MSG_TICK_3_SECOND:
 		{
 			page++;
-			//show_oled(page%maxPages);			
-			LIGHT_SENSOR_CHECK();
-     // netif_set_remove_callback(struct netif *netif, netif_status_callback_fn remove_callback);			
+			LIGHT_SENSOR_CHECK();			
 			break;
 		}
 		case MSG_TICK_5_SECOND:
@@ -424,8 +422,6 @@ void MainTask(void *pParameters)
 				if(NMEA_GNRMC_Analysis(&gpsxSC, USART3_RX_BUF)==0)
 				if(gpsxSC.latitude!=0&&gpsxSC.longitude!=0)
 				USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);				
-//				printf("calendar.w_year=%d:calendar.w_month=%d:%d",calendar.w_year,calendar.w_month,calendar.w_date);	
-//		    printf("calendar.hour=%d:calendar.min=%d:%d",calendar.hour,calendar.min,calendar.sec);	
 			  if(calendar.hour==1&&Flag_reset)
 				{
 				 NVIC_SystemReset();
@@ -451,11 +447,6 @@ void MainTask(void *pParameters)
 		} 		
 		case MSG_TICK_60_SECOND:
 		{ 
-			//RTC_Get();//更新时间	
-//			if(calendar.hour==1)
-//			{
-//			 NVIC_SystemReset();
-//			}
 			break;
 		} 
 		case MSG_UART1_RX_BYTE:
