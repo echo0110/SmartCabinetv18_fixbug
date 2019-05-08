@@ -493,7 +493,7 @@ static void TickTask(void *pParameters)
 		vTaskDelayUntil(&xLastExecutionTime, 10);	// 10ms
 			
 		counts++;	
-    DOOR_SENSOR_CHECK(); 		
+    //DOOR_SENSOR_CHECK(); 		
 		// 1√Î
 		if((counts%92)==0)		// 1s
 		{			

@@ -70,8 +70,8 @@
 
 // PF8   ’’√˜
 #define light_SENSOR()		PFin(8)
-#define light_ON()		{PFout(8) = 0;}
-#define light_OFF()	  {PFout(8) = 1;}
+#define light_ON()		{PFout(8) = 1;}
+#define light_OFF()	  {PFout(8) = 0;}
 
 // PF10   º”»»
 #define heat_SENSOR()		PFin(10)
