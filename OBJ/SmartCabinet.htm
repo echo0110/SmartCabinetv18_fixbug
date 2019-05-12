@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\SmartCabinet.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\SmartCabinet.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed May 08 11:42:27 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Sun May 12 11:28:47 2019
 <BR><P>
 <H3>Maximum Stack Usage =       2864 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -904,7 +904,6 @@ Global Symbols
 <LI><a href="#[470]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_sd_test
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_client_recv
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_client_poll
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDS_CGI_Handler
 <LI><a href="#[36f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;md5_json
 <LI><a href="#[35c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;httpd_post_receive_data
 <LI><a href="#[34b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;httpd_post_finished
@@ -1345,7 +1344,6 @@ Global Symbols
 <LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserMsgCtl
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ini_puts
 <LI><a href="#[2b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cache_flush
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDS_CGI_Handler
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_CGI_Handler
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindCGIParameter
 <LI><a href="#[36f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;md5_json
@@ -1845,7 +1843,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b9]"></a>BEEP_CGI_Handler</STRONG> (Thumb, 60 bytes, Stack size 24 bytes, httpd_cgi_ssi.o(i.BEEP_CGI_Handler))
+<P><STRONG><a name="[b9]"></a>BEEP_CGI_Handler</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, httpd_cgi_ssi.o(i.BEEP_CGI_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = BEEP_CGI_Handler &rArr; FindCGIParameter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindCGIParameter
@@ -2517,13 +2515,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPS_mktime
 </UL>
 
-<P><STRONG><a name="[b8]"></a>LEDS_CGI_Handler</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, httpd_cgi_ssi.o(i.LEDS_CGI_Handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
-<LI>Call Chain = LEDS_CGI_Handler &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[b8]"></a>LEDS_CGI_Handler</STRONG> (Thumb, 82 bytes, Stack size 40 bytes, httpd_cgi_ssi.o(i.LEDS_CGI_Handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = LEDS_CGI_Handler &rArr; FindCGIParameter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FindCGIParameter
-<LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> httpd_cgi_ssi.o(.constdata)
 </UL>
@@ -4119,7 +4114,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[79]"></a>SystemInit</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SystemInit))
+<P><STRONG><a name="[79]"></a>SystemInit</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, system_stm32f10x.o(i.SystemInit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = SystemInit &rArr; SetSysClock &rArr; SetSysClockTo72
 </UL>
 <BR>[Calls]<UL><LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
@@ -11263,7 +11258,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[3de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ping_send
 </UL>
 
-<P><STRONG><a name="[3de]"></a>ping_send</STRONG> (Thumb, 98 bytes, Stack size 24 bytes, httpd.o(i.ping_send))
+<P><STRONG><a name="[3de]"></a>ping_send</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, httpd.o(i.ping_send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 608 + Unknown Stack Size
 <LI>Call Chain = ping_send &rArr; raw_sendto &rArr; ip_output_if &rArr; ip_frag &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>

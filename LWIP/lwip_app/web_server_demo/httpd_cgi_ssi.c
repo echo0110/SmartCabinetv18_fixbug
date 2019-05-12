@@ -184,55 +184,46 @@ static u16_t SSIHandler(int iIndex,char *pcInsert,int iInsertLen)
 const char* LEDS_CGI_Handler(int iIndex, int iNumParams, char *pcParam[], char *pcValue[])
 {
 	u8 i=0;  //注意根据自己的GET的参数的多少来选择i值范围
+	u8 k;
+	int iIndex_passport;
+	int reboot;
+	char delim[] = " .";
+	char buf[5][16];
+	//iIndex = FindCGIParameter("Relay1",pcParam,iNumParams);  //找到led的索引号
 	
-	printf("receive  get bs64 requeset\n");
-	
-	iIndex = FindCGIParameter("LED1",pcParam,iNumParams);  //找到led的索引号
+	reboot = FindCGIParameter("reboot",&pcParam[0],iNumParams);  //找到led的索引号
+	iIndex_passport = FindCGIParameter("passport",&pcParam[1],iNumParams);  //找到led的索引号
+	//iIndex2 = FindCGIParameter("Relay2",pcParam,iNumParams);  //找到led的索引号
 	//只有一个CGI句柄 iIndex=0
-	if (iIndex != -1)
+	if(reboot!=-1)  //重启设备
 	{
-		//LED1=1;  //关闭LED1灯
-		for (i=0; i<iNumParams; i++) //检查CGI参数
-		{
-		  if (strcmp(pcParam[i] , "LED1")==0)  //检查参数"led" 属于控制LED1灯的
-		  {
-			//if(strcmp(pcValue[i], "LED1ON") ==0)  //改变LED1状态
-				//LED1=0; //打开LED1
-			//else if(strcmp(pcValue[i],"LED1OFF") == 0)
-				//LED1=1; //关闭LED1
-		  }
-		}
-	 }
-	//if(LED1==0&&BEEP==0)		return "/STM32_LED_ON_BEEP_OFF.shtml";	//LED1开,BEEP关
-	//else if(LED1==0&&BEEP==1) 	return "/STM32_LED_ON_BEEP_ON.shtml";	//LED1开,BEEP开
-	//else if(LED1==1&&BEEP==1) 	return "/STM32_LED_OFF_BEEP_ON.shtml";	//LED1关,BEEP开
-	else return "/STM32_LED_OFF_BEEP_OFF.shtml";						//LED1关,BEEP关					
+		NVIC_SystemReset();	
+	}
+	if(iIndex_passport!=-1)  //子网掩码写入flash
+	{	
+	}				
 }
 
-//BEEP的CGI控制句柄
+//IP的CGI控制句柄
 const char *BEEP_CGI_Handler(int iIndex,int iNumParams,char *pcParam[],char *pcValue[])
 {
 	u8 i=0;
-	iIndex = FindCGIParameter("BEEP",pcParam,iNumParams);  //找到BEEP的索引号
+	iIndex = FindCGIParameter("IP",pcParam,iNumParams);  //找到BEEP的索引号
 	if(iIndex != -1) 	//找到BEEP索引号
 	{
-		//BEEP=0;  		//关闭
 		for(i = 0;i < iNumParams;i++)
 		{
-			if(strcmp(pcParam[i],"BEEP") == 0)  //查找CGI参数
+			if(strcmp(pcParam[i],"gate1") == 0)  //查找CGI参数
 			{
-				//if(strcmp(pcValue[i],"BEEPON") == 0) //打开BEEP
-					//BEEP = 1;
-				//else if(strcmp(pcValue[i],"BEEPOFF") == 0) //关闭BEEP
-					//BEEP = 0;
-			}
+				if(strcmp(pcValue[i],"gate1ON") == 0) //打开BEEP
+				{
+				}
+				else if(strcmp(pcValue[i],"gate1OFF") == 0) //关闭BEEP
+				{	
+				}
+			}		
 		}
 	}
-	//if(LED1==0&&BEEP==0)		return "/STM32_LED_ON_BEEP_OFF.shtml";	//LED1开,BEEP关
-	//else if(LED1==0&&BEEP==1)	return "/STM32_LED_ON_BEEP_ON.shtml";	//LED1开,BEEP开
-	//else if(LED1==1&&BEEP==1)	return "/STM32_LED_OFF_BEEP_ON.shtml";	//LED1关,BEEP开
-	//else return "/STM32_LED_OFF_BEEP_OFF.shtml";						//LED1关,BEEP关
-	
 }
 
 //SSI句柄初始化

@@ -296,6 +296,7 @@ const default_filename g_psDefaultFilenames[] = {
   {"/index.htm", false }
 };
 
+
 #define NUM_DEFAULT_FILENAMES (sizeof(g_psDefaultFilenames) /   \
                                sizeof(default_filename))
 
