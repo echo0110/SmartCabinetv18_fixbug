@@ -410,11 +410,13 @@ void LIGHT_SENSOR_CHECK(void)
 	{					
 		light_ON();
 		light_STAT=1;
+		DOOR_STAT=1;
 	}
 	if(DOOR_SENSOR==0)//如果门是关着的
 	{					
 		light_OFF();
 		light_STAT=0;
+		DOOR_STAT=0;
 	}
 }
      
