@@ -235,7 +235,6 @@ int main(void)
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();
-  //RTC_Init();
 	Init_Shell();
 	FSMC_SRAM_Init();		
 	USART1_Sem = xSemaphoreCreateMutex();
