@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.15
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: niu Administrator, ben, LIC=FYKSB-2YCXQ-MLECI-TB14E-HUEXH-LY48S
+License Information: niu Microsoft, Microsoft, LIC=FYKY8-3ERDV-EV41R-KBE7G-F48U5-FASTG
  
 Tool Versions:
 Toolchain:       MDK-ARM Standard  Version: 5.15.0
@@ -21,17 +21,188 @@ Target DLL:      Segger\JL2CM3.dll V2.99.15.0
 Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
-C:\Users\Administrator\Desktop\gitlab2\SmartCabinetv20_fixbug\USER\SmartCabinet.uvprojx
-Project File Date:  05/12/2019
+C:\Users\Administrator\Desktop\SmartCabinetv18_fixbug\SmartCabinetv18_fixbug\USER\SmartCabinet.uvprojx
+Project File Date:  05/13/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'SmartCabinet'
+compiling main.c...
+..\LWIP\lwip_app\web_server_demo\httpd.h(257): warning:  #1295-D: Deprecated declaration post_read_flash_test - give arg types
+  void post_read_flash_test();//¶ÁiniÎÄ¼þ²âÊÔ
+main.c(223): warning:  #177-D: variable "SD_IN" was declared but never referenced
+        u8 SD_IN=13;
+main.c(399): warning:  #177-D: variable "i" was declared but never referenced
+        u8 i;
+main.c(401): warning:  #177-D: variable "test_water" was declared but never referenced
+        u8 test_water=10;       
+main.c(488): warning:  #177-D: variable "RtcCounter" was declared but never referenced
+        static u32 RtcCounter = 0;
+main.c: 5 warnings, 0 errors
+compiling dm9000.c...
+..\HARDWARE\DM9000\dm9000.c(434): warning:  #177-D: variable "xHigherPriorityTaskWoken" was declared but never referenced
+        BaseType_t xHigherPriorityTaskWoken;
+..\HARDWARE\DM9000\dm9000.c: 1 warning, 0 errors
+compiling oled.c...
+compiling sensor.c...
+..\LWIP\lwip_app\web_server_demo\httpd.h(257): warning:  #1295-D: Deprecated declaration post_read_flash_test - give arg types
+  void post_read_flash_test();//¶ÁiniÎÄ¼þ²âÊÔ
+..\HARDWARE\SENSOR\sensor.c: 1 warning, 0 errors
+compiling trap.cpp...
+..\HARDWARE\snmp\trap.cpp(85): warning:  #177-D: variable "objid_vol" was declared but never referenced
+        struct snmp_obj_id objid_vol = {10, {1,3,6,1,4,1,1,1,1}};       
+..\HARDWARE\snmp\trap.cpp(86): warning:  #177-D: variable "objid_cur" was declared but never referenced
+        struct snmp_obj_id objid_cur = {10, {1,3,6,1,4,1,1,1,2}};
+..\HARDWARE\snmp\trap.cpp(89): warning:  #177-D: variable "objid_water" was declared but never referenced
+        struct snmp_obj_id objid_water = {10, {1,3,6,1,4,1,1,1,5}};     
+..\HARDWARE\snmp\trap.cpp(90): warning:  #177-D: variable "objid_door" was declared but never referenced
+        struct snmp_obj_id objid_door = {10, {1,3,6,1,4,1,1,1,6}};      
+..\HARDWARE\snmp\trap.cpp(95): warning:  #177-D: variable "objid_ac1" was declared but never referenced
+        struct snmp_obj_id objid_ac1= {10, {1,3,6,1,4,1,1,1,11}};
+..\HARDWARE\snmp\trap.cpp(96): warning:  #177-D: variable "objid_ac2" was declared but never referenced
+        struct snmp_obj_id objid_ac2 = {10, {1,3,6,1,4,1,1,1,12}};      
+..\HARDWARE\snmp\trap.cpp(97): warning:  #177-D: variable "objid_ac3" was declared but never referenced
+        struct snmp_obj_id objid_ac3= {10, {1,3,6,1,4,1,1,1,13}};       
+..\HARDWARE\snmp\trap.cpp(99): warning:  #177-D: variable "objid_fan" was declared but never referenced
+        struct snmp_obj_id objid_fan= {10, {1,3,6,1,4,1,1,1,14}};
+..\HARDWARE\snmp\trap.cpp(100): warning:  #177-D: variable "objid_alarm" was declared but never referenced
+        struct snmp_obj_id objid_alarm = {10, {1,3,6,1,4,1,1,1,15}};    
+..\HARDWARE\snmp\trap.cpp(101): warning:  #177-D: variable "objid_light" was declared but never referenced
+        struct snmp_obj_id objid_light= {10, {1,3,6,1,4,1,1,1,16}};     
+..\HARDWARE\snmp\trap.cpp(103): warning:  #177-D: variable "objid_heat" was declared but never referenced
+        struct snmp_obj_id objid_heat= {10, {1,3,6,1,4,1,1,1,17}};
+..\HARDWARE\snmp\trap.cpp(104): warning:  #177-D: variable "objid_dc1" was declared but never referenced
+        struct snmp_obj_id objid_dc1= {10, {1,3,6,1,4,1,1,1,18}};
+..\HARDWARE\snmp\trap.cpp(105): warning:  #177-D: variable "objid_dc2" was declared but never referenced
+        struct snmp_obj_id objid_dc2 = {10, {1,3,6,1,4,1,1,1,19}};      
+..\HARDWARE\snmp\trap.cpp(106): warning:  #177-D: variable "objid_dc3" was declared but never referenced
+        struct snmp_obj_id objid_dc3= {10, {1,3,6,1,4,1,1,1,20}};
+..\HARDWARE\snmp\trap.cpp(47): warning:  #177-D: variable "tmp" was declared but never referenced
+        T tmp =data;
+          detected during instantiation of "void changed_trap(snmp_obj_id *, T &) [with T=u8]" at line 137
+..\HARDWARE\snmp\trap.cpp: 15 warnings, 0 errors
+compiling adc.c...
+..\HARDWARE\ADC\adc.c(75): warning:  #177-D: variable "temp" was declared but never referenced
+        u16 temp,i;
+..\HARDWARE\ADC\adc.c(87): warning:  #177-D: variable "adcx" was declared but never referenced
+        u16 adcx;       
+..\HARDWARE\ADC\adc.c: 2 warnings, 0 errors
+compiling mqtt.c...
+..\LWIP\lwip_app\web_server_demo\httpd.h(257): warning:  #1295-D: Deprecated declaration post_read_flash_test - give arg types
+  void post_read_flash_test();//¶ÁiniÎÄ¼þ²âÊÔ
+..\MQTT\mqtt.c(102): warning:  #177-D: variable "j" was declared but never referenced
+        u8 i, j,k;
+..\MQTT\mqtt.c(102): warning:  #177-D: variable "k" was declared but never referenced
+        u8 i, j,k;
+..\MQTT\mqtt.c(103): warning:  #177-D: variable "delim" was declared but never referenced
+        char delim[] = " .";
+..\MQTT\mqtt.c(104): warning:  #177-D: variable "token" was declared but never referenced
+        char *token;
+..\MQTT\mqtt.c(107): warning:  #177-D: variable "buf" was declared but never referenced
+        char buf[10][18];
+..\MQTT\mqtt.c(108): warning:  #177-D: variable "ip_buf" was declared but never referenced
+        char ip_buf[4][4];
+..\MQTT\mqtt.c(242): warning:  #177-D: variable "latitude_temp" was declared but never referenced
+                u8 latitude_temp,longitude_temp;
+..\MQTT\mqtt.c(242): warning:  #177-D: variable "longitude_temp" was declared but never referenced
+                u8 latitude_temp,longitude_temp;
+..\MQTT\mqtt.c(243): warning:  #177-D: variable "TEM_temp" was declared but never referenced
+                u16 TEM_temp,VOL_temp,CUR_temp;
+..\MQTT\mqtt.c(243): warning:  #177-D: variable "VOL_temp" was declared but never referenced
+                u16 TEM_temp,VOL_temp,CUR_temp;
+..\MQTT\mqtt.c(243): warning:  #177-D: variable "CUR_temp" was declared but never referenced
+                u16 TEM_temp,VOL_temp,CUR_temp;
+..\MQTT\mqtt.c(156): warning:  #177-D: variable "mqtt_ip" was declared but never referenced
+        u8 mqtt_ip[16]={0};
+..\MQTT\mqtt.c: 13 warnings, 0 errors
+compiling lwip_prvmib.c...
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(714): warning:  #177-D: variable "sint_ptr" was declared but never referenced
+          s32_t *sint_ptr = value;
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(951): warning:  #191-D: type qualifier is meaningless on cast type
+  struct mib_node* const private_nodes[1] = { (struct mib_node* const)&mib22 };
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(980): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(981): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(982): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(983): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(984): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(985): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(986): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(987): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry_root
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1004): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&moduleEntry
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1035): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&emmp_scalar2,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1036): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&emmp_scalar2,
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1037): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&modulesTable
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1054): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&emmp
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1071): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&lwip2
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1088): warning:  #191-D: type qualifier is meaningless on cast type
+    (struct mib_node* const)&enterprises2
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1174): warning:  #177-D: variable "if_node" was declared but never referenced
+                struct mib_list_node *if_node = NULL;   
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1217): warning:  #111-D: statement is unreachable
+                printf("%d\n", sensorentry.tree_levels);
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1288): warning:  #550-D: variable "sensor_register" was set but never used
+    s32_t sensor_register, sensor_address;
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c(1288): warning:  #550-D: variable "sensor_address" was set but never used
+    s32_t sensor_register, sensor_address;
+..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\lwip_prvmib.c: 21 warnings, 0 errors
+compiling camera.c...
+..\LWIP\lwip_app\web_server_demo\httpd.h(257): warning:  #1295-D: Deprecated declaration post_read_flash_test - give arg types
+  void post_read_flash_test();//¶ÁiniÎÄ¼þ²âÊÔ
+..\HARDWARE\camera\camera.c(118): warning:  #177-D: variable "ret1" was declared but never referenced
+        u8 ret1,res;
+..\HARDWARE\camera\camera.c(118): warning:  #550-D: variable "res" was set but never used
+        u8 ret1,res;
+..\HARDWARE\camera\camera.c(121): warning:  #177-D: variable "count_camera" was declared but never referenced
+        static int count_camera;
+..\HARDWARE\camera\camera.c(123): warning:  #177-D: variable "count_tcp" was declared but never referenced
+        static int count_tcp;
+..\HARDWARE\camera\camera.c(124): warning:  #177-D: variable "msg" was declared but never referenced
+        Task_MSG msg;
+..\HARDWARE\camera\camera.c(244): warning:  #177-D: variable "count" was declared but never referenced
+        static int count=0;     
+..\HARDWARE\camera\camera.c(317): warning:  #177-D: variable "i" was declared but never referenced
+        u8 res,i,n4=10;
+..\HARDWARE\camera\camera.c(317): warning:  #550-D: variable "n4" was set but never used
+        u8 res,i,n4=10;
+..\HARDWARE\camera\camera.c(319): warning:  #177-D: variable "test_buf" was declared but never referenced
+        char test_buf[17];
+..\HARDWARE\camera\camera.c(320): warning:  #177-D: variable "test_read_buf" was declared but never referenced
+        char test_read_buf[10];
+..\HARDWARE\camera\camera.c(321): warning:  #177-D: variable "timestamp_buf" was declared but never referenced
+        u32 timestamp_buf[10];
+..\HARDWARE\camera\camera.c(322): warning:  #177-D: variable "str" was declared but never referenced
+        char  str[17];
+..\HARDWARE\camera\camera.c(375): warning:  #550-D: variable "RtcCounter2" was set but never used
+        static u32 RtcCounter2 = 0;
+..\HARDWARE\camera\camera.c(377): warning:  #177-D: variable "RTC_date_t" was declared but never referenced
+        struct _date_t  RTC_date_t;
+..\HARDWARE\camera\camera.c(379): warning:  #177-D: variable "test_buf" was declared but never referenced
+        char test_buf[100];
+..\HARDWARE\camera\camera.c(397): warning:  #177-D: variable "test_buf" was declared but never referenced
+        char test_buf[100];
+..\HARDWARE\camera\camera.c: 17 warnings, 0 errors
+linking...
+Program Size: Code=165878 RO-data=210994 RW-data=3676 ZI-data=1006836  
+FromELF: creating hex file...
 After Build - User command #1: C:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output ../OBJ/SmartCabinet.bin ../OBJ/SmartCabinet.axf
-"..\OBJ\SmartCabinet.axf" - 0 Error(s), 0 Warning(s).
+"..\OBJ\SmartCabinet.axf" - 0 Error(s), 75 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Administrator\Desktop\gitlab2\SmartCabinetv20_fixbug\USER\RTE
+  C:\Users\Administrator\Desktop\SmartCabinetv18_fixbug\SmartCabinetv18_fixbug\USER\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>

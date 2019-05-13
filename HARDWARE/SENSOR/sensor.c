@@ -171,7 +171,6 @@ void SENSOR_Init(void)
 	GPIO_SetBits(GPIOE,GPIO_Pin_4);//V1  默认开	
 	GPIO_SetBits(GPIOE,GPIO_Pin_6);//关风扇
 	
-	
 	GPIO_SetBits(GPIOE,GPIO_Pin_5);						 //报警器  默认关
 
 	
@@ -263,26 +262,15 @@ void GET_AM2301_Data(void)
 			TEM = Sensor_Data[2]*256 + Sensor_Data[3];
       if(TEM >= 0x8000)TEM = 0-(TEM-0x8000)/10;
 			else TEM = TEM/10;			
-			if(TEM > 42)
+			if(TEM >=41)
 			{
 				out_fan_ON();
 				fan_STAT=1;
 			}
-			if(TEM < 40)
+			if(TEM <=40)
 			{
 				out_fan_OFF();
 				fan_STAT=0;
-			}
-			
-			if(TEM > 2)
-			{
-			  heat_OFF();//
-			  heat_STAT=0;
-			}
-			if(TEM < 0)
-			{
-				heat_ON();
-				heat_STAT=1;
 			}
 		}
 	}
@@ -395,13 +383,13 @@ void DOOR_SENSOR_CHECK(void) //门开关接口扫描函数
 			stat_changed = 1;
 			if(DOOR_SENSOR==1)//开门
 			{					
-				light_ON();
+				//light_ON();
 				light_STAT=1;
 				xSemaphoreGive(BinarySemaphore_photo_command);		
 			}
 			else
 			{
-			 light_OFF();
+			 //light_OFF();
 			 light_STAT=0;
 			}						
 		}
@@ -414,6 +402,8 @@ void DOOR_SENSOR_CHECK(void) //门开关接口扫描函数
  * 输入  ：无
  * 输出  ：无	
  */
+
+
 void LIGHT_SENSOR_CHECK(void)
 {
 	if(DOOR_SENSOR==1)//如果门是开着的

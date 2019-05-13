@@ -60,8 +60,8 @@
 
 // PE6	∑Á…»øÿ÷∆
 #define out_fan_SENSOR()		PFin(6)
-#define out_fan_ON()		{PEout(6) = 0;}
-#define out_fan_OFF()	  {PEout(6) = 1;}
+#define out_fan_ON()		{PEout(6) = 1;}
+#define out_fan_OFF()	  {PEout(6) = 0;}
 
 // PE5   æØ±®
 #define alarm_SENSOR()		PEin(5)

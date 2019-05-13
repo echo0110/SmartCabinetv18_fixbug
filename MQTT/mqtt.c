@@ -272,7 +272,7 @@ MQTT_START:
 //			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
 			
 			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
-			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
+			!AC24_STAT,!AC1_STAT,!AC2_STAT,!AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
