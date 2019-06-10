@@ -45,18 +45,18 @@
 
 // PF6	AC1-220V输出控制  L1
 #define AC1_SENSOR()		PFin(6)
-#define OUT_AC1_220V_ON()		{PFout(6) = 0;}
-#define OUT_AC1_220V_OFF()	{PFout(6) = 1;}
+#define OUT_AC1_220V_ON()		{PFout(6) = 1;}
+#define OUT_AC1_220V_OFF()	{PFout(6) = 0;}
 
 // PF7	AC2-220V输出控制  L2
 #define AC2_SENSOR()		PFin(7)
-#define OUT_AC2_220V_ON()		{PFout(7) = 0;}
-#define OUT_AC2_220V_OFF()	{PFout(7) = 1;}
+#define OUT_AC2_220V_ON()		{PFout(7) = 1;}
+#define OUT_AC2_220V_OFF()	{PFout(7) = 0;}
 
 // PF9	AC3-220V输出控制  L3
 #define AC3_SENSOR()		PFin(9)
-#define OUT_AC3_220V_ON()		{PFout(9) = 0;}
-#define OUT_AC3_220V_OFF()	{PFout(9) = 1;}
+#define OUT_AC3_220V_ON()		{PFout(9) = 1;}
+#define OUT_AC3_220V_OFF()	{PFout(9) = 0;}
 
 // PE6	风扇控制
 #define out_fan_SENSOR()		PFin(6)

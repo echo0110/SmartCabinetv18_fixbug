@@ -7,6 +7,7 @@
 #include "semphr.h"
 #include "task.h"
 #include "camera.h"
+#include "mqtt.h"
 
 float VOL, CUR;
 extern TaskHandle_t USBTask_Handler;
@@ -114,72 +115,72 @@ void output_control_default(void)
 {
 	char inifile[] = "1:cfg.ini";
 	
-	if((ini_getl("ctr",	"L1",	0,	inifile))) 
+	if((ini_getl("ctr",	"L1",	0,	inifile))==1) 
 	{		
 		OUT_AC1_220V_ON();
 		AC1_STAT=1;
 	}			
-	if(!(ini_getl("ctr","L1",	0,	inifile)))
+	if((ini_getl("ctr","L1",	0,	inifile))==0)
 	{		
 	  OUT_AC1_220V_OFF();
 		AC1_STAT=0;
 	}    
   if((ini_getl("ctr",	"L1",	0,	inifile))==2) {};		
 
-	if((ini_getl("ctr",	"L2",	0,	inifile))) 
+	if((ini_getl("ctr",	"L2",	0,	inifile))==1) 
 	{	 
 		OUT_AC2_220V_ON();
 		AC2_STAT=1;
 	}		
-	if(!(ini_getl("ctr","L2",	0,	inifile)))
+	if((ini_getl("ctr","L2",	0,	inifile))==0)
 	{	  
 		OUT_AC2_220V_OFF();
     AC2_STAT=0;		
 	}    
 	if((ini_getl("ctr",	"L2",	0,	inifile))==2) {};	
 
-	if((ini_getl("ctr",	"L3",	0,	inifile))) 
+	if((ini_getl("ctr",	"L3",	0,	inifile))==1) 
 	{	 
 		OUT_AC3_220V_ON();
 		AC3_STAT=1;
 	}			
-	if(!(ini_getl("ctr","L3",	0,	inifile))) 
+	if((ini_getl("ctr","L3",	0,	inifile))==0) 
 	{	
 	 OUT_AC3_220V_OFF();
 	 AC3_STAT=0;
 	}			
 	if((ini_getl("ctr",	"L3",	0,	inifile))==2) {};	
 
-	if((ini_getl("ctr",	"V1",	0,	inifile)))
+	if((ini_getl("ctr",	"V1",	0,	inifile))==1)
 	{	
 	 DC1_ON();
 	 DC1_STAT=1;
 	}    	
-	if(!(ini_getl("ctr","V1",	0,	inifile))) 
+	if((ini_getl("ctr","V1",	0,	inifile))==0) 
 	{
 		DC1_STAT=0;
 	  DC1_OFF();
 	}		
   if((ini_getl("ctr",	"V1",	0,	inifile))==2) {};			
 
-	if((ini_getl("ctr",	"V2",	0,	inifile)))
+	if((ini_getl("ctr",	"V2",	0,	inifile))==1)
 	{
 		DC2_STAT=1;
 		DC2_ON();	
 	} 	
-	if(!(ini_getl("ctr","V2",	0,	inifile)))
+	if((ini_getl("ctr","V2",	0,	inifile))==0)
 	{
 	  DC2_STAT=0;
 	  DC2_OFF();
 	}
 	if((ini_getl("ctr",	"V2",	0,	inifile))==2) {};	
 
-	if((ini_getl("ctr",	"V3",	0,	inifile)))
+	if((ini_getl("ctr",	"V3",	0,	inifile))==1)
 	{
 	 DC3_STAT=1;
 	 DC3_ON();	
 	}   
-	if(!(ini_getl("ctr","V3",	0,	inifile)))
+	if((ini_getl("ctr","V3",	0,	inifile))==0)
 	{
 	 DC3_STAT=0;
 	 DC3_OFF();		
@@ -188,12 +189,12 @@ void output_control_default(void)
 
 		
 	//DC4	
-  if((ini_getl("ctr",	"V4",	0,	inifile)))
+  if((ini_getl("ctr",	"V4",	0,	inifile))==1)
 	{
 	 DC4_STAT=1;
 	 DC4_ON();	
 	}   
-	if(!(ini_getl("ctr","V4",	0,	inifile)))
+	if((ini_getl("ctr","V4",	0,	inifile))==0)
 	{
 	 DC4_STAT=0;
 	 DC4_OFF();		
@@ -217,6 +218,7 @@ void output_control_default(void)
  */
 void read_Flooding(void)
 {
+	//read_ini_config();
 	if(GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_7)==0) //Ë®½þ
 	{
 	 GPIO_SetBits(GPIOE,GPIO_Pin_6);//¹ØL1

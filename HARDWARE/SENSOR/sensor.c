@@ -279,7 +279,6 @@ void GET_AM2301_Data(void)
 void STAT_CHECK(void)
 {	
 
-
 //  objid[0]=objid_vol;
 //	changed_trap(&objid[0],VOL);
 //	

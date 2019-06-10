@@ -19,8 +19,12 @@ extern char MAC_STAT[MAX_MAC][18];
 extern u8 MAC_COUNT[MAX_MAC];
 extern char IP_STAT[MAX_IP][18];
 
+extern char INI_IP_STAT[3][18];
+
 extern u8 buf_count;
 extern u8 no_mqtt_msg_exchange;
+
+extern void read_ini_config(void);
 
 
 

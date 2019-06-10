@@ -55,3 +55,5 @@
 ..\obj\adc.o: ..\FreeRTOS\include\task.h
 ..\obj\adc.o: ..\FreeRTOS\include\list.h
 ..\obj\adc.o: ..\HARDWARE\camera\camera.h
+..\obj\adc.o: ..\MQTT\mqtt.h
+..\obj\adc.o: ..\MQTT\mqtt.h

@@ -48,6 +48,8 @@ char CHECK_MAC[MAX_MAC][18];
 char CHECK_IP[MAX_IP][18];
 char MAC_STAT[MAX_MAC][18]={{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"}};
 char IP_STAT[MAX_IP][18]={{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"}};
+char INI_IP_STAT[3][18]={{"0"},{"0"},{"0"}};
+
 Ping_ip Ping_ip_array[10];
 
 u8 MAC_COUNT[MAX_MAC];
@@ -272,8 +274,15 @@ MQTT_START:
 //			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);
 			
 			sprintf(msg, "%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d*", VOL, CUR, TEM, HUM, !WATER_STAT,DOOR_STAT,!SYS12_STAT,!BAK12_STAT,!UPS_STAT,
-			!AC24_STAT,!AC1_STAT,!AC2_STAT,!AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
+			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
 			
+			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
+			vTaskDelay(100/portTICK_RATE_MS);
+			
+			
+			
+			sprintf(topic, "LOCALIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
+			sprintf(msg, "%s,%s,%s*", INI_IP_STAT[0], INI_IP_STAT[1], INI_IP_STAT[2]);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
 		}
@@ -969,3 +978,33 @@ void open_the_door(void)
 	GPIO_ResetBits(GPIOA,GPIO_Pin_8);//开门
 	delay_ms(500);
 }
+
+
+#if 1
+
+/*
+ * 函数名：void SD_state_machine_CHECK(void) //SD卡轮询检测
+ * 描述  ：状态机检测
+ * 输入  ：无
+ * 输出  ：无	
+ */
+void read_ini_config(void)
+{
+	char inifile[] = "1:cfg.ini";
+	//char buf[20][16];
+	u8 i;
+	
+	ini_gets("local", "ip", "192.168.0.0",INI_IP_STAT[0], 16, inifile);
+	
+	ini_gets("local", "mask", "0.0.0.0", INI_IP_STAT[1], 16, inifile);
+
+	ini_gets("local", "gw", "0.0.0.1", INI_IP_STAT[2], 16, inifile);
+
+//	
+//	ini_gets("mqtt", "ip", "192.168.0.31", buf[3], 16, inifile);
+	
+
+}
+
+
+#endif 
