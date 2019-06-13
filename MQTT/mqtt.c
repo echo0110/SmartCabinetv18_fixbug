@@ -154,7 +154,8 @@ void MqttTask(void *pvParameters)
 	char host_name[16];
 	char host_port[6];
 	//char hostname[]="117.64.249.208";//"www.cncqs.cn"; 
-  char hostname[]="www.cncqs.cn";   
+  //char hostname[]="www.cncqs.cn";   
+  char hostname[]="47.97.184.119"; 
 	u8 mqtt_ip[16]={0};
 	Printf("...... MQTT Connecting Server......\r\n");
 	

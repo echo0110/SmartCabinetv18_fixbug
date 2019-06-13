@@ -50,7 +50,7 @@
 
 // PF7	AC2-220V输出控制  L2
 #define AC2_SENSOR()		PFin(7)
-#define OUT_AC2_220V_ON()		{PFout(7) = 1;}
+    #define OUT_AC2_220V_ON()		{PFout(7) = 1;}
 #define OUT_AC2_220V_OFF()	{PFout(7) = 0;}
 
 // PF9	AC3-220V输出控制  L3
