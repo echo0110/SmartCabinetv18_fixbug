@@ -584,7 +584,6 @@ void ping_task(void *pvParameters)
 void server_printf_task(void *pvParameters)
 {					
 	tcp_server_test(4);	
-	printf("tcp_server_test..\r\n");
 	vTaskDelay(200);	 
 }
 

@@ -280,13 +280,6 @@ MQTT_START:
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
-			
-			
-			
-			sprintf(topic, "LOCALIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-			sprintf(msg, "%s,%s,%s*", INI_IP_STAT[0], INI_IP_STAT[1], INI_IP_STAT[2]);
-			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
-			vTaskDelay(100/portTICK_RATE_MS);
 		}
 		//Printf("publish  after\r\n");	
 		//ÎÂ¶È»òµçÑ¹ 

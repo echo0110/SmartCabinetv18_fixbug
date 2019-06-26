@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\SmartCabinet.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\SmartCabinet.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Jun 26 10:51:28 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Jun 26 11:36:59 2019
 <BR><P>
 <H3>Maximum Stack Usage =       2864 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -789,7 +789,6 @@ Global Symbols
 <LI><a href="#[2aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
 <LI><a href="#[3cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelayUntil
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;server_printf_task
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;camera_task
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MqttTask
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -909,7 +908,6 @@ Global Symbols
 <LI><a href="#[40d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;push_node
 <LI><a href="#[3cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;md5_test
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_server_recv
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_server_poll
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_server_error
 <LI><a href="#[478]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_sd_test
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_client_recv
@@ -1461,8 +1459,8 @@ Global Symbols
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsnprintf
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsprintf
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> __2sprintf.o(.text)
-<LI> c89vsprintf.o(.text)
+<BR>[Address Reference Count : 2]<UL><LI> c89vsprintf.o(.text)
+<LI> __2sprintf.o(.text)
 </UL>
 <P><STRONG><a name="[7c]"></a>_snputc</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, _snputc.o(.text))
 <BR>[Address Reference Count : 2]<UL><LI> __2snprintf.o(.text)
@@ -2995,7 +2993,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART4_IRQHandler
 </UL>
 
-<P><STRONG><a name="[98]"></a>MainTask</STRONG> (Thumb, 284 bytes, Stack size 16 bytes, main.o(i.MainTask))
+<P><STRONG><a name="[98]"></a>MainTask</STRONG> (Thumb, 294 bytes, Stack size 16 bytes, main.o(i.MainTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 464 + Unknown Stack Size
 <LI>Call Chain = MainTask &rArr; Printf &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -3058,7 +3056,7 @@ Global Symbols
 <P><STRONG><a name="[36]"></a>MemManage_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.MemManage_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[9a]"></a>MqttTask</STRONG> (Thumb, 2532 bytes, Stack size 640 bytes, mqtt.o(i.MqttTask))
+<P><STRONG><a name="[9a]"></a>MqttTask</STRONG> (Thumb, 2442 bytes, Stack size 640 bytes, mqtt.o(i.MqttTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2864 + Unknown Stack Size
 <LI>Call Chain = MqttTask &rArr; MQTTMsgPublish &rArr; WaitForPacket &rArr; mqtt_pktype_ctl &rArr; UserMsgCtl &rArr; ISIP &rArr; ini_puts &rArr; getkeystring &rArr; f_gets &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -6846,13 +6844,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_n_bytes_data_from_ROM
 </UL>
 
-<P><STRONG><a name="[a0]"></a>server_printf_task</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, sensor.o(i.server_printf_task))
+<P><STRONG><a name="[a0]"></a>server_printf_task</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, sensor.o(i.server_printf_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 824 + Unknown Stack Size
 <LI>Call Chain = server_printf_task &rArr; tcp_server_test &rArr; tcp_new &rArr; tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abort &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_output_segment &rArr; ip_output &rArr; ip_output_if &rArr; ip_frag &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[412]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_server_test
 <LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
@@ -8402,7 +8399,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tcp_server_demo.o(i.tcp_server_accept)
 </UL>
-<P><STRONG><a name="[b7]"></a>tcp_server_poll</STRONG> (Thumb, 138 bytes, Stack size 24 bytes, tcp_server_demo.o(i.tcp_server_poll))
+<P><STRONG><a name="[b7]"></a>tcp_server_poll</STRONG> (Thumb, 132 bytes, Stack size 24 bytes, tcp_server_demo.o(i.tcp_server_poll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 744 + Unknown Stack Size
 <LI>Call Chain = tcp_server_poll &rArr; tcp_abort &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_output_segment &rArr; ip_output &rArr; ip_output_if &rArr; ip_frag &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -8413,7 +8410,6 @@ Global Symbols
 <LI><a href="#[49d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_server_senddata
 <LI><a href="#[49c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_server_connection_close
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tcp_server_demo.o(i.tcp_server_accept)
 </UL>

@@ -94,7 +94,6 @@ void tcp_server_test(u8 res_close)
 		{
 			tcp_server_flag|=1<<7;//标记要发送数据
 		}		
-		//printf("while..\r\n");
 		if(tcp_server_flag&1<<6)//是否收到数据?
 		{
 			tcp_server_flag&=~(1<<6);//标记数据已经被处理了.
@@ -224,7 +223,6 @@ err_t tcp_server_poll(void *arg, struct tcp_pcb *tpcb)
 			pbuf_take(es->p,(char*)tcp_server_sendbuf,strlen((char*)tcp_server_sendbuf));
 			tcp_server_senddata(tpcb,es); 		//轮询的时候发送要发送的数据
 			tcp_server_flag&=~(1<<7);  			//清除数据发送标志位
-			printf("test**************\r\n");
 			if(es->p!=NULL)pbuf_free(es->p); 	//释放内存	
 		}else if(es->state==ES_TCPSERVER_CLOSING)//需要关闭连接?执行关闭操作
 		{

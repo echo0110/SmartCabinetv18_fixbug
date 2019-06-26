@@ -242,7 +242,7 @@ int main(void)
 	USART3_Init(38400);
  	UART4_Init(14400);
 	printf("........ SC System Power On .......\r\n");
-	printf("........ update v0.6 .......\r\n");
+	printf("........ update v0.7 .......\r\n");
   GPS_Init();	
 	SENSOR_Init();	
 	Adc_Init();
@@ -461,6 +461,7 @@ void MainTask(void *pParameters)
 		{
 			Printf("Free Size:     %d\r\n", xPortGetFreeHeapSize());
 			Printf("Min Free Size: %d\r\n", xPortGetMinimumEverFreeHeapSize());
+			Printf("software version:V0.7\r\n");
 			USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);// ª÷∏¥Ω” ’GPS
 			break;
 		} 		
