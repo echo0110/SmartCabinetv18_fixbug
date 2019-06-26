@@ -68,4 +68,6 @@
 ..\obj\tcp_server_demo.o: ..\LWIP\lwip_app\tcp_client_demo\tcp_client_demo.h
 ..\obj\tcp_server_demo.o: ..\FreeRTOS\include\semphr.h
 ..\obj\tcp_server_demo.o: ..\FreeRTOS\include\queue.h
+..\obj\tcp_server_demo.o: ..\FreeRTOS\include\message.h
 ..\obj\tcp_server_demo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\obj\tcp_server_demo.o: ..\HARDWARE\SENSOR\sensor.h

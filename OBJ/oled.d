@@ -59,3 +59,5 @@
 ..\obj\oled.o: ..\HARDWARE\ADC\adc.h
 ..\obj\oled.o: ..\HARDWARE\SENSOR\sensor.h
 ..\obj\oled.o: ..\HARDWARE\LED\led.h
+..\obj\oled.o: ..\FreeRTOS\include\queue.h
+..\obj\oled.o: ..\FreeRTOS\include\semphr.h

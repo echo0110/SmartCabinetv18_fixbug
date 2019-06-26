@@ -59,8 +59,8 @@
 ..\obj\trap.o: ..\SYSTEM\delay\delay.h
 ..\obj\trap.o: ..\HARDWARE\SENSOR\sensor.h
 ..\obj\trap.o: ..\HARDWARE\LED\led.h
-..\obj\trap.o: ..\FreeRTOS\include\semphr.h
 ..\obj\trap.o: ..\FreeRTOS\include\queue.h
+..\obj\trap.o: ..\FreeRTOS\include\semphr.h
 ..\obj\trap.o: ..\LWIP\lwip-1.4.1\src\include\lwip\tcpip.h
 ..\obj\trap.o: ..\LWIP\lwip-1.4.1\src\include\lwip/api_msg.h
 ..\obj\trap.o: ..\LWIP\lwip-1.4.1\src\include\lwip/lwip_sys.h

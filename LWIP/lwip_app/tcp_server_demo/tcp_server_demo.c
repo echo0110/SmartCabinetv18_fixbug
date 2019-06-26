@@ -3,11 +3,13 @@
 #include "usart.h"
 #include "led.h"
 #include "tcp_client_demo.h" 
+#include "message.h"
 //#include "key.h"
 //#include "lcd.h"
 //#include "malloc.h"
 #include "stdio.h"
 #include "string.h"
+#include "sensor.h"
 u8 tcp_server_close_flag;	//
 
 #define KEY0  GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_4)//读取按键0
@@ -39,7 +41,9 @@ u8 tcp_server_close_flag;	//
 //TCP Server接收数据缓冲区
 u8 tcp_server_recvbuf[TCP_SERVER_RX_BUFSIZE];	
 //TCP服务器发送数据内容
-const u8 *tcp_server_sendbuf="WarShip STM32F103 TCP Server send data\r\n";
+//u8 *tcp_server_sendbuf="WarShip STM32F103 TCP Server send data\r\n";
+u8  tcp_server_sendbuf[128];	   //
+
 
 //TCP Server 测试全局状态标记变量
 //bit7:0,没有数据要发送;1,有数据要发送
@@ -56,6 +60,10 @@ void tcp_server_test(u8 res_close)
 	err_t err;  
 	struct tcp_pcb *tcppcbnew;  	//定义一个TCP服务器控制块
 	struct tcp_pcb *tcppcbconn;  	//定义一个TCP服务器控制块
+	
+	BaseType_t xResult;
+	static BaseType_t xHigherPriorityTaskWoken;
+	
 	
 	u8 *tbuf;
  	u8 key;
@@ -80,18 +88,13 @@ void tcp_server_test(u8 res_close)
 	while(res==0)
 	{
 		key=KEY_Scan(0);
-		if(res_close==4)break;
-//		if(tcp_server_close_flag&(1<<7))
-//		{
-//		 tcp_server_close_flag&=~(1<<7);
-//		 printf("close tcp_server_close\n");
-//		 break;		
-//		}		
 		
-		if(key==1)//KEY0按下了,发送数据
+		xResult = xSemaphoreTake(printf_signal, xHigherPriorityTaskWoken);		
+		if(xResult == pdTRUE)  	/* 接收到同步信号 */
 		{
 			tcp_server_flag|=1<<7;//标记要发送数据
-		}
+		}		
+		//printf("while..\r\n");
 		if(tcp_server_flag&1<<6)//是否收到数据?
 		{
 			tcp_server_flag&=~(1<<6);//标记数据已经被处理了.
@@ -221,6 +224,7 @@ err_t tcp_server_poll(void *arg, struct tcp_pcb *tpcb)
 			pbuf_take(es->p,(char*)tcp_server_sendbuf,strlen((char*)tcp_server_sendbuf));
 			tcp_server_senddata(tpcb,es); 		//轮询的时候发送要发送的数据
 			tcp_server_flag&=~(1<<7);  			//清除数据发送标志位
+			printf("test**************\r\n");
 			if(es->p!=NULL)pbuf_free(es->p); 	//释放内存	
 		}else if(es->state==ES_TCPSERVER_CLOSING)//需要关闭连接?执行关闭操作
 		{

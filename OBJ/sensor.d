@@ -44,9 +44,9 @@
 ..\obj\sensor.o: ..\FreeRTOS\include\mpu_wrappers.h
 ..\obj\sensor.o: ..\FreeRTOS\include\task.h
 ..\obj\sensor.o: ..\FreeRTOS\include\list.h
-..\obj\sensor.o: ..\HARDWARE\camera\camera.h
 ..\obj\sensor.o: ..\FreeRTOS\include\queue.h
 ..\obj\sensor.o: ..\FreeRTOS\include\semphr.h
+..\obj\sensor.o: ..\HARDWARE\camera\camera.h
 ..\obj\sensor.o: ..\SD\mmc_sd.h
 ..\obj\sensor.o: ..\FATFS\src\diskio.h
 ..\obj\sensor.o: ..\FATFS\src\integer.h
@@ -102,4 +102,5 @@
 ..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\include\lwip/snmp.h
 ..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\include\lwip/snmp_structs.h
 ..\obj\sensor.o: ..\LWIP\lwip-1.4.1\src\core\snmp_private_mib\private_mib.h
+..\obj\sensor.o: ..\LWIP\lwip_app\tcp_server_demo\tcp_server_demo.h
 ..\obj\sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

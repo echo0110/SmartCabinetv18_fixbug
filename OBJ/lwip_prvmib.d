@@ -61,3 +61,5 @@
 ..\obj\lwip_prvmib.o: ..\HARDWARE\ADC\adc.h
 ..\obj\lwip_prvmib.o: ..\HARDWARE\SENSOR\sensor.h
 ..\obj\lwip_prvmib.o: ..\HARDWARE\LED\led.h
+..\obj\lwip_prvmib.o: ..\FreeRTOS\include\queue.h
+..\obj\lwip_prvmib.o: ..\FreeRTOS\include\semphr.h

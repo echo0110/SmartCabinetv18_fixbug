@@ -2,6 +2,10 @@
 #define __SENSOR_H	 
 #include "sys.h"
 #include "led.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
 
 
 
@@ -170,5 +174,16 @@ uint32_t COUNT_TX;
 uint32_t ADDR_RX;   
 uint32_t COUNT_RX;
 } EP_BUF_DSCR;
+
+
+typedef struct server_msg
+{
+	u8 Buf[512];
+} Printf_msg;
+
+extern xQueueHandle printfTaskQueue;
+
+extern void* printf_signal;//ÍøÂç´òÓ¡
+
 
 #endif

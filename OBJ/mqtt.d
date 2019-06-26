@@ -71,6 +71,8 @@
 ..\obj\mqtt.o: ..\HARDWARE\GPS\gps.h
 ..\obj\mqtt.o: ..\HARDWARE\SENSOR\sensor.h
 ..\obj\mqtt.o: ..\HARDWARE\LED\led.h
+..\obj\mqtt.o: ..\FreeRTOS\include\queue.h
+..\obj\mqtt.o: ..\FreeRTOS\include\semphr.h
 ..\obj\mqtt.o: ..\HARDWARE\ADC\adc.h
 ..\obj\mqtt.o: ..\LWIP\lwip_app\lwip_comm\lwip_comm.h
 ..\obj\mqtt.o: ..\INI\minIni.h
@@ -79,8 +81,6 @@
 ..\obj\mqtt.o: ..\FATFS\src\integer.h
 ..\obj\mqtt.o: ..\FATFS\src\ffconf.h
 ..\obj\mqtt.o: ..\FATFS\exfuns\fattester.h
-..\obj\mqtt.o: ..\FreeRTOS\include\queue.h
-..\obj\mqtt.o: ..\FreeRTOS\include\semphr.h
 ..\obj\mqtt.o: ..\HARDWARE\camera\camera.h
 ..\obj\mqtt.o: ..\HARDWARE\IWDG\iwdg.h
 ..\obj\mqtt.o: ..\FreeRTOS\include\event_groups.h

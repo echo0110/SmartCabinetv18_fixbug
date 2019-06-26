@@ -83,12 +83,15 @@ typedef struct t_MSG
 	u32 lParam;
 } MSG, *PMSG;
 
+
 typedef struct MSG
 {
 	u16 USB;
 	u16 SD;
 	u32 MQTT;
 } Task_MSG;
+
+
 
 
 

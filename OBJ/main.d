@@ -67,6 +67,8 @@
 ..\obj\main.o: ..\SYSTEM\print\print.h
 ..\obj\main.o: ..\HARDWARE\SENSOR\sensor.h
 ..\obj\main.o: ..\HARDWARE\LED\led.h
+..\obj\main.o: ..\FreeRTOS\include\queue.h
+..\obj\main.o: ..\FreeRTOS\include\semphr.h
 ..\obj\main.o: ..\HARDWARE\GPS\gps.h
 ..\obj\main.o: ..\HARDWARE\OLED\oled.h
 ..\obj\main.o: ..\HARDWARE\ADC\adc.h
@@ -103,8 +105,6 @@
 ..\obj\main.o: ..\MQTT\MQTTGPRSClient.h
 ..\obj\main.o: ..\FreeRTOS\include\event_groups.h
 ..\obj\main.o: ..\FreeRTOS\include\timers.h
-..\obj\main.o: ..\FreeRTOS\include\queue.h
-..\obj\main.o: ..\FreeRTOS\include\semphr.h
 ..\obj\main.o: ..\FreeRTOS\include\message.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip\snmp.h
 ..\obj\main.o: ..\LWIP\lwip-1.4.1\src\include\lwip\snmp_msg.h

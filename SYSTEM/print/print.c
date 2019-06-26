@@ -28,6 +28,11 @@
 
 #include "usart.h"
 #include "print.h"
+#include "tcp_server_demo.h" 
+#include <stdio.h>
+#include <string.h>
+
+#include "sensor.h"
 
 /*--------------------------------------------------------------------------+
 | Type Definition & Macro                                                   |
@@ -37,6 +42,11 @@
 +--------------------------------------------------------------------------*/
 const char HexTab[] = "0123456789ABCDEF";		// ASCII-hex table
 extern xSemaphoreHandle USART1_Sem;
+
+//void Printf(const char *format, ...);
+
+u8 Printf_Buf[512];	   //串口转网口  Buf
+
 
 /*--------------------------------------------------------------------------+
 | Internal Variables                                                        |
@@ -66,7 +76,7 @@ void PrintS(const char *s)
 // 从串口显示格式化字符串，相比库函数printf()，增加了互斥量的操作，同时减小了对堆栈的消耗
 void Printf(const char *format, ...)
 {
-#	define MAX_TBUF	128							// 注意: 只允许接收该大小的字符串.
+#define MAX_TBUF	128							// 注意: 只允许接收该大小的字符串.
 	char    tbuf[MAX_TBUF];
 	va_list v_list;
 	char    *ptr;
@@ -78,11 +88,19 @@ void Printf(const char *format, ...)
 
 	xSemaphoreTake(USART1_Sem, portMAX_DELAY);
 	ptr= tbuf;
+	//tbuf=Printf_Buf;
+	memcpy((char*)tcp_server_sendbuf,tbuf,strlen((char*)(tbuf)));	
+	//   xQueueSend(printfTaskQueue, &tcp_server_sendbuf, 0);
+	//tcp_server_sendbuf=tbuf;
+	//xQueueSend(ServerTaskQueue, &server_msg, 0);
+	//tcp_server_test(1);
+	//xSemaphoreGive(printf_signal);
 	while(*ptr != '\0')
 	{
 		SerialPutChar(*ptr++);
 	}
 	xSemaphoreGive(USART1_Sem);
+	xSemaphoreGive(printf_signal);
 
 #	undef MAX_TBUF
 }
@@ -238,6 +256,11 @@ void PrintHex(u8 *s, u32 nLength, u8 bShowAddress, u32 offset)
 
 	xSemaphoreGive(USART1_Sem);
 }
+
+
+
+
+
 
 /*--------------------------------------------------------------------------+
 | End of source file                                                        |

@@ -38,7 +38,11 @@
 #include "math.h"
 #include "trap.h"
 
+#include "tcp_server_demo.h" 
+
 #include "stdlib.h"
+
+#include "Message.h"
 
 
 #define	USB_EP_NUM	4
@@ -82,8 +86,11 @@ void USB_CTR_Handler(void);
 extern xQueueHandle MainTaskQueue;
 extern xQueueHandle USBTaskQueue;
 extern TaskHandle_t USBTask_Handler;
+xQueueHandle printfTaskQueue;
 
+void* printf_signal;//网络打印
 
+//extern xQueueHandle MainTaskQueue;
 
 // 传感器及IO控制初始化
 void SENSOR_Init(void)
@@ -459,7 +466,11 @@ void sd_ipd_config(void)
 void tcp_task(void *pvParameters)
 { 	
 	for(;;)
-	{	
+	{
+//	 if(xQueueReceive(MainTaskQueue, &server_msg , portMAX_DELAY) == pdPASS)
+//	 {
+//	  tcp_server_test(); 
+//	 }		
 	 if(timestamp_flag&(1<<7))
    {     	 
 		tcp_client_test();		 
@@ -543,6 +554,40 @@ void ping_task(void *pvParameters)
     vTaskDelay(2000);	 
 	}
 }
+
+
+/*
+ * 函数名：void server_printf_task(void *pvParameters)
+ * 描述  ：ping包检测
+ * 输入  ：无
+ * 输出  ：无	
+ */
+//void server_printf_task(void *pvParameters)
+//{
+//	while(1)
+//	{
+//		if(xQueueReceive(printfTaskQueue, tcp_server_sendbuf, portMAX_DELAY) == pdPASS)	
+//		{
+//		 tcp_server_test(1);		
+//		}
+//    vTaskDelay(200);	 		
+//	}
+//}
+
+
+/*
+ * 函数名：void server_printf_task(void *pvParameters)
+ * 描述  ：ping包检测
+ * 输入  ：无
+ * 输出  ：无	
+ */
+void server_printf_task(void *pvParameters)
+{					
+	tcp_server_test(4);	
+	printf("tcp_server_test..\r\n");
+	vTaskDelay(200);	 
+}
+
 
 
 /*

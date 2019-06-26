@@ -161,6 +161,7 @@ TaskHandle_t MainTask_Handler;
 TaskHandle_t tcpTask_Handler;
 xQueueHandle MainTaskQueue;
 xQueueHandle tcp_client_Queue;
+xQueueHandle ServerTaskQueue;
 void MainTask(void *pvParameters);
 
 
@@ -195,6 +196,16 @@ void sd_task(void *pvParameters);
 TaskHandle_t PingTask_Handler;
 //任务函数
 void ping_task(void *pvParameters);
+
+
+//tcp server  printf task
+#define printf_TASK_PRIO		13
+//任务堆栈大小	
+#define printf_STK_SIZE 		512
+//任务句柄
+TaskHandle_t printfTask_Handler;
+//任务函数
+void server_printf_task(void *pvParameters);
 
 
 
@@ -293,6 +304,7 @@ int main(void)
 	USB_Queue= xQueueCreate(30, sizeof( int16_t ));
 	
 	MainTaskQueue= xQueueCreate(MAIN_QUEUE_SIZE, sizeof(MSG));
+	ServerTaskQueue=xQueueCreate(MAIN_QUEUE_SIZE, sizeof(MSG));
 	MsgQueue = xQueueCreate(30, sizeof( int16_t ));
 	
 	Msg_response= xQueueCreate(30, sizeof( int16_t ));
@@ -312,6 +324,8 @@ int main(void)
 	test_tcp_signal=xSemaphoreCreateBinary();//创建test_signal 信号量
 	
 	ping_signal=xSemaphoreCreateBinary();//创建test_signal 信号量
+	
+	printf_signal=xSemaphoreCreateBinary();//创建网络打印 信号量
 	
 	//Start the main tasks	
 	xTaskCreate((TaskFunction_t )UsbTask,
@@ -370,6 +384,12 @@ int main(void)
                 (void*          )NULL,				
                 (UBaseType_t    )Ping_TASK_PRIO,	
                 (TaskHandle_t*  )&PingTask_Handler);
+	   xTaskCreate((TaskFunction_t )server_printf_task,     	
+                (const char*    )"server_printf_task",   	
+                (uint16_t       )printf_STK_SIZE, 
+                (void*          )NULL,				
+                (UBaseType_t    )printf_TASK_PRIO,	
+                (TaskHandle_t*  )&printfTask_Handler);
 //   //创建TAP任务  主动上报数据帧
 //   xTaskCreate((TaskFunction_t )trap_task,     	
 //                (const char*    )"trap_task",   	

@@ -192,6 +192,7 @@ MQTT_START:
 			SIM_CON_OK = 1;			
 			
 			Printf("MQTT连接服务器成功!!!\r\n");
+			
 			break;
 		}
 		else 

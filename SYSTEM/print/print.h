@@ -29,11 +29,14 @@ extern "C" {
 +--------------------------------------------------------------------------*/
 void PrintC(char c);
 void PrintS(const char *s);
-void Printf(const char *format, ...);
+//void (*Printf)(const char *format, ...);
+void Printf(const char *format, ...);    
 void PrintHex(u8 *s, u32 nLength, u8 bShowAddress, u32 offset);
 void Print8(u8 n);
 void Print16(u16 n);
 void Print32(u32 n);
+
+extern u8 Printf_Buf[512];	   //´®¿Ú×ªÍø¿Ú  Buf
 /*--------------------------------------------------------------------------+
 | End of source file                                                        |
 +--------------------------------------------------------------------------*/

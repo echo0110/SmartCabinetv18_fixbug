@@ -44,7 +44,8 @@ struct tcp_server_struct
 }; 
 
 
-extern void tcp_server_test(u8 res_close);//TCP Server²âÊÔº¯Êý
+//extern void tcp_server_test(u8 res_close);//TCP Server²âÊÔº¯Êý
+extern void tcp_server_test(u8 res_close);
 err_t tcp_server_accept(void *arg,struct tcp_pcb *newpcb,err_t err);
 err_t tcp_server_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);
 void tcp_server_error(void *arg,err_t err);
@@ -55,4 +56,8 @@ void tcp_server_connection_close(struct tcp_pcb *tpcb, struct tcp_server_struct 
 void tcp_server_remove_timewait(void);
 extern u8 KEY_Scan(u8 mode);
 extern u8 tcp_server_close_flag;	//
+extern u8  tcp_server_sendbuf[128];	   //
+
+extern u8 tcp_server_flag;
+
 #endif 
