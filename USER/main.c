@@ -240,7 +240,7 @@ int main(void)
 	USART1_Init(115200);				//³õÊ¼»¯´®¿Ú
 	USART2_Init(115200);
 	USART3_Init(38400);
- 	UART4_Init(14400);
+ 	UART4_Init(115200);
 	printf("........ SC System Power On .......\r\n");
 	printf("........ update v0.7 .......\r\n");
   GPS_Init();	
