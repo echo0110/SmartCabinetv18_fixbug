@@ -139,7 +139,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -302,7 +301,7 @@
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>calendar</ItemText>
+          <ItemText>timestamp_buf,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
