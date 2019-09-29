@@ -727,6 +727,7 @@ void EQUCTRL(MQTT_USER_MSG *msg)
 		
 	if(msg->msg[10] == '1') 
 	{
+	 open_the_door();
 	 light_ON();
 	 light_STAT=1;
 	}	
