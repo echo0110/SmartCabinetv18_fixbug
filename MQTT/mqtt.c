@@ -33,6 +33,8 @@
 
 #include "lwip/ip_addr.h"
 
+#include "tcp_client_demo.h" 
+
 #define MAX_PUB_TIME 60//10
 
 #define Change_percent  10//10
@@ -186,7 +188,8 @@ MQTT_START:
 	{
 		gsm_dect();
 		vTaskDelay(2000/portTICK_RATE_MS);
-		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
+//		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
+		SIM800C_CONNECT_SERVER_by_Wired();		 
 		if(res == 0)
 		{
 			SIM_CON_OK = 1;			

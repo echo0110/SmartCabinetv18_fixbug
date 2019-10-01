@@ -99,3 +99,11 @@
 ..\obj\mqtt.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 ..\obj\mqtt.o: ..\FreeRTOS\include\StackMacros.h
 ..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/inet.h
+..\obj\mqtt.o: ..\LWIP\lwip_app\tcp_client_demo\tcp_client_demo.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/stats.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/mem.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/memp.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/memp_std.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/tcp.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
+..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/icmp.h

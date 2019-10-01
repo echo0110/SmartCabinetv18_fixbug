@@ -1037,6 +1037,11 @@
               <FileType>1</FileType>
               <FilePath>..\MQTT\mqtt.c</FilePath>
             </File>
+            <File>
+              <FileName>transport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTT\transport.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

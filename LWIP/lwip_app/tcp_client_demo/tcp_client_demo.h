@@ -28,7 +28,7 @@
 #define TCP_CLIENT_RX_BUFSIZE	1500	//定义tcp client最大接收数据长度
 #define TCP_CLIENT_TX_BUFSIZE	200		//定义tcp client最大发送数据长度
 #define REMOTE_PORT				8087	//定义远端主机的IP地址
-#define LWIP_SEND_DATA			0X80    //定义有数据发送
+#define LWIP_SEND_DATA			0X80    //定义有数据发送81
 #define	TCP_CLIENT_PORT			10269//8087//10268//8080//8087	//定义tcp client要连接的远端端口
 
 
@@ -70,4 +70,6 @@ void tcp_client_connection_close(struct tcp_pcb *tpcb, struct tcp_client_struct 
 
 extern u8 tcp_client_test_flag;
 extern char* uitoa(unsigned int n, char *s);
+
+extern void SIM800C_CONNECT_SERVER_by_Wired(void);
 #endif

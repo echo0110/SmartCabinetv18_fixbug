@@ -55,6 +55,7 @@ struct sockaddr_in {
   struct in_addr sin_addr;
   char sin_zero[8];
 };
+//extern struct sockaddr_in;
 
 struct sockaddr {
   u8_t sa_len;

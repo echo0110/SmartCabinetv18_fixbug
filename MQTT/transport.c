@@ -5,8 +5,15 @@
 #include "lwip/inet.h"
 #include "lwip/sockets.h"
 #include "string.h"
+#include "stm32f10x.h"
+#include "core_cm3.h"
+#include "system_stm32f10x.h"
+#include "stdint.h"
 
 static int mysock;
+
+//extern struct sockaddr_in; 
+	
 
 /************************************************************************
 ** 函数名称: transport_sendPacketBuffer									
@@ -15,10 +22,11 @@ static int mysock;
 **           int buflen：数据长度
 ** 出口参数: <0发送数据失败							
 ************************************************************************/
+
 s32 transport_sendPacketBuffer( u8* buf, s32 buflen)
 {
 	s32 rc;
-	rc = write(mysock, buf, buflen);
+	//rc = write(mysock, buf, buflen);
 	return rc;
 }
 
@@ -47,10 +55,12 @@ s32 transport_getdata(u8* buf, s32 count)
 ************************************************************************/
 s32 transport_open(s8* servip, s32 port)
 {
-	s32 *sock = &mysock;
+	
 	s32 ret;
 	//s32 opt;
+	
 	struct sockaddr_in addr;
+	s32 *sock = &mysock;
 	
 	//初始换服务器信息
 	memset(&addr,0,sizeof(addr));

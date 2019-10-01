@@ -159,3 +159,79 @@ u8 SIM800C_CONNECT_SERVER(u8 *servip,u8 *port)
 	
 	return 0;
 }
+
+//  SIM800C_CONNECT_SERVER  by Wired test 
+//u8 SIM800C_CONNECT_SERVER(u8 *servip,u8 *port)
+//{
+//  struct tcp_pcb *tcppcb;  	//定义一个TCP服务器控制块
+//	struct ip_addr rmtipaddr;  	//远端ip地址
+//  char inifile[] = "1:cfg.ini";  
+//	MSG msg;
+//	u8 *tbuf;
+// 	u8 key;
+//	u8 res=0;		
+//	u8 t=0; 
+//	u8 connflag=0;		//连接标记	
+//	int data_len;
+//	static int Count_packet=0;	
+//	tcp_client_set_remoteip();//先选择IP 
+//	tbuf=(u8_t *)pvPortMalloc(200);
+//	if(tbuf==NULL)return ;		//内存申请失败了,直接退出
+//	
+//	//lwipdev.remoteip[3]=ini_getl("server",	"ip3",	142,inifile);	
+//	//printf("lwipdev.remoteip[3]=%d\n",lwipdev.remoteip[3]);
+//	
+//	
+//	sprintf((char*)tbuf,"Local IP:%d.%d.%d.%d",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);//服务器IP
+//	sprintf((char*)tbuf,"Remote IP:%d.%d.%d.%d",lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],200);//远端IP
+//  //TCP_CLIENT_PORT=ini_getl("PORT",	"port0",	8090,	inifile);	
+//	sprintf((char*)tbuf,"Remotewo Port:%d",TCP_CLIENT_PORT);//客户端端口号
+//	tcppcb=tcp_new();	//创建一个新的pcb
+//	if(tcppcb)			//创建成功
+//	{
+//		IP4_ADDR(&rmtipaddr,lwipdev.remoteip[0],lwipdev.remoteip[1],lwipdev.remoteip[2],200); 
+//		tcp_connect(tcppcb,&rmtipaddr,TCP_CLIENT_PORT,tcp_client_connected);  //连接到目的地址的指定端口上,当连接成功后回调tcp_client_connected()函数
+// 	}else res=1;
+//	while(res==0)
+//	{
+//		if(key==4)break;
+//     if(tcp_close_flag&(1<<7))
+//		{
+//		 tcp_close_flag&=~(1<<7);
+////     tcp_client_connection_close(tcppcb,0);//关闭TCP Client连接 				
+//     tcp_close(tcppcb);
+//     vTaskResume(cameraTask_Handler);//恢复camera任务	
+//     break;			
+//		}				
+//		if(tcp_client_flag&1<<6)//是否收到数据?		
+//		{			
+//			printf("recv data *\n");	
+//			tcp_client_flag&=~(1<<6);//标记数据已经被处理了.
+//		}		
+//		if(tcp_client_flag&1<<5)//是否连接上?
+//		{
+//			if(connflag==0)
+//			{ 								
+//				connflag=1;//标记连接了
+//			} 
+//		}else if(connflag)
+//		{
+//			connflag=0;	//标记连接断开了
+//		} 
+//		delay_ms(2);
+//		t++;
+//		if(t==200)
+//		{
+//			if(connflag==0&&(tcp_client_flag&1<<5)==0)//未连接上,则尝试重连
+//			{ 
+//				tcp_client_connection_close(tcppcb,0);//关闭连接
+//				tcppcb=tcp_new();	//创建一个新的pcb
+//				if(tcppcb)			//创建成功
+//				{ 
+//					tcp_connect(tcppcb,&rmtipaddr,TCP_CLIENT_PORT,tcp_client_connected);//连接到目的地址的指定端口上,当连接成功后回调tcp_client_connected()函数
+//				}
+//			}
+//			t=0;		
+//		}		
+//	}
+//}
