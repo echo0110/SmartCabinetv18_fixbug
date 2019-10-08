@@ -47,3 +47,14 @@
 ..\obj\usart2.o: ..\MQTT\MQTTGPRSClient.h
 ..\obj\usart2.o: ..\FreeRTOS\include\task.h
 ..\obj\usart2.o: ..\FreeRTOS\include\list.h
+..\obj\usart2.o: ..\MQTT\transport.h
+..\obj\usart2.o: ..\LWIP\arch\cc.h
+..\obj\usart2.o: ..\LWIP\arch\cpu.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\lwip/opt.h
+..\obj\usart2.o: ..\LWIP\lwip_app\lwip_comm\lwipopts.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\lwip/debug.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\lwip/arch.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\lwip/opt.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\lwip/def.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
+..\obj\usart2.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip\inet.h

@@ -46,12 +46,12 @@ s32 transport_open(s8* servip, s32 port);
 ************************************************************************/
 s32 transport_close(void);
 
-struct sockaddr_in {
-  u8_t sin_len;
-  u8_t sin_family;
-  u16_t sin_port;
-  struct in_addr sin_addr;
-  char sin_zero[8];
-};
+//struct sockaddr_in {
+//  u8_t sin_len;
+//  u8_t sin_family;
+//  u16_t sin_port;
+//  struct in_addr sin_addr;
+//  char sin_zero[8];
+//};
 
 #endif

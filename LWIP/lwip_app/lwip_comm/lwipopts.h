@@ -91,7 +91,7 @@
    ------------------------------------
 */
 //LWIP_SOCKET==1:使能Socket API(要求使用sockets.c)
-#define LWIP_SOCKET                    0
+#define LWIP_SOCKET                    1//0
 
 #define LWIP_COMPAT_MUTEX               1
 

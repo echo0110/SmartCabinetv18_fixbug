@@ -107,3 +107,4 @@
 ..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\lwip/tcp.h
 ..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
 ..\obj\mqtt.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/icmp.h
+..\obj\mqtt.o: ..\MQTT\transport.h

@@ -113,6 +113,8 @@
 "..\obj\minini.o"
 "..\MQTT\mqttlib.lib"
 "..\obj\mqtt.o"
+"..\obj\transport.o"
+"..\obj\lwip_mqtt.o"
 "..\obj\fs.o"
 "..\obj\httpd.o"
 "..\obj\httpd_cgi_ssi.o"

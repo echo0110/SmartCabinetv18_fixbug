@@ -390,13 +390,13 @@ int main(void)
                 (void*          )NULL,				
                 (UBaseType_t    )printf_TASK_PRIO,	
                 (TaskHandle_t*  )&printfTask_Handler);
-//   //创建TAP任务  主动上报数据帧
-//   xTaskCreate((TaskFunction_t )trap_task,     	
-//                (const char*    )"trap_task",   	
-//                (uint16_t       )trap_STK_SIZE, 
-//                (void*          )NULL,				
-//                (UBaseType_t    )trap_TASK_PRIO,	
-//                (TaskHandle_t*  )&trapTask_Handler);									
+   //创建TAP任务  主动上报数据帧
+   xTaskCreate((TaskFunction_t )trap_task,     	
+                (const char*    )"trap_task",   	
+                (uint16_t       )trap_STK_SIZE, 
+                (void*          )NULL,				
+                (UBaseType_t    )trap_TASK_PRIO,	
+                (TaskHandle_t*  )&trapTask_Handler);									
 	//Start the scheduler
 	vTaskStartScheduler();	
 	//Will only get here if there was not enough heap space to create the idle task

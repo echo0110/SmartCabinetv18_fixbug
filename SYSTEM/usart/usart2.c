@@ -9,6 +9,7 @@
 #include "message.h"
 #include "MQTTGPRSClient.h"
 #include "task.h"
+#include "transport.h"
 
 #define MQTTWAITTIME	6000	// 6000=1min
 
@@ -102,7 +103,8 @@ int sendMQTTData(u8* buf, int buflen, u16 waittime)
 
 int getMQTTData(u8* buf, int count)
 {
-	getMQTT(USART2_RX_BUF, count, buf);
+	//getMQTT(USART2_RX_BUF, count, buf);
+	transport_getdata(buf,count);
 	
 	return count;
 }

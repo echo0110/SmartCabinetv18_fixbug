@@ -67,3 +67,4 @@
 ..\obj\transport.o: ..\FreeRTOS\include\timers.h
 ..\obj\transport.o: ..\FreeRTOS\include\StackMacros.h
 ..\obj\transport.o: ..\LWIP\lwip-1.4.1\src\include\lwip/sockets.h
+..\obj\transport.o: ..\SYSTEM\print\print.h

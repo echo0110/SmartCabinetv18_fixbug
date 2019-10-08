@@ -9,6 +9,7 @@
 #include "core_cm3.h"
 #include "system_stm32f10x.h"
 #include "stdint.h"
+#include "print.h"
 
 static int mysock;
 
@@ -26,7 +27,7 @@ static int mysock;
 s32 transport_sendPacketBuffer( u8* buf, s32 buflen)
 {
 	s32 rc;
-	//rc = write(mysock, buf, buflen);
+	rc = lwip_write(mysock, buf, buflen);
 	return rc;
 }
 
@@ -41,7 +42,7 @@ s32 transport_getdata(u8* buf, s32 count)
 {
 	s32 rc;
 	//这个函数在这里不阻塞
-  rc = recv(mysock, buf, count, 0);
+  rc = lwip_recv(mysock, buf, count, 0);
 	return rc;
 }
 
@@ -72,9 +73,11 @@ s32 transport_open(s8* servip, s32 port)
 	addr.sin_addr.s_addr = inet_addr((const char*)servip);
 	
 	//创建SOCK
-	*sock = socket(AF_INET,SOCK_STREAM,0);
+	*sock = lwip_socket(AF_INET,SOCK_STREAM,0);
+	 if(*sock < 0)
+   Printf("[ERROR] Create socket failed\n");
 	//连接服务器 
-	ret = connect(*sock,(struct sockaddr*)&addr,sizeof(addr));
+	ret = lwip_connect(*sock,(struct sockaddr*)&addr,sizeof(addr));
 	if(ret != 0)
 	{
 		 //关闭链接
@@ -101,6 +104,6 @@ s32 transport_open(s8* servip, s32 port)
 int transport_close(void)
 {
 	int rc;
-	rc = close(mysock);
+	rc = lwip_close(mysock);
 	return rc;
 }
