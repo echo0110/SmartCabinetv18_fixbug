@@ -69,6 +69,7 @@
 ..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip_addr.h
 ..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\lwip/def.h
 ..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\lwip/sockets.h
+..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/inet.h
 ..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\ipv4\lwip/ip.h
 ..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\lwip/raw.h
 ..\obj\init.o: ..\LWIP\lwip-1.4.1\src\include\lwip/udp.h

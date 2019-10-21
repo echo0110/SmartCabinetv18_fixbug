@@ -44,7 +44,7 @@
 
 #include "lwip/sockets.h"
 #include "lwip/api.h"
-#include "lwip/sys.h"
+//#include "lwip/sys.h"
 #include "lwip/igmp.h"
 #include "lwip/inet.h"
 #include "lwip/tcp.h"

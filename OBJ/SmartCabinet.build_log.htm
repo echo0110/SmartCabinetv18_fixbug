@@ -22,35 +22,19 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 C:\Users\Administrator\Desktop\SmartCabinetv20_fixbug\USER\SmartCabinet.uvprojx
-Project File Date:  08/08/2019
+Project File Date:  10/01/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'SmartCabinet'
-compiling transport.c...
-..\MQTT\transport.c(44): warning:  #223-D: function "recv" declared implicitly
-    rc = recv(mysock, buf, count, 0);
-..\MQTT\transport.c(68): error:  #20: identifier "AF_INET" is undefined
-        addr.sin_family = AF_INET;
-..\MQTT\transport.c(75): warning:  #223-D: function "socket" declared implicitly
-        *sock = socket(AF_INET,SOCK_STREAM,0);
-..\MQTT\transport.c(75): error:  #20: identifier "SOCK_STREAM" is undefined
-        *sock = socket(AF_INET,SOCK_STREAM,0);
-..\MQTT\transport.c(77): warning:  #223-D: function "connect" declared implicitly
-        ret = connect(*sock,(struct sockaddr*)&addr,sizeof(addr));
-..\MQTT\transport.c(81): warning:  #223-D: function "close" declared implicitly
-                 close(*sock);
-..\MQTT\transport.c(104): warning:  #223-D: function "close" declared implicitly
-        rc = close(mysock);
-..\MQTT\transport.c: 5 warnings, 2 errors
-"..\OBJ\SmartCabinet.axf" - 2 Error(s), 5 Warning(s).
+After Build - User command #1: C:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output ../OBJ/SmartCabinet.bin ../OBJ/SmartCabinet.axf
+"..\OBJ\SmartCabinet.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\Administrator\Desktop\SmartCabinetv20_fixbug\USER\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Target not created.
 </pre>
 </body>
 </html>

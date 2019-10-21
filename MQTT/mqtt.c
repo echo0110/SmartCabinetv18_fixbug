@@ -46,6 +46,7 @@ u8 no_mqtt_msg_exchange = 1;
 //u32 no_mqtt_msg_times;
 u16 publishSpaces = MAX_PUB_TIME*10;
 u16 pingSpaces;
+
 char CHECK_MAC[MAX_MAC][18];
 char CHECK_IP[MAX_IP][18];
 char MAC_STAT[MAX_MAC][18]={{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"}};
@@ -188,8 +189,7 @@ MQTT_START:
 	{
 		gsm_dect();
 		vTaskDelay(2000/portTICK_RATE_MS);
-//		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
-		SIM800C_CONNECT_SERVER_by_Wired();		 
+		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
 		if(res == 0)
 		{
 			SIM_CON_OK = 1;			
@@ -249,6 +249,7 @@ MQTT_START:
 		u8 latitude_temp,longitude_temp;
 		u16 TEM_temp,VOL_temp,CUR_temp;
 		vTaskDelayUntil(&xLastExecutionTime, 100);//100ms,configTICK_RATE_HZ / SYS_TICK_RATE_HZ
+		
 		publishSpaces++;pingSpaces++;
     
     //Printf("publish  before\r\n");		
@@ -367,7 +368,6 @@ int MQTTSubscribe(char* subtopic, enum QoS pos)
     //¶©ÔÄ³É¹¦
 	return 0;
 }
-
 u16 GetNextPackID(void)
 {
 	static u16 pubpacketid = 0;
@@ -403,6 +403,10 @@ int WaitForPacket(u8 packettype, u16 waittime, u8 times)
 	if(type == packettype)return 0;
 	else return -1;	
 }
+
+
+
+
 
 int MQTTMsgPublish(char* subtopic, enum QoS qos, u8 retained, u8* msg, int msg_len)
 {

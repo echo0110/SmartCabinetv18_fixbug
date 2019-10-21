@@ -9,8 +9,15 @@
 #include "core_cm3.h"
 #include "system_stm32f10x.h"
 #include "stdint.h"
+#include "print.h"
 
-static int mysock;
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
+int mysock;
+//char *recv_data;
 
 //extern struct sockaddr_in; 
 	
@@ -26,7 +33,9 @@ static int mysock;
 s32 transport_sendPacketBuffer( u8* buf, s32 buflen)
 {
 	s32 rc;
-	//rc = write(mysock, buf, buflen);
+//	printf("buf=%s\n",buf);
+	rc = lwip_write(mysock, buf, buflen);
+	printf("sendPacketBuffer_rc=%d\n",rc);
 	return rc;
 }
 
@@ -37,11 +46,13 @@ s32 transport_sendPacketBuffer( u8* buf, s32 buflen)
 **           int count：数据长度
 ** 出口参数: <=0接收数据失败									
 ************************************************************************/
-s32 transport_getdata(u8* buf, s32 count)
+ s32 transport_getdata(u8* buf, s32 count)
 {
 	s32 rc;
 	//这个函数在这里不阻塞
-  rc = recv(mysock, buf, count, 0);
+  rc = lwip_recv(mysock, buf, count, 0);
+	Printf("recv_data_buf=%s\n",buf);
+//	vPortFree(recv_data);
 	return rc;
 }
 
@@ -54,13 +65,29 @@ s32 transport_getdata(u8* buf, s32 count)
 ** 出口参数: <0打开连接失败										
 ************************************************************************/
 s32 transport_open(s8* servip, s32 port)
-{
-	
+{	
 	s32 ret;
 	//s32 opt;
 	
+//	char *recv_data;
+	int bytes_received;
+	struct sockaddr_in server_addr;
+	
 	struct sockaddr_in addr;
 	s32 *sock = &mysock;
+
+//	/* 分配用于存放数据的缓存 */
+//	recv_data = (char *)pvPortMalloc(512);
+//	if (recv_data == NULL)
+//	{
+//		Printf(("\nclient_request: no memory"));
+//		return -6;
+//	}
+
+
+	
+	
+	
 	
 	//初始换服务器信息
 	memset(&addr,0,sizeof(addr));
@@ -72,13 +99,27 @@ s32 transport_open(s8* servip, s32 port)
 	addr.sin_addr.s_addr = inet_addr((const char*)servip);
 	
 	//创建SOCK
-	*sock = socket(AF_INET,SOCK_STREAM,0);
+	*sock = lwip_socket(AF_INET,SOCK_STREAM,0);
+	 if(*sock < 0)
+	 {
+	  Printf("[ERROR] Create socket failed\n");
+	 	/* 释坊缓存 */
+//		vPortFree(recv_data);
+	 }
+	 
+	 
+
+	 
+   
 	//连接服务器 
-	ret = connect(*sock,(struct sockaddr*)&addr,sizeof(addr));
+	ret = lwip_connect(*sock,(struct sockaddr*)&addr,sizeof(addr));
 	if(ret != 0)
 	{
+		 Printf("\nclient_request: socket connect error");
 		 //关闭链接
-		 close(*sock);
+		 lwip_close(*sock);		
+	 	/* 释坊缓存 */
+//		vPortFree(recv_data);
 		 //连接失败
 		 return -1;
 	}
@@ -101,6 +142,6 @@ s32 transport_open(s8* servip, s32 port)
 int transport_close(void)
 {
 	int rc;
-	rc = close(mysock);
+	rc = lwip_close(mysock);
 	return rc;
 }
