@@ -34,8 +34,11 @@
 #include "lwip/ip_addr.h"
 
 #include "tcp_client_demo.h" 
+#include "lwip_mqtt.h"
+#include "transport.h"
 
 #define MAX_PUB_TIME 60//10
+
 
 #define Change_percent  10//10
 
@@ -67,7 +70,10 @@ int MQTTClientInit(void)
 	int len = 0;
 	u8 buf[200];
 	int buflen = sizeof(buf);
+	u8  lwip_buf[200];
+	int lwip_buflen = sizeof(lwip_buf);
 	u8 sessionPresent, connack_rc;
+	u8 lwip_sessionPresent, lwip_connack_rc;
 	char clientid[20];
 		
 	MQTTPacket_connectData connectData = MQTTPacket_connectData_initializer;
@@ -92,13 +98,27 @@ int MQTTClientInit(void)
 	len = MQTTSerialize_connect(buf, buflen, &connectData);
 	// 发送数据
 	if(sendMQTTData(buf, len, 200) < 0)return -2;
+	if(transport_sendPacketBuffer(buf, len)< 0)
+	{
+	 Printf("...... Lwip_MQTT  transport_sendPacket failed.....\r\n");
+	}
 	
 	if(MQTTPacket_read(buf, buflen, getMQTTData) != CONNACK)return -4;
+	if(MQTTPacket_read(lwip_buf, lwip_buflen, transport_getdata) != CONNACK)
+	{
+	  Printf("...... Lwip_MQTT  CONNACK analysis failed.....\r\n");
+	}
 	
 	// 拆解连接回应包
 	if(MQTTDeserialize_connack(&sessionPresent, &connack_rc, buf, buflen) != 1 || connack_rc != 0)return -5;
+	// 拆解连接回应包
+	if(MQTTDeserialize_connack(&lwip_sessionPresent, &lwip_connack_rc, lwip_buf, lwip_buflen) != 1 || connack_rc != 0)
+	{
+	 Printf("...... Lwip_MQTT  CONNACK analysis failed.....\r\n");
+	}
 
 	if(sessionPresent == 1)return 1;	// 不需要重新订阅--服务器已经记住了客户端的状态
+	if(lwip_sessionPresent == 1)Printf("...... Lwip_MQTT  The server has remembered the client state.....\r\n");	// 不需要重新订阅--服务器已经记住了客户端的状态
 	else return 0;						// 需要重新订阅
 }
 
@@ -142,7 +162,7 @@ void GetCheckMAC(void)
 
 void MqttTask(void *pvParameters)
 {
-	int res, times, pings = 0;
+	int res,lwip_res, times, pings = 0;
 	u32 xLastExecutionTime;
 	int type;
 	u8 buf[200];
@@ -156,6 +176,7 @@ void MqttTask(void *pvParameters)
 	char msg[200];
 	char host_name[16];
 	char host_port[6];
+	int lwip_host_port=1883;
 	//char hostname[]="117.64.249.208";//"www.cncqs.cn"; 
   //char hostname[]="www.cncqs.cn";   
   char hostname[]="47.97.184.119"; 
@@ -179,17 +200,18 @@ void MqttTask(void *pvParameters)
 	else 
 	{
 		printf("netconn_gethostbyname(%s)==%i\n", (char*)(hostname), (int)(err));
-	}
-	
+	}	
 	sprintf(host_name, "%d.%d.%d.%d", lwipdev.mqttip[0], lwipdev.mqttip[1], lwipdev.mqttip[2], lwipdev.mqttip[3]);
 	sprintf(host_port, "%d", lwipdev.mqttport);
 	
 MQTT_START:
 	while(1)
 	{
+//		xSemaphoreTake(lwip_Sem, portMAX_DELAY );
 		gsm_dect();
 		vTaskDelay(2000/portTICK_RATE_MS);
 		res = SIM800C_CONNECT_SERVER((u8*)host_name, (u8*)host_port);
+		lwip_res=transport_open((s8*)"192.168.0.155",(s32)lwip_host_port);		
 		if(res == 0)
 		{
 			SIM_CON_OK = 1;			
@@ -197,13 +219,28 @@ MQTT_START:
 			Printf("MQTT连接服务器成功!!!\r\n");
 			
 			break;
-		}
+		}		
 		else 
 		{
 			SIM_CON_OK = 0;
 			Printf("MQTT连接服务器失败,错误代码:%d\r\n", res);
 //			gsm_reset();
 		}
+		if(lwip_res == 0)
+		{
+			SIM_CON_OK = 1;			
+			
+			Printf("Lwip_MQTT连接服务器成功!!!\r\n");
+			
+			break;
+		}
+		else 
+		{
+			SIM_CON_OK = 0;
+			Printf("Lwip_MQTT连接服务器失败,错误代码:%d\r\n", res);
+//			gsm_reset();
+		}
+//		xSemaphoreGive(lwip_Sem);
 		vTaskDelay(3000/portTICK_RATE_MS);
 		/* 发送事件标志，表示任务正常运行 */
 	 	
@@ -238,9 +275,12 @@ MQTT_START:
 		res += MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe SNMPIP:%d\r\n", res);
 		sprintf(topic, "EQUCTRL/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 		res += MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe EQUCTRL:%d\r\n", res);
+		
+		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe EQUCTRL:%d\r\n", res);
 		if(res != 0)goto MQTT_START;
 	}
 	
+//	xSemaphoreGive(lwip_Sem);
 	xLastExecutionTime = xTaskGetTickCount();
 		
 	while(1)
@@ -263,7 +303,7 @@ MQTT_START:
 			publishSpaces = 0;
 			no_mqtt_msg_exchange = 1;
 			//pingSpaces = 0;
-			
+			//xSemaphoreTake(lwip_Sem, portMAX_DELAY );
 			sprintf(topic, "ASMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
@@ -272,6 +312,8 @@ MQTT_START:
 			sprintf(topic, "GPSSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%c,%d.%d,%c,%d.%d*", gpsxSC.nshemi, gpsxSC.latitude/100000, gpsxSC.latitude%100000, gpsxSC.ewhemi, gpsxSC.longitude/100000, gpsxSC.longitude%100000);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
+			
+			Lwip_MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
 
 			
@@ -283,6 +325,7 @@ MQTT_START:
 			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
+//			xSemaphoreGive(lwip_Sem);
 			vTaskDelay(100/portTICK_RATE_MS);
 		}
 		//Printf("publish  after\r\n");	

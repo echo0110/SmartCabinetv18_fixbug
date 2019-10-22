@@ -45,7 +45,8 @@ const uint32_t NullMessage;
 err_t sys_mbox_new(sys_mbox_t *mbox, int size)
 {
 	if(size > MAX_QUEUE_ENTRIES)size = MAX_QUEUE_ENTRIES;
- 	mbox->xQueue = xQueueCreate(size, sizeof(void *));
+ 	//mbox->xQueue = xQueueCreate(size, sizeof(void *));
+	mbox->xQueue= xQueueCreate(6, sizeof(void *));
 
 	if(mbox->xQueue != NULL)return ERR_OK;
 	else return ERR_MEM;

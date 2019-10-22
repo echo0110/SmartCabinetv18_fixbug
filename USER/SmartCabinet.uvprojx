@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\SNMP;..\HARDWARE\TIMER;..\HARDWARE\DM9000;..\LWIP;..\LWIP\arch;..\LWIP\lwip-1.4.1\src\include;..\LWIP\lwip-1.4.1\src\include\ipv4;..\LWIP\lwip-1.4.1\src\include\netif;..\LWIP\lwip_app\lwip_comm;..\LWIP\lwip-1.4.1\src\core\snmp_private_mib;..\HARDWARE\SRAM;..\FATFS\src;..\FATFS\exfuns;..\USB\STM32_USB-FS-Device_Driver\inc;..\USB\CONFIG;..\HARDWARE\W25QXX;..\HARDWARE\SPI;..\HARDWARE\SDIO;..\HTTP;..\INI;..\SYSTEM\rtc;..\SYSTEM\print;..\HARDWARE\GSM;..\HARDWARE\GPS;..\HARDWARE\OLED;..\HARDWARE\DMA;..\HARDWARE\ADC;..\MQTT;..\HARDWARE\SENSOR;..\HARDWARE\USART3;..\HARDWARE\LED;..\HARDWARE\snmp;..\LWIP\lwip_app\web_server_demo;..\HARDWARE\MD5;..\LWIP\lwip-1.4.1\src\core;..\LWIP\lwip-1.4.1\src\core\snmp_private_mib;..\LWIP\lwip-1.4.1\src\include\lwip;..\LWIP\lwip-1.4.1\src\core\snmp;..\HARDWARE\snmp;..\HARDWARE\MD5;..\LWIP\lwip-1.4.1\src\include\lwip;..\HARDWARE\MD5;..\HARDWARE\camera;..\LWIP\lwip_app\udp_demo;..\SYSTEM\usart;..\SD;..\spi1;..\LWIP\lwip_app\tcp_client_demo;..\STM32F10x_FWLib\src;..\STM32F10x_FWLib\inc;..\LWIP\lwip_app\tcp_server_demo;..\HARDWARE\TIMER;..\HARDWARE\IWDG;..\HARDWARE\IWDG;..\HARDWARE\IWDG;..\LWIP\lwip-1.4.1\src\include\ipv4\lwip;..\HARDWARE\snmp</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\SNMP;..\HARDWARE\TIMER;..\HARDWARE\DM9000;..\LWIP;..\LWIP\arch;..\LWIP\lwip-1.4.1\src\include;..\LWIP\lwip-1.4.1\src\include\ipv4;..\LWIP\lwip-1.4.1\src\include\netif;..\LWIP\lwip_app\lwip_comm;..\LWIP\lwip-1.4.1\src\core\snmp_private_mib;..\HARDWARE\SRAM;..\FATFS\src;..\FATFS\exfuns;..\USB\STM32_USB-FS-Device_Driver\inc;..\USB\CONFIG;..\HARDWARE\W25QXX;..\HARDWARE\SPI;..\HARDWARE\SDIO;..\HTTP;..\INI;..\SYSTEM\rtc;..\SYSTEM\print;..\HARDWARE\GSM;..\HARDWARE\GPS;..\HARDWARE\OLED;..\HARDWARE\DMA;..\HARDWARE\ADC;..\MQTT;..\HARDWARE\SENSOR;..\HARDWARE\USART3;..\HARDWARE\LED;..\HARDWARE\snmp;..\LWIP\lwip_app\web_server_demo;..\HARDWARE\MD5;..\LWIP\lwip-1.4.1\src\core;..\LWIP\lwip-1.4.1\src\core\snmp_private_mib;..\LWIP\lwip-1.4.1\src\include\lwip;..\LWIP\lwip-1.4.1\src\core\snmp;..\HARDWARE\snmp;..\HARDWARE\MD5;..\LWIP\lwip-1.4.1\src\include\lwip;..\HARDWARE\MD5;..\HARDWARE\camera;..\LWIP\lwip_app\udp_demo;..\SYSTEM\usart;..\SD;..\spi1;..\LWIP\lwip_app\tcp_client_demo;..\STM32F10x_FWLib\src;..\STM32F10x_FWLib\inc;..\LWIP\lwip_app\tcp_server_demo;..\HARDWARE\TIMER;..\HARDWARE\IWDG;..\HARDWARE\IWDG;..\HARDWARE\IWDG;..\LWIP\lwip-1.4.1\src\include\ipv4\lwip;..\HARDWARE\snmp;..\MQTT;..\MQTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1041,6 +1041,11 @@
               <FileName>transport.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\MQTT\transport.c</FilePath>
+            </File>
+            <File>
+              <FileName>lwip_mqtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MQTT\lwip_mqtt.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -51,7 +51,6 @@ s32 transport_sendPacketBuffer( u8* buf, s32 buflen)
 	s32 rc;
 	//这个函数在这里不阻塞
   rc = lwip_recv(mysock, buf, count, 0);
-	Printf("recv_data_buf=%s\n",buf);
 //	vPortFree(recv_data);
 	return rc;
 }

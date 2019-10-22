@@ -22,13 +22,48 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 C:\Users\Administrator\Desktop\SmartCabinetv20_fixbug\USER\SmartCabinet.uvprojx
-Project File Date:  10/01/2019
+Project File Date:  10/21/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'SmartCabinet'
+compiling mqtt.c...
+..\LWIP\lwip_app\web_server_demo\httpd.h(257): warning:  #1295-D: Deprecated declaration post_read_flash_test - give arg types
+  void post_read_flash_test();//??ini?Ä¼þ²???
+..\MQTT\mqtt.c(123): warning:  #940-D: missing return statement at end of non-void function "MQTTClientInit"
+  }
+..\MQTT\mqtt.c(127): warning:  #177-D: variable "j" was declared but never referenced
+        u8 i, j,k;
+..\MQTT\mqtt.c(127): warning:  #177-D: variable "k" was declared but never referenced
+        u8 i, j,k;
+..\MQTT\mqtt.c(128): warning:  #177-D: variable "delim" was declared but never referenced
+        char delim[] = " .";
+..\MQTT\mqtt.c(129): warning:  #177-D: variable "token" was declared but never referenced
+        char *token;
+..\MQTT\mqtt.c(132): warning:  #177-D: variable "buf" was declared but never referenced
+        char buf[10][18];
+..\MQTT\mqtt.c(133): warning:  #177-D: variable "ip_buf" was declared but never referenced
+        char ip_buf[4][4];
+..\MQTT\mqtt.c(289): warning:  #177-D: variable "latitude_temp" was declared but never referenced
+                u8 latitude_temp,longitude_temp;
+..\MQTT\mqtt.c(289): warning:  #177-D: variable "longitude_temp" was declared but never referenced
+                u8 latitude_temp,longitude_temp;
+..\MQTT\mqtt.c(290): warning:  #177-D: variable "TEM_temp" was declared but never referenced
+                u16 TEM_temp,VOL_temp,CUR_temp;
+..\MQTT\mqtt.c(290): warning:  #177-D: variable "VOL_temp" was declared but never referenced
+                u16 TEM_temp,VOL_temp,CUR_temp;
+..\MQTT\mqtt.c(290): warning:  #177-D: variable "CUR_temp" was declared but never referenced
+                u16 TEM_temp,VOL_temp,CUR_temp;
+..\MQTT\mqtt.c(183): warning:  #177-D: variable "mqtt_ip" was declared but never referenced
+        u8 mqtt_ip[16]={0};
+..\MQTT\mqtt.c(1041): warning:  #177-D: variable "i" was declared but never referenced
+        u8 i;
+..\MQTT\mqtt.c: 15 warnings, 0 errors
+linking...
+Program Size: Code=177778 RO-data=210914 RW-data=3792 ZI-data=1006984  
+FromELF: creating hex file...
 After Build - User command #1: C:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output ../OBJ/SmartCabinet.bin ../OBJ/SmartCabinet.axf
-"..\OBJ\SmartCabinet.axf" - 0 Error(s), 0 Warning(s).
+"..\OBJ\SmartCabinet.axf" - 0 Error(s), 15 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\Administrator\Desktop\SmartCabinetv20_fixbug\USER\RTE

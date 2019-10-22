@@ -75,6 +75,7 @@
 #include "lwip/inet.h"
 
 #include "lwip/ip_addr.h"
+#include "lwip_mqtt.h"
 
 
 
@@ -143,6 +144,13 @@ void tcp_task(void *pvParameters);
 #define MQTT_QUEUE_SIZE				32
 TaskHandle_t MqttTask_Handler;
 xQueueHandle MqttTaskQueue;
+
+#define Lwip_MQTT_TASK_PRIORITY			14//(tskIDLE_PRIORITY + 3)
+#define Lwip_MQTT_TASK_STACK_SIZE		512
+#define Lwip_MQTT_QUEUE_SIZE				32
+TaskHandle_t Lwip_MqttTask_Handler;
+xQueueHandle Lwip_MqttTaskQueue;
+void Lwip_MqttTask(void *pvParameters);
 
 
 #define TICK_TASK_PRIORITY			8//(tskIDLE_PRIORITY + 4)
@@ -319,7 +327,8 @@ int main(void)
 	tcp_command=xSemaphoreCreateBinary();
 	mqtt_command=xSemaphoreCreateBinary();//MQTT连接服务器标志
 	
-  sd_Sem = xSemaphoreCreateMutex();///* 互斥信号量  for sd write*/
+  sd_Sem = xSemaphoreCreateMutex();//* 互斥信号量  for sd write*/
+  lwip_Sem = xSemaphoreCreateMutex();//* 互斥信号量  for lwip mqtt*/
 	test_trap_signal=xSemaphoreCreateBinary();//创建test_signal 信号量
 	test_tcp_signal=xSemaphoreCreateBinary();//创建test_signal 信号量
 	
@@ -352,6 +361,13 @@ int main(void)
                 (void*          )NULL,
                 (UBaseType_t    )MQTT_TASK_PRIORITY,
                 (TaskHandle_t*  )&MqttTask_Handler);
+								
+//  xTaskCreate((TaskFunction_t )Lwip_MqttTask,     	
+//                (const char*    )"Lwip_MqttTask",   	
+//                (uint16_t       )Lwip_MQTT_TASK_STACK_SIZE, 
+//                (void*          )NULL,				
+//                (UBaseType_t    )Lwip_MQTT_TASK_PRIORITY,	
+//                (TaskHandle_t*  )&Lwip_MqttTask_Handler);				
 //   //创建IAP任务 web前端升级程序  
 	 xTaskCreate((TaskFunction_t )iap_task,     
                 (const char*    )"iap_task",   
@@ -366,12 +382,12 @@ int main(void)
                  (void*          )NULL,
                 (UBaseType_t    )camera_TASK_PRIO,								
                 (TaskHandle_t*  )&cameraTask_Handler);								 
-	   xTaskCreate((TaskFunction_t )tcp_task,     	
-                (const char*    )"tcp_task",   	
-                (uint16_t       )tcp_STK_SIZE, 
-                (void*          )NULL,				
-                (UBaseType_t    )tcp_TASK_PRIO,	
-                (TaskHandle_t*  )&tcpTask_Handler);
+//	   xTaskCreate((TaskFunction_t )tcp_task,     	
+//                (const char*    )"tcp_task",   	
+//                (uint16_t       )tcp_STK_SIZE, 
+//                (void*          )NULL,				
+//                (UBaseType_t    )tcp_TASK_PRIO,	
+//                (TaskHandle_t*  )&tcpTask_Handler);
      xTaskCreate((TaskFunction_t )sd_task,     	
                 (const char*    )"sd_task",   	
                 (uint16_t       )SD_STK_SIZE, 
@@ -384,19 +400,20 @@ int main(void)
                 (void*          )NULL,				
                 (UBaseType_t    )Ping_TASK_PRIO,	
                 (TaskHandle_t*  )&PingTask_Handler);
-	   xTaskCreate((TaskFunction_t )server_printf_task,     	
-                (const char*    )"server_printf_task",   	
-                (uint16_t       )printf_STK_SIZE, 
-                (void*          )NULL,				
-                (UBaseType_t    )printf_TASK_PRIO,	
-                (TaskHandle_t*  )&printfTask_Handler);
+//	   xTaskCreate((TaskFunction_t )server_printf_task,     	
+//                (const char*    )"server_printf_task",   	
+//                (uint16_t       )printf_STK_SIZE, 
+//                (void*          )NULL,				
+//                (UBaseType_t    )printf_TASK_PRIO,	
+//                (TaskHandle_t*  )&printfTask_Handler);
 //   //创建TAP任务  主动上报数据帧
 //   xTaskCreate((TaskFunction_t )trap_task,     	
 //                (const char*    )"trap_task",   	
 //                (uint16_t       )trap_STK_SIZE, 
 //                (void*          )NULL,				
 //                (UBaseType_t    )trap_TASK_PRIO,	
-//                (TaskHandle_t*  )&trapTask_Handler);									
+//                (TaskHandle_t*  )&trapTask_Handler);			
+ 						
 	//Start the scheduler
 	vTaskStartScheduler();	
 	//Will only get here if there was not enough heap space to create the idle task

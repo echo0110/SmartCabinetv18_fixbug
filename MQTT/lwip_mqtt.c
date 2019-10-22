@@ -50,6 +50,10 @@
 
 #define maxElementsOfFile	512
 
+/* 互斥信号量  for lwip_mqtt&&mqtt*/
+SemaphoreHandle_t lwip_Sem = NULL;
+/* 互斥信号量  for lwip_mqtt&&mqtt*/
+SemaphoreHandle_t lwip_Sem2 = NULL;
 
 
 u8 Lwip_no_mqtt_msg_exchange = 1;
@@ -59,6 +63,7 @@ u16 Lwip_pingSpaces;
 
 
 int tcpclient_sock;
+
 
 extern TaskHandle_t MqttTask_Handler;
 int Lwip_MQTTSubscribe(char* subtopic, enum QoS pos);
@@ -113,7 +118,7 @@ void Lwip_MqttTask(void *pvParameters)
 	
 	struct ip_addr addr;
 	err_t err;
-	char *recv_data;
+//	char *recv_data;
 	int bytes_received;
 	char topic[MSG_TOPIC_LEN];
 	char msg[200];
@@ -121,12 +126,13 @@ void Lwip_MqttTask(void *pvParameters)
   char hostname[]="192.168.0.155"; 
 	int host_port=1883;
 	u8 mqtt_ip[16]={0};
-	Printf("...... MQTT Connecting Server......\r\n");
+	Printf("LWIP..... MQTT Connecting Server......\r\n");
 	
-	GetCheckIP();	
+//	GetCheckIP();	
 MQTT_START:
 	while(1)
 	{
+		xSemaphoreTake(lwip_Sem, portMAX_DELAY );
 		transport_close();
 		memset(host_name,strlen(host_name),0);
 		vTaskDelay(2000/portTICK_RATE_MS);
@@ -135,15 +141,16 @@ MQTT_START:
 		if(res != -1)
 		{
 			SIM_CON_OK = 1;						
-			Printf("MQTT连接服务器成功!!!\r\n");		
+			Printf("Lwip_MQTT连接服务器成功!!!\r\n");		
 			break;
 		}	
 		else 
 		{
 			SIM_CON_OK = 0;
-			Printf("MQTT连接服务器失败,错误代码:%d\r\n", res);
+			Printf("Lwip_MQTT连接服务器失败,错误代码:%d\r\n", res);
 //			gsm_reset();
 		}
+		
 		vTaskDelay(3000/portTICK_RATE_MS);
 		/* 发送事件标志，表示任务正常运行 */
 	 	
@@ -151,7 +158,7 @@ MQTT_START:
 	sessionPresent = Lwip_MQTTClientInit();
 	if(sessionPresent < 0)
 	{
-		Printf("MQTT sessionPresent:%d\r\n", sessionPresent);
+		Printf("Lwip_MQTT sessionPresent:%d\r\n", sessionPresent);
 		gsm_reset();
 		goto MQTT_START;
 	}
@@ -161,26 +168,26 @@ MQTT_START:
 		
 		sprintf(topic, "Camera/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 		
-		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe MQTTIP:%d\r\n", res);
+		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe MQTTIP:%d\r\n", res);
 		
 		sprintf(topic, "SSMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-		res = Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe SSMAC:%d\r\n", res);
+		res = Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe SSMAC:%d\r\n", res);
 		sprintf(topic, "LOCALIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe LOCALIP:%d\r\n", res);
+		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe LOCALIP:%d\r\n", res);
 
 		sprintf(topic, "MQTTIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe MQTTIP:%d\r\n", res);
+		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe MQTTIP:%d\r\n", res);
 		
 //		sprintf(topic, "SERV/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 //		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe SERV:%d\r\n", res);
 //		
 		sprintf(topic, "SNMPIP/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe SNMPIP:%d\r\n", res);
+		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe SNMPIP:%d\r\n", res);
 		sprintf(topic, "EQUCTRL/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
-		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("MQTTSubscribe EQUCTRL:%d\r\n", res);
+		res += Lwip_MQTTSubscribe(topic, QOS1);Printf("Lwip_MQTTSubscribe EQUCTRL:%d\r\n", res);
 		if(res != 0)goto MQTT_START;
 	}
-	
+	xSemaphoreGive(lwip_Sem);
 	xLastExecutionTime = xTaskGetTickCount();
 		
 	while(1)
@@ -188,6 +195,7 @@ MQTT_START:
 		
 		u8 latitude_temp,longitude_temp;
 		u16 TEM_temp,VOL_temp,CUR_temp;
+	  
 		vTaskDelayUntil(&xLastExecutionTime, 100);//100ms,configTICK_RATE_HZ / SYS_TICK_RATE_HZ
 		Lwip_publishSpaces++;Lwip_pingSpaces++;
     
@@ -196,13 +204,14 @@ MQTT_START:
 		/* 发送事件标志，表示任务正常运行 */
 	 // xEventGroupSetBits(xCreatedEventGroup, TASK_BIT_MQTT);		
 		
+		
 		//每隔MAX_PUB_TIME秒发布一次消息   正常情况下一分钟一次,发生变化比较明显时,直接立马推送 温度和电压  
 		if((Lwip_publishSpaces>MAX_PUB_TIME*10) || (!no_mqtt_msg_exchange))
 		{
 			Lwip_publishSpaces = 0;
 			no_mqtt_msg_exchange = 1;
 			//pingSpaces = 0;
-			
+//			xSemaphoreTake(lwip_Sem, portMAX_DELAY );
 			sprintf(topic, "ASMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
 			Lwip_MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
@@ -222,6 +231,7 @@ MQTT_START:
 			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
 			
 			Lwip_MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
+//			xSemaphoreGive(lwip_Sem);
 			vTaskDelay(100/portTICK_RATE_MS);
 		}
 		//Printf("publish  after\r\n");	
@@ -236,43 +246,43 @@ MQTT_START:
 		}
 
     //Printf("publish  after *****\r\n");			
-		if(USART2_RX_STA & 0X8000)
-		{
-			type = MQTTPacket_read(buf, buflen, getMQTTData);
-			if(type != -1)
-			{
-				Lwip_pingSpaces = 0;
-				// 处理消息
-				mqtt_pktype_ctl(type,buf,buflen);
-				Lwip_pingSpaces = 0;
-				USART2_RX_STA = 0;
-				reset();
-				UART_DMA_Enable(DMA1_Channel6, USART2_MAX_LEN);	// 恢复接收
-			}
-		}
+//		if(USART2_RX_STA & 0X8000)
+//		{
+//			type = MQTTPacket_read(buf, buflen, getMQTTData);
+//			if(type != -1)
+//			{
+//				Lwip_pingSpaces = 0;
+//				// 处理消息
+//				mqtt_pktype_ctl(type,buf,buflen);
+//				Lwip_pingSpaces = 0;
+//				USART2_RX_STA = 0;
+//				reset();
+//				UART_DMA_Enable(DMA1_Channel6, USART2_MAX_LEN);	// 恢复接收
+//			}
+//		}
 	
-		if(Lwip_pingSpaces > KEEPLIVE_TIME/2*10)
-		{
-			times = 5;
-			res = 1;
-			Lwip_pingSpaces=0;
-			while((times--)&&(res!=0))res = my_mqtt_send_pingreq();
-		//	res = my_mqtt_send_pingreq();
-		//	Printf("ping times: %d\r\n", 10-times);
-			
-			if(res != 0)
-			{
-				Printf("MQTT my_mqtt_send_pingreq() = %d\r\n", res);
-				pings = 0;
-				gsm_reset();
-				goto MQTT_START;
-			}
-			else
-			{
-				pings++;
-				Printf("my mqtt send pingreq: %d\r\n", pings);
-			}				
-		}
+//		if(Lwip_pingSpaces > KEEPLIVE_TIME/2*10)
+//		{
+//			times = 5;
+//			res = 1;
+//			Lwip_pingSpaces=0;
+//			while((times--)&&(res!=0))res = my_mqtt_send_pingreq();
+//		//	res = my_mqtt_send_pingreq();
+//		//	Printf("ping times: %d\r\n", 10-times);
+//			
+//			if(res != 0)
+//			{
+//				Printf("MQTT my_mqtt_send_pingreq() = %d\r\n", res);
+//				pings = 0;
+//				gsm_reset();
+//				goto MQTT_START;
+//			}
+//			else
+//			{
+//				pings++;
+//				Printf("my mqtt send pingreq: %d\r\n", pings);
+//			}				
+//		}
 	}		
 }
 
