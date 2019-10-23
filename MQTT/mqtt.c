@@ -307,6 +307,7 @@ MQTT_START:
 			sprintf(topic, "ASMAC/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
 			sprintf(msg, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s*", IP_STAT[0], IP_STAT[1], IP_STAT[2], IP_STAT[3], IP_STAT[4], IP_STAT[5], IP_STAT[6], IP_STAT[7], IP_STAT[8], IP_STAT[9]);
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
+			Lwip_MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
 
 			sprintf(topic, "GPSSTAT/%02X%02X%02X", STM32ID2, STM32ID1, STM32ID0);
@@ -325,7 +326,7 @@ MQTT_START:
 			!AC24_STAT,AC1_STAT,AC2_STAT,AC3_STAT,fan_STAT, alarm_STAT,light_STAT,heat_STAT,DC1_STAT,DC2_STAT,DC3_STAT,DC4_STAT);//NET_STAT
 			
 			MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
-//			xSemaphoreGive(lwip_Sem);
+			Lwip_MQTTMsgPublish(topic, QOS0, 0, (u8*)msg, strlen(msg));
 			vTaskDelay(100/portTICK_RATE_MS);
 		}
 		//Printf("publish  after\r\n");	

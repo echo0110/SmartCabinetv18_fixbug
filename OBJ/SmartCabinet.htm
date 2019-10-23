@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\SmartCabinet.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\SmartCabinet.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Oct 22 10:19:09 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Oct 23 17:11:58 2019
 <BR><P>
 <H3>Maximum Stack Usage =       2872 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3099,7 +3099,7 @@ Global Symbols
 <P><STRONG><a name="[36]"></a>MemManage_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.MemManage_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[a0]"></a>MqttTask</STRONG> (Thumb, 2628 bytes, Stack size 648 bytes, mqtt.o(i.MqttTask))
+<P><STRONG><a name="[a0]"></a>MqttTask</STRONG> (Thumb, 2638 bytes, Stack size 648 bytes, mqtt.o(i.MqttTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2872 + Unknown Stack Size
 <LI>Call Chain = MqttTask &rArr; MQTTMsgPublish &rArr; WaitForPacket &rArr; mqtt_pktype_ctl &rArr; UserMsgCtl &rArr; ISIP &rArr; ini_puts &rArr; getkeystring &rArr; f_gets &rArr; f_read &rArr; get_fat &rArr; move_window &rArr; sync_window &rArr; disk_write &rArr; SD_Initialize &rArr; SD_SendCmd &rArr; SD_Select &rArr; SD_WaitReady &rArr; delay_ms &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
